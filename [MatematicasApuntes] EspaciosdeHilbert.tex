@@ -1,0 +1,3973 @@
+\documentclass[a4paper, 12pt]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%Paquetes
+\usepackage[spanish]{babel}  
+\usepackage{indentfirst} %%%%%%%%%%%%%%%%Crear un indent al principio
+\usepackage[latin1]{inputenc}%%%%%%%%%%%%ñ y acentos
+\usepackage{amstext}%%%%%%%%
+\usepackage{amsfonts}%%%%%%%
+\usepackage{amssymb}%%%%%%%% AMSLaTeX
+\usepackage{amscd}%%%%%%%%%%
+\usepackage{amsmath}%%%%%%%%
+\usepackage{enumerate}%%%%%%%%%%%%%%%%Mejoras del entorno enumerate
+\usepackage[all]{xy}
+\usepackage{latexsym}
+\usepackage{color}
+\usepackage[mathcal]{eucal}%%%%%%%Caligrafica matematica
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{tcolorbox}
+\usepackage{setspace}
+\onehalfspacing
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%Teoremas
+\newtheorem{teo}{Teorema}[section]%%%%%%%%% Teorema
+\newtheorem{defi}{Definición}[section]%%%%%%%% Definicion
+\newtheorem{lema}[teo]{Lema}%%%%%%%%%%%%% Lema
+\newtheorem{propo}[teo]{Proposición}%%%%%%%% Proposicion
+\newtheorem{cor}[teo]{Corolario}%%%%%%%%%%%Corolario
+\newtheorem{pro1}{}[section]%%%%%%%%%Problema
+\newenvironment{pro}{\begin{pro1} \rm } {\end{pro1}}
+\newtheorem{*pro1}[pro1]{* Problema}%%%%%%%%%%Problema complicado
+\newenvironment{*pro}{\begin{*pro1} \sf} {\end{*pro1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%Comandos
+\newcommand{\dem}{\noindent \textbf{Demostración. }}%%Demostracion
+\newcommand{\R}{\mathbb{R}}%%%%%%%%%%%%Numeros reales
+\newcommand{\F}{\mathbb{F}}%%%%%%%%%%%%Cuerpo
+\newcommand{\C}{\mathbb{C}}%%%%%%%%%%%%Numeros complejos
+\newcommand{\Q}{\mathbb{Q}}%%%%%%%%%%%%Numeros racionales
+\newcommand{\N}{\mathbb{N}}%%%%%%%%%%%%Numeros naturales
+\newcommand{\Z}{\mathbb{Z}}%%%%%%%%%%%%Numeros enteros
+\newcommand{\g}{\mathfrak{g}}%%%%%%%%%%%%Algebra de Lie del grupo G
+\newcommand{\V}{\mathcal{V}}%%%%%%%%%%%%Variedad
+\newcommand{\W}{\mathcal{W}}%%%%%%%%%%%%Variedad
+\newcommand{\h}{\mathcal{H}}%%%%%%%%%%%%Algebra de Lie del grupo H
+\newcommand{\fin}{ $\Box $ }
+\newcommand{\p}{\mathfrak{p}}%%%%%%%% Ideal primo
+\newcommand{\m}{\mathfrak{m}}%%%%%%%% Ideal maximal
+\newcommand{\limind}{\lim_{\longrightarrow} } 
+\newcommand{\gp}{\mathcal{G'}}%%%%%%%%%%%Algebra del grupo G'
+\newcommand{\lto}{\longrightarrow}%%%%%%Simplificacion de la flecha larga
+\newcommand{\wa}{\omega_2} %%%%%%%%%%%forma simplectica
+\newcommand{\Wa}{\Omega_2} %%%%%%%%%% forma simplectica lineal
+\newcommand{\lag}{\lambda_g}%%%%%%%%%%%%Traslacion a la izquierda
+\newcommand{\rg}{\rho_g}%%%%%%%%%%%%%%%%Traslacion a la derecha
+\newcommand{\Gr}{\boldsymbol{G}}%%%%%%%%%%Recubridor universal
+\newcommand{\norma}[1]{\: \parallel\! #1 \!\parallel }%%%Norma de un vector
+\newcommand{\abs}[1]{\left|\, #1 \right|}  %%%Valor absoluto 
+\newcommand{\Pro}{\mathbb{P}}%%%%%%Espacio proyectivo
+\newcommand{\Problemas}{\newpage  \begin{center}{\Huge Problemas}\end{center}}
+\renewcommand{\to}{\lto}
+\newcommand{\escalar}[2]{\left\langle\, #1,#2\, \right\rangle}  %%%Producto escalar 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%Operadores
+\DeclareMathOperator{\End}{End}%%%%%%%%%%Endomorfismo
+\DeclareMathOperator{\Ad}{Ad}%%%%%%%%%%Adjunta
+\DeclareMathOperator{\grad}{grad}%%%%%%%%%%Graciente
+\DeclareMathOperator{\Dif}{Dif}%%%%%%%%%%Diferenciales
+\DeclareMathOperator{\sop}{sop}%%%%%%%%%Soporte
+\DeclareMathOperator{\distancia}{d}%%%%%%%%Distancia
+\DeclareMathOperator{\sen}{sen}%%%%%%%%%%Seno español
+\DeclareMathOperator{\Der}{Der}%%%%%%%%%%Derivaciones
+\DeclareMathOperator{\rang}{rang}%%%%%%%%Rango
+\DeclareMathOperator{\Hom}{Hom}%%%%%%Homomorfismos
+\DeclareMathOperator{\Ann}{Ann}%%%%%%%Anulador
+\DeclareMathOperator{\Img}{Im} %%%%Parte imaginaria
+\DeclareMathOperator{\rad}{rad}%%%%%%%%Radical
+\DeclareMathOperator{\Ker}{Ker}%%%%%%%Nucleo
+\DeclareMathOperator{\Id}{Id}%%%%%%% Identidad
+\DeclareMathOperator{\GL}{GL}%%%%%%%%%Grupo lineal
+\DeclareMathOperator{\Apli}{Apli}%%%%%%Aplicaciones
+\DeclareMathOperator{\Bil}{Bil}%%%%%Bilineales
+\DeclareMathOperator{\Spec}{Spec}%%%%Espectro
+\DeclareMathOperator{\Ob}{Ob}  %%% Objetos de una categoría
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+%%%%%%%%%%%%%%%%%
+\title{Espacios de Hilbert}
+\author{José Luis Tábara}
+\date{jltabara@gmail.com}
+%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+
+\begin{tcolorbox}[colback=red!5!white,colframe=red!75!black]
+
+\vspace{-1cm}
+\maketitle
+
+\end{tcolorbox}
+
+\thispagestyle{empty}
+
+\tableofcontents
+
+\newpage
+
+
+
+
+\section{Espacios euclídeos}
+
+
+\setcounter{page}{1}
+
+
+
+
+A lo largo de estas notas $E$ designará un  espacio vectorial real o complejo. Utilizaremos las letras griegas $\lambda$  y $\mu$ para los escalares.  El conjugado de un número $\lambda$ se denota $\overline \lambda$.   Emplearemos sin previo aviso el convenio de sumación de Einstein en índices repetidos. Utilizaremos la letra $\mathbb{K}$ para denotar indistintamente los cuerpos $\R$ o $\C$ cuando los resultados sean idénticos en ambos casos.
+
+\begin{defi}
+
+Sea $E$ un espacio vectorial real.  Un  {\sf producto escalar!real}  \index{producto escalar} es una aplicación $\escalar{}{}: E \times E \rightarrow \R$ que cumple las siguientes propiedades:
+
+\begin{itemize}
+
+\item {\sf Lineal} \index{propiedad!lineal} respecto al primer argumento:
+$$
+\escalar{\lambda x_1 +\mu x_2}{y}= \lambda \escalar{x_1}{y}+ \mu\escalar{x_2}{y}
+$$
+
+
+
+\item \index{propiedad!simétrica} {\sf Simétrico}: $ \escalar{x}{y}= \escalar{y}{x}$.
+
+\item \index{propiedad!positividad} {\sf Positivo definido}: $\escalar{x}{x}\geq 0$ y es cero si y solo si  $x=0$.
+
+\end{itemize}
+Un espacio vectorial real junto con un producto escalar se denomina \index{espacio!euclídeo} {\sf espacio euclídeo}.
+
+\end{defi}
+
+Utilizando las dos primeras propiedades se deduce que un producto escalar es también lineal en el segundo argumento. Las aplicaciones lineales en cada argumento se llaman  \index{aplicación!bilineal} {\sf bilineales}. Por lo tanto un producto escalar es  una aplicación bilineal, simétrica y definido positiva.
+
+\noindent{\bf Observación.} En algunas referencias bibliográficas los espacios euclídeos se denominan también \index{espacio!pre-Hilbert} {\sf espacio pre-Hilbert}.  Esta nomenclatura quedará aclarada cuando demos la definición de espacio de Hilbert. En cuanto a la dimensión, el espacio vectorial puede ser de dimensión finita o infinita. $\Box$
+
+\begin{defi}
+
+Sea $E$ un espacio vectorial complejo.  Un  {\sf producto escalar}  \index{producto escalar!complejo} es una aplicación $\escalar{}{}: E \times E \rightarrow \C$ que cumple las siguientes propiedades:
+
+\begin{itemize}
+
+\item \index{propiedad!lineal}{\sf Lineal} respecto al primer argumento:
+$$
+\escalar{\lambda x_1 +\mu x_2}{y}= \lambda \escalar{x_1}{y}+ \mu \escalar{x_2}{y}
+$$
+
+
+
+\item \index{propiedad!hermítica}{\sf Hermítico}: $ \escalar{x}{y}= \overline{\escalar{y}{x}}$
+
+\item \index{propiedad!positividad} {\sf Positivo definido}: $\escalar{x}{x}\geq 0$  y es cero si y solo si  $x=0$
+
+\end{itemize}
+Un espacio vectorial complejo junto con un producto escalar se denomina \index{espacio!euclídeo complejo} {\sf espacio euclídeo complejo}.
+
+\end{defi}
+
+\noindent{\bf Observación.} En muchos libros, sobre todo en los de Álgebra Lineal, estos espacios se llaman también \index{espacio!hermítico} {\sf espacios hermíticos} o \index{espacio!unitario} {\sf espacios unitarios}. $\Box$
+
+En este caso, utilizando las dos primeras propiedades, se deduce que el producto escalar es \index{aplicación!antilineal} {\sf antilineal} en el segundo argumento.  Esto es, cumple la propiedad:
+$$
+\escalar{x}{\lambda y_1 + \mu y_2}= \overline{\lambda} \escalar{x}{y_1} + \overline{\mu}\escalar{x}{y_2}
+$$
+
+Utilizando la segunda propiedad obtenemos que $\escalar{x}{x}$ es siempre un número real y por lo tanto tiene sentido enunciar la propiedad de positividad.
+
+
+
+
+
+
+\noindent{\bf Observación.} La notación $\escalar{x}{y}$ es bastante estandard, pero no la única.  También se utiliza la notación $x \cdot y$.  En esta notación la primera de las propiedades nos recuerda enormente a la propiedad distributiva.  En el caso real la segunda propiedad es la conmutativa.  Es costumbre escribir $x^2$ en lugar de $x \cdot x$ y entonces la última propiedad adquiere una significación mayor. También es habitual utilizar $\lambda^*$ para denotar el conjugado. $\Box$
+
+
+
+\noindent{\bf Ejemplos.}
+
+\begin{itemize}
+
+\item En $\R^n$ existe un producto escalar canónico.  Se define por la fórmula
+$$
+\escalar{x}{y} = \sum_{i=1}^n x_i y_i
+$$
+ Con el convenio de Einstein  se escribe simplemente $\escalar{x}{y}= x_iy_i$.
+Cualquier espacio vectorial $E$ isomorfo a $\R^n$ puede ser dotado  de una estructura de espacio euclídeo.  Si $\varphi : E \rightarrow \R^n$ es el isomorfismo, definimos $\escalar{x}{y}= \escalar{\varphi (x)}{ \varphi (y)}$, pero esta estructura dependerá del isomorfismo tomado. 
+
+\item Del mismo modo en $\C^n$ existe un producto escalar natural.  En este caso viene definido por la expresión
+$$
+\escalar{x}{y}= \sum_{i=1}^n x_i \overline{y_i}
+$$
+
+\item Sea $[a,b]$ un intervalo compacto de la recta.  Denotamos por $C([a,b])$ el conjunto de las funciones continuas de dicho intervalo en~$\R$.  Como el intervalo es compacto, toda función continua es acotada y por lo tanto integrable.  Podemos definir 
+$$
+\escalar{f}{g} = \int_a^b fg 
+$$
+La bilinealidad de este producto es consecuencia de las propiedades lineales de la integral.  Si $f$ es no nula en un punto $x_0$, por ser continua, debe ser no nula en un entorno $[x_0-\varepsilon,x_0+\varepsilon]$ y entonces 
+$$
+\escalar{f}{f} = \int_a^b f^2 \geq \int_{x_0-\varepsilon}^{x_0+\varepsilon}f^2 >0
+$$
+
+\item Si ahora consideramos las funciones continuas de $[a,b]$ en $\C$ podemos definir el  producto escalar complejo
+$$
+\escalar{f}{g} = \int_a^b f \overline{g}
+$$
+El espacio lo seguiremos denotando $C([a,b])$, diferenciando por el contexto si nos referimos a funciones valoradas en $\R$ o en $\C$.
+
+
+\item  Sea $E$ el conjunto de matrices cuadradas de orden $n$ y coeficientes complejos. Su producto escalar se define como
+$$
+\escalar{A}{B}= \text{Traza}(AB^*)
+$$
+donde $B^*$ es la matriz traspuesta y conjugada 
+$$
+(B^*)_{ij}= \overline{B_{ji}}
+$$
+Todas las propiedades son claras  salvo posiblemente la que indica que el único elemento cuyo cuadrado es nulo es el elemento cero.  Dada cualquier matriz cuadrada compleja, se puede encontrar otra matriz equivalente a ella y triangular.  Ello es posible pues el cuerpo de los complejos es algebraicamente cerrado. Si denotamos por $\lambda_i$ los elementos de la diagonal, se corresponden con los valores propios de~$A$.  La traza de $AA^*$ es justamente $\sum \lambda_i \overline{\lambda_i}$.  Si esta suma es nula, cada autovalor $\lambda_i$ debe ser nulo y la matriz $A$ es nula.
+
+\item Sea $l_2$ el conjunto de series $x= \{\,x_i\}_{i \in \N}$ de números reales que cumplen 
+$$
+\sum_{i=1}^\infty \abs{x_i}^2 < \infty
+$$
+Este espacio vectorial es un espacio euclídeo introduciendo el siguiente producto escalar (véase problema \ref{pro:espaciol2})
+$$
+\escalar{x}{y} = \sum_{i=1}^\infty x_iy_i
+$$
+Si consideramos sucesiones complejas el producto escalar es
+$$
+\escalar{x}{y} = \sum_{i=1}^\infty x_i\overline{y_i}
+$$
+
+\item El siguiente ejemplo requiere conocimientos de Teoría de la Medida (incluyendo integrales de Lebesgue).  Sea $\Omega$ un espacio de medida y $\mu$ una medida positiva.  Consideramos el conjunto $L_2(\Omega)$ de las clases de funciones (reales) medibles y cuyo cuadrado sea sumable.  En dicho espacio introducimos el producto escalar
+$$
+\escalar{f}{g}= \int_{\Omega} fg \text{ d}\mu
+$$
+En el caso de funciones con valores complejos el producto escalar es 
+$$
+\escalar{f}{g}= \int_{\Omega} f\overline{g} \text{ d}\mu
+$$
+
+En particular si tomamos como conjunto el intervalo $[0,1]$ y como medida, la medida de Lebesgue de conjuntos de $\R$, tenemos el espacio $L_2([0,1])$.
+\end{itemize}
+
+
+
+Dado un subespacio vectorial $F \subset E$ el producto escalar de $E$ induce, por restricción, una aplicación de $F \times F$ en el cuerpo base. No es difícil comprobar que esta aplicación cumple todas las propiedades de un producto escalar.  De este modo los subespacios de un espacio euclídeo son de modo natural espacios euclídeos.
+
+
+
+\noindent {\bf Ejemplos.}
+
+\begin{itemize}
+
+\item  Sabemos que todos los polinomios son funciones continuas.  Si denotamos por $\R[x]$ el anillo de polinomios, es claro que $\R[x] \subset C([a,b])$ es un subespacio.  Además este subespacio no es total puesto que existen funciones continuas que no son polinomios (por ejemplo $e^x$). Como el anillo de polinomios tiene dimensión infinita, todos los espacios en los que dicho anillo está incluido también son de dimensión infinita.
+
+\item Por $C^\infty(\R)$ denotamos el conjunto de funciones infinitamente diferenciables.  Es un subespacio de $C(\R)$.  Lo mismo es cierto  para cualquier orden de derivación.
+
+\item $C([0,1])$ es un subespacio de $L_2[0,1]$. A pesar de que en uno hemos realizado el producto escalar con la integral de Riemann y en otro con la integral de Lebesgue, no existe problema, pues ambas coinciden sobre las funciones continuas.
+
+\item Consideremos las sucesiones de elementos de $\R$ que tienen todos los valores nulos salvo un número finito de ellos. Naturalmente todas estas sucesiones pertenecen a $l_2$.  Si denotamos por $F$ al conjunto de todas estas sucesiones, tenemos que $F$ es un subespacio de $l_2$ que no es el total.
+
+\end{itemize} 
+
+
+Si tenemos dos espacios euclídeos $E$ y $E'$ construimos la siguiente aplicación en su suma directa: $(x + x', y + y')  \rightarrow  \escalar{x}{y}+ \escalar{x'}{y'}$.
+Es fácil comprobar que tanto en el caso real como en el complejo está aplicación cumple todas las propiedades de un producto escalar.  De este modo la suma directa de espacios euclídeos es de nuevo un espacio euclídeo.  Esta construcción puede generalizarse a cualquier suma directa finita de espacios vectoriales (e incluso también a cualquier suma directa infinita, puesto que los elementos de la suma directa son casi todos nulos y la suma que define el producto escalar no es una serie).  En particular, $\R^n$ con la estructura euclídea habitual, es la suma directa  de $n$ copias de $\R$.  Lo mismo sucede en el caso complejo.
+
+
+La estructura de espacio euclídeo viene definida por una estructura de espacio vectorial y por un producto escalar.  Las aplicaciones interesantes entre espacios euclídeos son aquellas que conservan estas dos estructuras.  
+
+\begin{defi}
+
+Sean $E$ y $E'$ dos espacios euclídeos.  Un \index{morfismo de espacios euclídeos}{\sf morfismo de espacios euclídeos} es una aplicación
+$
+\varphi : E \rightarrow E'
+$
+que cumple:
+\begin{itemize}
+
+\item $\varphi$ es lineal.
+
+\item Conserva el producto escalar:  $\escalar{\varphi (x)}{\varphi (y)} = \escalar{x}{y}$
+
+\end{itemize}
+
+\end{defi}
+
+Si $\varphi$ es un morfismo biyectivo, su inverso también conserva el producto escalar y es también morfismo.  Los morfismo biyectivos se llaman \index{isometría} {\sf isometrías}. En Álgebra Lineal es común  llamar {\sf operadores unitarios} \index{operador!unitario} a las isometrías de los espacios complejos.  En el caso real las isometrías se llaman  \index{operador!ortogonal} {\sf operadores   ortogonales}.  Dos espacios euclídeos entre los que exista una isometría se dice que son \index{espacios isomorfos}{\sf isomorfos}.  A todos los efectos dos espacios isomorfos pueden considerarse iguales.  Demostraremos posteriormente que dos espacios euclídeos de dimensión finita son isomorfos si y solo si tienen la misma dimensión.
+
+\newpage
+
+
+\section*{Problemas}
+
+
+\begin{pro}
+
+Utilizando la definición de producto escalar demostrar:
+
+\begin{itemize}
+
+\item $\escalar{x}{0} = 0$ para todo vector $x$.
+
+\item Dado $y \in H$ denotamos por $\omega_y$ la función
+$$
+\begin{array}{cccc}
+ \omega_y :& E & \lto & \mathbb{K} \\
+   &       x &\lto & \escalar{x}{y}
+\end{array}
+$$
+Demostrar que $\omega_y$ es una forma lineal.  
+
+\end{itemize}
+
+\end{pro}
+
+\begin{pro}
+
+Sea $E$ un espacio vectorial real.  Una {\sf forma bilineal} \index{forma!bilineal} es una aplicación $g: E \times E \rightarrow \mathbb{K}$ que es lineal en cada variable.  La forma es {\sf simétrica} \index{forma!simétrica} si $g(x,x')=g(x',x)$ y  {\sf alternada} \index{forma!alternada} si $g(x,x')=-g(x',x)$.
+
+\begin{itemize}
+
+\item  Dada una forma bilineal $g$ arbitraria construimos la  forma bilineal
+$$
+g_s(x,x')= \frac{g(x,x')+g(x',x)}{2}
+$$
+Dicha forma es siempre simétrica.
+
+
+\item También podemos construir la forma
+$$
+g_a(x,y)= \frac{g(x,x')-g(x',x)}{2}
+$$
+que es siempre alternada.
+
+\item Demostrar que toda forma bilineal se puede expresar, de modo único, como suma de una forma simétrica y de una forma alternada.
+
+
+
+\end{itemize}
+
+\end{pro}
+
+\begin{pro}
+
+
+En el caso complejo una forma $g$ es {\sf sesquilineal} \index{forma!sesquilineal} si es lineal en la primera variable y antilineal en la segunda variable.  Si además se cumple $g(x,x') = \overline{g(x',x)}$ decimos que dicha forma es \index{forma!hermítica} {\sf hermítica}.
+
+\begin{itemize}
+
+
+\item  La parte real de una forma hermítica es una forma simétrica sobre el cuerpo real.
+
+\item  La parte imaginaria de una forma hermítica es una forma alternada, también sobre el cuerpo real.
+
+\end{itemize}
+
+
+\end{pro}  
+
+
+\begin{pro}
+
+Sea $E$ un espacio euclídeo real de dimensión finita $n$ y $\{e_i\}$ una base arbitraria:
+
+\begin{itemize}
+
+\item Dado un producto escalar se puede construir una matriz cuadrada de orden $n$  cuyas entradas son:
+$$
+g_{ij}= \escalar{e_i}{e_j}
+$$
+
+\item Fijada la base y el producto escalar, si $x=\sum x_i e_i$ e $y=\sum y_ie_i$, el producto escalar se puede calcular en coordenadas con la fórmula:
+$$
+\escalar{x}{y} = g_{ij} x_i y_j \text{ (convenio de Einstein)}
+$$
+
+\item Demostrar que lo anterior es válido para cualquier aplicación bilineal.
+
+\item Analizar de modo similar el caso complejo. Tener en cuenta que la expresión en coordenadas es distinta.
+
+
+\end{itemize}
+  
+\end{pro}
+
+\begin{pro}\label{pro:espaciol2}
+
+Pretendemos demostrar que $l_2$ es un espacio euclídeo.  Recordemos que $l_2$ está formado por las sucesiones (reales o complejas) $\{\,x_i\}_{i \in \N}$ que cumplen $\sum \abs{x_i}^2 < \infty$.
+
+\begin{itemize}
+
+\item Si $x=\{\,x_i\} \in l_2$ entonces $ \lambda x= \{\,\lambda x_i\} \in l_2$ para cualquier $\lambda$.
+
+\item  Sean $a$ y $b$ dos números positivos.  Desarrollando el binomio $(a-b)^2$ demostrar que
+$$
+ab \leq \frac{a^2+b^2}{2}
+$$
+
+
+
+\item Demostrar que si $x=\{\,x_i\}$ e $y=\{\,y_i\}$ pertenecen a $l_2$ entonces $x+y=\{\,x_i+y_i\} \in l_2$.  Concluir que $l_2$ es un espacio vectorial.
+
+\item  En $l_2$ se define el producto escalar
+$$
+\escalar{x}{y} = \sum_{i=1}^\infty x_iy_i
+$$
+Esta serie es convergente. Demostrar que se cumplen todas las propiedades de  un producto escalar.
+
+\item  En el caso complejo se define el producto escalar complejo
+$$
+\escalar{x}{y} = \sum_{i=1}^\infty x_i\overline{y_i}
+$$
+
+\end{itemize}
+
+
+\end{pro}
+
+\begin{pro}
+
+Sea $A$ un conjunto arbitrario. Denotamos por $l_2(A)$ el conjunto de funciones $f: A \rightarrow \R$ tales que
+$$
+\textstyle\sup(\sum \abs{f(x)}^2) < \infty
+$$
+donde el supremo está extendido a todos los conjuntos finitos. Demostrar que tenemos un espacio euclídeo que generaliza el ejercicio anterior.
+
+\end{pro}
+
+
+
+\begin{pro}
+
+Sea $E \oplus E'$ una suma directa de espacios euclídeos.
+
+\begin{itemize}
+
+\item Las proyecciones canónicas son morfismos de espacios euclídeos.
+
+\item La inyección canónica de cada factor es un morfismo.
+
+\item ¿Existe en la suma directa alguna otra definición de producto escalar que haga que las proyecciones sean morfismos?
+
+\end{itemize}
+
+\end{pro}
+
+
+
+\begin{pro}
+
+Sea $E$ el subespacio vectorial $C(\R)$ formado por las funciones~$f$ que verifiquen que la integral 
+$$
+\int_{-\infty}^{+\infty} \abs{f}^2 e^{-t^2} \text{ d}t
+$$
+sea convergente.  Probar que la siguiente definición
+$$
+\int_{-\infty}^{+\infty} f g \,e^{-t^2} \text{ d}t
+$$
+ da un producto escalar en dicho espacio.  
+Probar que los polinomios pertenecen a dicho espacio vectorial.
+
+\end{pro}
+
+\begin{pro}
+
+Sea $\{\,e_i\}$ una base algebraica (también llamada \index{base!de Hamel} {\sf base de Hamel}), posiblemente infinita.  Si $x= \sum \lambda_i e_i$ e $y = \sum\mu_i e_i$, entonces
+$$
+\escalar{x}{y}= \sum \lambda_i \mu_i
+$$
+es un producto escalar.  Recordemos que las sumas que aparecen son todas finitas. Relacionar esta construcción con la suma directa de espacios euclídeos.
+
+\end{pro}
+
+
+
+
+
+
+
+\begin{pro}
+
+Sabemos que todo espacio vectorial complejo puede considerarse un espacio vectorial real, sin más que multiplicar únicamente por números reales.  Recíprocamente, a cada espacio vectorial real se le puede asociar de un modo canónico un espacio vectorial complejo.  La construcción de este espacio es lo que se denomina \index{complexificación} {\sf complexificación}.  En este problema $E$ denota un espacio vectorial real. 
+
+\begin{itemize}
+
+\item Sea $E^+ = E \times E$ con el siguiente producto por números complejos
+$$
+(a+ib)(x,y) = (ax-by,bx+ay)
+$$
+Probar que en efecto $E^+$ es un espacio vectorial complejo.
+
+\item  Inyectamos $E$ en $E^+$ mediante la identificación $x \rightarrow (x,0)$.  Demostrar que todo vector de $E^+$ se puede escribir, de modo único, como
+$$
+x+iy \text{ con } x,y \in E
+$$
+
+\item Si $\{x_i\}$ es una colección de vectores independientes en $E$, también son independientes como vectores de $E^+$. Si dichos vectores forman una base en el espacio real $E$, también forman una base en el espacio complejo~$E^+$.  Concluir que la dimensión de ambos espacios debe ser siempre la misma.
+
+\item Si en $E$ tenemos definido un producto escalar real, en $E^+$ se puede introducir un producto escalar complejo
+$$ 
+\escalar{x_1+iy_1}{x_2+iy_2}= \escalar{x_1}{x_2}+\escalar{y_1}{y_2}+i\left( \escalar{x_1}{y_2}-\escalar{y_1}{x_2} \right)
+$$
+
+\item Dada una aplicación lineal $T : E \rightarrow E$ construimos
+$$
+\begin{array}{cccc}
+T^+ & : E^+ & \lto & E \\
+           & x+iy & \lto & T(x)+iT(y)
+\end{array}
+$$
+que es una aplicación lineal compleja. Si $\{e_i\}$ es una base del espacio real,  las matrices de $T$ y $T^+$ coinciden en dicha base.
+
+\item Demostrar que se cumplen las propiedades
+
+\begin{itemize}
+
+\item $(\lambda T)^+ = \lambda T^+$
+
+\item $(T+ T')^+ = T^+ + (T')^+$
+
+\item $(TT')^+ = T^+ (T')^+$
+
+
+\end{itemize}
+
+\item Si $T^+$ tiene un autovalor real $\alpha$, entonces $T$ tiene como autovalor $\alpha$.
+
+
+
+\end{itemize}
+
+
+\end{pro}
+
+
+\begin{pro}
+
+Una función $f:\C \rightarrow \C$ es {\sf racional} \index{función racional} si es el cociente de dos polinomios complejos.  Supondremos que los polinomios en cuestión son primos entre si, de modo que  carecen de soluciones comunes.  En los números complejos que son soluciones del denominador la función no está definida, puesto que se divide entre cero.  Dichos puntos se denominan {\sf polos}\index{polo} de la función $f$.  Sea $RL_2$ el conjunto de funciones racionales que no tienen polos  en el círculo unidad $\partial D= \{ z \in\C \text{ tales que } \abs{z}=1\}$.
+
+\begin{itemize}
+
+\item $RL_2$ es un espacio vectorial complejo.
+
+\item  La siguiente definición proporciona un producto escalar
+$$
+\escalar{f}{g} = \frac{1}{2\pi i}\int_{\partial D} f(z) \overline{g(z)} \frac{\text{ d}z}{z}
+$$
+donde la integral se realiza en el sentido antihorario.
+
+\item Sea $RH_2$ el conjunto de funciones racionales que carecen de polos en el disco unidad $D=\{z \in \C \text{ tales que }\abs{z}\leq 1\}$.  Este conjunto es un subespacio vectorial.
+
+\end{itemize}
+
+
+\end{pro}
+
+\begin{pro}
+
+Dado un intervalo  $[a,b]$ consideramos el espacio vectorial $C^1([a,b])$ formado por las funciones (valoradas en $\R$ o en $\C$) que son continuas y cuya primera derivada es también continua.  Definimos la siguiente función
+$$
+\escalar{f}{g}= \int_a^b fg +\int_a^b f'g'
+$$
+que el lector probará que es  un producto escalar.
+
+\end{pro}
+
+
+\begin{pro}
+
+¿Para que valores $\alpha \in\R$, la sucesión $\{n^{-\alpha}\}$ pertenece al conjunto $l_2$?
+¿Para que valores $\alpha \in\R$, la función $x^{-\alpha}$ pertenece al espacio $L_2([0,1])$?  Misma pregunta pero con el espacio $L_2([1,\infty))$.
+
+
+\end{pro}
+
+
+\newpage
+
+\section{Espacios normados}
+
+En cualquier espacio euclídeo se puede introducir una estructura de espacio métrico.  Para ello se define en primer lugar una norma y asociada a ella se construye la distancia.
+
+\begin{defi}
+
+Sea  $E$ un espacio vectorial real o complejo.  Una \index{norma} {\sf norma} es una aplicación
+$$
+\begin{array}{ccc}
+E & \lto & \R \\
+x & \lto & \norma{x}
+\end{array}
+$$
+que cumple:
+
+\begin{itemize}
+
+\item $\norma{x} \;\geq 0$ y sólo es cero si $x=0$
+
+\item $\norma{\lambda x}\;= \abs{\lambda} \norma{x}$
+
+\item $\norma{x+y}\; \leq \norma{x} \; + \norma{y}$
+
+\end{itemize}
+Un espacio vectorial con una norma se denomina \index{espacio!normado} {\sf espacio normado}.
+
+\end{defi}
+
+
+
+En un espacio vectorial normado se introduce la siguiente distancia
+$$
+\distancia (x,y) = \norma{x-y}
+$$
+Todas las propiedades de la distancia son fácilmente verificables.  Probemos no obstante la desigualdad triangular:
+\begin{equation*}
+\begin{split}
+\distancia (x,y) \, = \norma{x-y}\, = \norma {(x-z)+(z-y)} \,\,  \leq \\
+\leq \norma{x-z}+\norma{z-y}\, = \distancia (x,z)+ \distancia (z,y)
+\end{split}
+\end{equation*}
+
+
+\noindent{\bf Observación.} Mientras no se diga nada en contra, siempre consideraremos que la estructura topológica de un espacio normado proviene de esta noción de distancia. Hacemos esta precisión puesto que en los espacios de dimensión infinita que se estudian en Análisis Funcional es muy habitual considerar varias topologías sobre un mismo espacio. \fin
+
+
+
+ La norma es útil puesto que sirve para introducir una topología en el espacio normado.  Sin embargo cualquier otra norma que nos permita introducir la misma topología nos es igualmente útil.  
+
+\begin{defi}
+
+Sea $E$ un espacio vectorial, $\norma{\cdot}_a$ y $\norma{\cdot}_b$ dos normas. Decimos que las normas son {\sf equivalentes} \index{normas equivalentes} si inducen la  misma topología. 
+
+\end{defi}
+
+Analizando las bolas centradas en el origen es sencillo demostrar el siguiente resultado, que muchas veces se toma como definición de la equivalencia de normas.
+
+\begin{propo}
+
+Dos normas son equivalentes  si y solo si  existen dos constantes
+$c$ y $C$ que cumplen
+$$
+c\norma{x}_a \,\leq \norma{x}_b \, \leq C \norma{x}_a \text{ para todo } x \in E
+$$
+
+\end{propo}
+
+
+Resulta que en los espacios de dimensión finita todas las normas son equivalentes (problema \ref{pro:finitocompleto}), por lo tanto para cada número natural existe esencialmente un único espacio normado, que es isomorfo a $\R^n$ con la topología habitual como producto de $n$ copias de $\R$.   De este resultado podemos deducir el importante {\sf teorema de Heine-Borel}, \index{teorema!de Heine-Borel} que afirma que en dimensión finita los conjuntos compactos son precisamente aquellos que son cerrados y acotados.
+
+En un espacio vectorial sin estructura topológica podemos sumar un número finito de vectores.
+Como en un espacio normado existe el concepto de distancia y el concepto de suma, podemos considerar series en dicho espacio.  Dada una sucesión $\{\,x_i\}$ de elementos del espacio normado construimos la serie 
+$$
+\sum_{i=1}^\infty x_i
+$$
+Dicha serie  es, por definición, el límite de la sucesión formada por sus sumas parciales
+$$
+\sum_{i=1}^\infty x_i= \lim_{n \rightarrow \infty} \sum_{i=1}^n x_i
+$$
+
+\begin{lema}\label{lema:sucesionserie}
+
+Toda sucesión se puede escribir como una serie y a la inversa.
+
+\end{lema}
+
+\dem
+
+Toda serie es en realidad la sucesión de sus sumas parciales.
+
+Recíprocamente, si $\{\, x_i\} $ es una sucesión podemos construir la serie formada por los elementos $y_i= x_i-x_{i-1}$.  Naturalmente la suma de esta serie coincide con el límite de la sucesión, siempre que éste exista.  \fin
+
+
+Las nociones y algunos resultados básicos de la teoría de series en los cuerpos $\R$ y $\C$ se trasladan a los espacios normados. Por ejemplo, si una serie $\sum_{n=0}^\infty x_i$ es convergente, entonces necesariamente $\lim_{n \rightarrow \infty} x_i=0$, toda sucesión convergente está acotada,  toda sucesión convergente es de Cauchy, etc. 
+
+En todo espacio euclídeo, ya sea real o complejo, se puede introducir una norma:$\norma{x}\,\, = \sqrt{\escalar{x}{x}}$. 
+Con vistas a demostrar la desigualdad triangular de la norma debemos probar antes el siguiente 
+
+\begin{lema}[Desigualdad de Schwarz]
+
+En todo espacio euclídeo  
+$$
+\abs{\escalar{x}{y}} \leq \norma{x} \norma{y}
+$$
+
+\end{lema}
+
+\dem
+
+La realizaremos en el caso real. Para el caso complejo consultar el problema~\ref{pro:schwarzcomplejo}.  Calculamos el cuadrado escalar del vector $x+\lambda y$, que debe ser no negativo
+\begin{equation*}
+\begin{split}
+0 \leq \escalar{x+\lambda y}{ x + \lambda y} = \escalar{x}{x}+ 2 \lambda \escalar{x}{y} + \lambda^2 \escalar{y}{y}=\\ \norma{x}^2 + 2 \lambda \escalar{x}{y} + \lambda^2 \norma{y}^2
+\end{split}
+\end{equation*}
+
+Esto nos da una ecuación en la variable $\lambda$.  Como esta ecuación no puede tener otra solución que no sea la cero, el discriminante de esta ecuación debe ser negativo  o nulo:
+$$
+4 \escalar{x}{y}^2-4 \norma{x}^2\norma{y}^2 \leq 0
+$$
+
+Extrayendo raices cuadradas en esta desigualdad obtenemos la desigualdad de Schwarz.  Además el discriminante es cero si y solo si $x+ \lambda y = 0$.  Esto es, si los vectores son proporcionales. $\Box$
+
+Ya estamos en disposición de demostrar la desigualdad triangular de la norma. Trabajamos con el cuadrado de la norma, pues en las normas que provienen de productos escalares suele ser más sencillo
+$$
+\norma{x+y}^2 = \escalar{x+y}{x+y} =  \norma{x}^2 + 2 \escalar{x}{y} + \norma{y}^2
+$$
+Aplicando la desigualdad de Schwarz tenemos que esta cantidad debe ser menor que 
+$$
+\norma{x}^2 + 2\norma{x}\norma{y}+\norma{y}^2= (\norma{x}+\norma{y}\, \,)^2
+$$
+Extrayendo la raiz cuadrada obtenemos finalmente 
+$$
+\norma{x+y} \,\,\leq \norma{x}+\norma{y}
+$$
+
+
+
+Como todo espacio normado es un espacio métrico, tiene sentido hablar sobre su completitud.  Recordemos que un espacio métrico es completo si toda sucesión de Cauchy es convergente.
+
+\begin{defi}
+
+Un \index{espacio!de Banach} {\sf  espacio de Banach} es un espacio normado y completo.
+Un \index{espacio!de Hilbert} {\sf espacio de Hilbert} es un espacio euclídeo completo.
+
+\end{defi}
+
+A partir de ahora denotaremos por $H$ a los espacios de Hilbert. Al ser  todo espacio normado un espacio métrico, para el estudio de la continuidad basta considerar únicamente sucesiones.  Utilizando esto probaremos la siguiente
+
+\begin{propo}
+
+Las siguientes aplicaciones son continuas:
+
+\begin{itemize}
+
+\item  La suma de vectores: $(x,y) \rightarrow x+y$.
+
+\item El producto por escalares: $(\lambda, x)\rightarrow \lambda x$.
+
+\item La función norma: $x \rightarrow \norma{x}$.
+
+\item El producto escalar: $(x,y) \rightarrow \escalar{x}{y}$.
+
+\end{itemize}
+
+\end{propo}
+
+\dem
+
+Demostremos la  continuidad de la primera funcion.  Sea $\{\,x_n\} $ una sucesión con límite $x$ e $\{\,y_n\}$ una sucesión con límite $y$.  Pretendemos demostrar que el límite de la sucesión $\{\,x_n+y_n\}$ es precisamente $x+y$.  Calculemos la distancia de los puntos de la serie a este vector
+$$
+\distancia (x_n+y_n, x+y) = \norma{(x_n+y_n)-(x+y)}\;= \norma{(x_n-x)+(y_n-y)}
+$$
+Aplicando la propiedad triangular de la norma esta distancia es menor que
+$$
+\norma{x_n-x}\;+\norma{y_n-y}\;= \distancia (x_n,y)+ \distancia (y_n,y)
+$$
+que es una cantidad que tiende a cero.
+
+
+ Sea ahora $\{\, \lambda_n\} $ una sucesión de escalares con límite $\lambda$.
+$$
+\norma{\lambda_n x_n- \lambda x}\;= \norma{\lambda_n x_n+ \lambda_n x - \lambda_n x - \lambda x}\;= \norma{\lambda_n (x_n-x)\; + (\lambda_n-\lambda) x}
+$$
+Esta cantidad es menor que
+$$
+\abs{\lambda_n}\norma{x_n-x}\;+ \abs{\lambda_n-\lambda} \norma{x}
+$$
+que tiende a cero puesto que al ser convergentes las sucesiones $\{\,x_n\}$ y $\{\,\lambda_n\}$ están acotadas.
+
+Para la demostración de la tercera parte utilícese la fórmula 
+$$
+\abs{\norma{x}-\norma{y}\;}\leq \norma{x-y}
+$$
+ que se deduce  de la definición de norma. La demostración de la cuarta parte es inmediata utilizando la desigualdad de Schwarz.  \fin
+
+
+\begin{cor}
+
+El cierre de un subespacio vectorial es también un subespacio.
+
+\end{cor}
+
+\dem
+
+Sea $F$ el subespacio y $\overline{F}$ su cierre.  Dados dos puntos $x$ e $y$ del cierre, existen sucesiones $\{\,x_n\}$ y $\{\,y_n\}$ formadas por elementos de $F$ y que convergen a $x$ y a~$y$.  La sucesión $\{x_n+y_n\}$  está formada por elementos de $F$, luego su límite, que no es otro que $x+y$, pertenece al cierre del subespacio.  Análogamente se demuestra que el subespacio es estable por la multiplicación por escalares.  \fin
+
+
+
+
+
+\begin{propo}
+
+Sea $E$ un espacio de Banach.  Un subespacio $F$ es cerrado si y solo si es completo.
+
+\end{propo}
+
+\dem
+
+Supongamos que $F$ es cerrado.  Sea $\{\,x_n\}$ una sucesion de Cauchy con elementos en el subespacio.  Esta sucesión también es de Cauchy en el espacio total.  Por ser completo, dicha sucesión converge a un punto de $E$.  Pero como el subespacio $F$ es cerrado, necesariamente dicho límite pertenece al subespacio que es entonces completo. 
+
+Recíprocamente, si $\{\,x_n\}$ es una sucesión de elementos de $F$ que tiene límite, esta sucesión es de Cauchy y debe converger a un punto de $F$ por ser este completo.  Como $F$ contiene a todos sus puntos de acumulación es cerrado.  \fin
+
+En Álgebra Lineal, dado cualquier subespacio se puede construir el espacio vectorial cociente.  En los espacio normados, por estar implicada también la topología, se consideran solamente subespacios cerrados.
+
+\begin{propo}
+
+Sea $E' \subset E$ un subespacio cerrado.  El espacio cociente admite una estructura de espacio normado.
+
+\end{propo}
+
+\dem
+
+Denotamos por $\pi(x)$ la clase de equivalencia de $x$. La definición de norma que adoptaremos es
+$$
+\norma{\pi(x)}= \inf_{y \in \pi(x)}(\norma{y} )
+$$
+La clase de equivalencia $\pi(x)$ es de la forma $x+ E'$.  Como $E'$ es cerrado y la suma es continua, este conjunto es cerrado. Por lo tanto, los ínfimos se alcanzan en algún elemento. Si $\norma{\pi(x)}=0$, por el comentario anterior, necesariamente $0 \in \pi(x)$ lo que implica que $\pi(x)=0$ y tenemos demostrada una propiedad.  Las otras dos propiedades son sencillas. \fin 
+
+\noindent{\bf Observación.} No es difícil demostrar que si $E$ es de Banach y $E'$ cerrado, el espacio cociente es también completo. \fin
+
+
+
+
+Del mismo modo que un espacio métrico no completo se puede inyectar de modo natural en un espacio completo, siendo un subespacio denso, para espacios normados tenemos la 
+
+\begin{propo}
+
+Todo espacio normado $E$ se puede inyectar en un espacio completo $\overline{E}$ con las siguientes propiedades:
+
+\begin{itemize}
+
+\item $E$ es un subespacio denso de $\overline{E}$.
+
+\item La norma del espacio $\overline{E}$ coincide con la norma de $E$.
+
+\end{itemize}
+
+\end{propo}
+
+\dem
+
+El método que seguiremos es el mismo que nos permite completar $\Q$ para obtener $\R$.
+Sea $E^*$ el conjunto de sucesiones de Cauchy en $E$.  Este conjunto es de modo natural un espacio vectorial con la suma componente a componente.  Decimos que dos sucesiones de Cauchy $\{\,x_i\}$ y $\{\,y_i\}$ son equivalentes si  $\norma{x_i-y_i}\;$ tiende a cero.
+
+Construimos el espacio cociente de $E^*$ módulo esta relación de equivalencia y lo denotamos $\overline{E}$. Denotamos por $\pi :E^* \rightarrow \overline{E}$ la proyección canónica. Es claro que es un espacio vectorial.  En el definimos la siguiente norma
+$$
+\norma{\pi(x_i)}\; = \lim \norma{x_i}
+$$
+Este límite existe puesto que la sucesión de las normas de los elementos de la serie es una sucesión de Cauchy en $\R$, que es completo.  Además la definición no depende del representante de la clase que tomemos puesto que al ser equivalentes deben tener el mismo límite.
+
+Finalmente inyectamos $E$ en $\overline{E}$ asociando a cada elemento $x$ la sucesión de Cauchy que tiene todos los elementos iguales a $x$.
+Naturalmente la definición de norma que hemos introducido en $\overline{E}$ coincide con la norma de $E$.  Además el espacio es denso pues toda sucesión de Cauchy se construye con elementos de $E$. El espacio $\overline{E}$ es completo. \fin
+
+\noindent{\bf Observación.}  Cuando estudiemos las aplicaciones lineales continuas entre espacios normados y construyamos el espacio dual, podremos dar otra demostración más simple de este resultado. \fin 
+
+El espacio $\overline{E}$ que hemos construido se llama \index{espacio!completado} {\sf espacio completado} de $E$. Efectivamente al ser $E$ denso en dicho subespacio tenemos que el cierre de $E$ coincide con todo el espacio.  De ahí la notación empleada.  Este espacio es único salvo isomorfismos, en el sentido siguiente: Si $E'$ es un espacio completo que contiene a $E$ formando un subconjunto denso y además las normas de $E'$ y $E$ coinciden, entonces existe un isomorfismo de $E'$ en $\overline{E}$ que conserva la norma. Obsérvese que si el espacio $E$ es completo, entonces $\overline{E}= E$.
+
+La misma construcción que hemos realizado para espacios normados es válida para espacios euclídeos.  Todo espacio euclídeo tiene por completado un espacio de Hilbert.  Para definir el producto escalar de dos sucesiones de Cauchy empleamos la fórmula
+$$
+\escalar{\{x_i\}}{\{y_i\}} = \lim \escalar{x_i}{y_i}
+$$
+Utilizando la desigualdad de Schwarz se ve que no depende de los representantes que tomemos y debido a la continuidad del producto escalar en $E$ se pueden demostrar todas las propiedades que definen un producto escalar.
+
+
+
+\noindent{ \bf Ejemplos.}
+
+\begin{itemize}
+
+\item Todo espacio euclídeo de dimensión finita es un espacio de Hilbert.  Todo espacio normado de dimensión finita es de Banach (véase pro\-blema \ref{pro:finitocompleto}).
+
+\item  Consideremos en $C([0,1])$ la norma
+$$
+\parallel f \parallel_\infty = \sup\{ \abs{f(x)}: {x \in [0,1]}\}
+$$
+Una sucesión de funciones $\{\,f_n\}$ tiene límite $f$ en esta norma si dicha sucesión converge uniformemente a $f$.  Como el límite uniforme de una sucesión de funciones continuas es también continua, dicho espacio es completo para esta norma.
+
+
+\item Denotemos provisionalmente por $L_2^R([0,1])$ al conjunto de funciones reales cuyo cuadrado es integrable Riemann.  No es difícil comprobar que este espacio no es completo. Ello es debido a que un límite puntual de funciones que sean integrables Riemann no tiene necesariamente que ser integrable Riemann.  El completado de este espacio es $L_2([0,1])$, formado por las funciones de cuadrado integrable Lebesgue. La comprobación de este resultado necesita de algunos resultados de aproximación de funciones que esbozaremos en los ejercicios.  En cierto sentido, se puede considerar que la integral de Lebesgue es la \index{completación} {\sf completación} de la integral de Riemann. Esta propiedad es una de las ventajas (quiza la principal) que posee la integral de Lebesgue sobre la de Riemann.
+
+\item Sea $l_\infty$ el conjunto de sucesiones $\{\,x_n\}$ acotadas. Definimos la norma
+$$
+\parallel x \parallel_\infty = \sup \abs{x_i}
+$$
+Este espacio es completo.
+
+\item El conjunto de polinomios es un subespacio de $C([0,1])$.  El teorema de Weierstrass afirma que toda función continua es límite uniforme de polinomios.  Por lo tanto el completado del espacio normado $\left(\R[x], \parallel \cdot\parallel_\infty\right)$ es precisamente $\left(C([0,1]), \parallel\cdot \parallel_\infty\right)$. 
+
+\end{itemize}
+
+Hemos visto que la norma se construye a partir del producto escalar.  Daremos ahora una fórmula que nos permite recuperar la definición de producto escalar conociendo la norma.
+
+\begin{propo}[Identidad de polarización]\label{propo:polarizacion}
+
+En el caso real se cumple
+$$
+4\escalar{x}{y} = \norma{x+y}^2-\norma{x-y}^2
+$$
+En el caso complejo la fórmula es 
+$$
+4\escalar{x}{y} = \norma{x+y}^2- \norma{x-y}^2-i (\norma{x+iy}^2-\norma{x+iy}^2)
+$$
+que se puede condensar en la fórmula
+$$
+4 \escalar{x}{y}= \sum_{n=0}^3 i^n\norma{x+i^ny}^2
+$$
+
+\end{propo}
+
+\dem
+
+Ambas se obtienen desarrollando el segundo miembro y constatando que es igual al primero.  Demostremos, por simplicidad, el caso real.
+$$
+\norma{x+y}^2-\norma{x-y}^2=\norma{x}^2+2\escalar{x}{y} +\norma{y}^2-(\norma{x}^2-2\escalar{x}{y}+ \norma{y}^2)
+$$
+donde observamos que las normas se «tachan» y obtenemos $4\escalar{x}{y}$. \fin
+
+Si en la demostración anterior en vez de restar, sumamos, lo que se «tachan» son los productos escalares, obteniendose la fórmula
+$$
+\norma{x+y}^2+\norma{x-y}^2= 2\norma{x}^2+2\norma{y}^2
+$$
+
+Esta igualdad recibe el nombre de \index{identidad!del paralelogramo} {\sf identidad del paralelogramo}.  Se demostrará en los problemas que un espacio normado admite una estructura de espacio euclídeo si y solo si se cumple en él la identidad del paralelogramo.
+
+\newpage
+
+\section*{Problemas}
+
+\begin{pro}\label{pro:schwarzcomplejo}
+
+Demostrar la desigualdad de Schwarz en el caso complejo.  Tén\-gase en cuenta que tanto la parte real como la imaginaria son menores que el módulo del número complejo. Demostrar la desigualdad triangular de la norma en el caso complejo.
+
+\end{pro}
+
+
+\begin{pro}
+
+Demostrar la identidad de polarización en el caso complejo.
+
+\end{pro}
+
+\begin{pro}
+
+Sea $T: E \lto E'$ una aplicación lineal que cumple $\norma{T(x)}\,\,= \norma{x}\,\,$ para todo elemento $x$ de $E$.  Demostrar que $\escalar{T(x)}{T(y)}= \escalar{x}{y}$ para todo par de vectores.
+
+\end{pro}
+
+
+\begin{pro}
+
+Consideramos un espacio normado real.  Utilizamos la identidad de polarización para definir un análogo al producto escalar
+$$
+\escalar{x}{y} = \frac{\norma{x+y}^2-\norma{x-y}^2}{4}
+$$
+
+\begin{itemize}
+
+\item Demostrar que si la norma cumple la ley del paralelogramo entonces la fórmula anterior cumple todas las propiedades de un producto escalar.
+
+\item Concluir que un espacio vectorial normado es un espacio euclídeo si y solo si la norma cumple la ley del paralelogramo. Realizar la demostración en el caso complejo.
+
+
+\end{itemize}
+
+\end{pro}
+
+
+\begin{pro}
+
+Un espacio normado $E$ es completo si y solo si la esfera unidad 
+$$
+S=\{x \in E \text{ tales que } \norma{x}=1\}
+$$
+ es un conjunto completo.
+
+\end{pro}
+
+\begin{pro}
+
+Una \index{seminorma} {\sf seminorma} es una aplicación $p: E \rightarrow \R$ que cumple:
+\begin{itemize}
+\item Homogeneidad: $p(\lambda x)= \abs{\lambda} p(x)$.
+\item Desigualdad triangular: $p(x+y) \leq p(x)+p(x)$.
+\item Positividad: $p(x)\geq 0$.
+\end{itemize}
+Es claro que una norma es también una seminorma pero que el recíproco no es cierto.  Con una seminorma no podemos construir una estructura de espacio métrico, puesto que pueden existir puntos distintos $x \neq y$ tales que $p(x-y)=0$.  Sin embargo se puede solucionar parcialmente el problema:
+
+\begin{itemize}
+\item Si $E'= \{ x \in E \text{ tales que } p(x)=0\}$, entonces $E'$ es un subespacio.
+\item En el espacio cociente $E/E'$ se puede introducir una estructura de espacio normado, llamando norma de una clase a la seminorma de uno cualquiera de sus elementos.
+\end{itemize}
+
+\end{pro}
+
+\begin{pro}
+
+Dado cualquier número $p\geq 1$, definimos $l_p$ como el conjunto de sucesiones $x= \{\,x_i\}_{i \in \N}$ que cumplen $\sum \abs{x_i}^p < \infty$.  En este conjunto definimos la siguiente norma
+$$
+\parallel x \parallel_p = {\left( \sum \abs{x_i}^p \right)}^{1/p}
+$$
+Utilizando los vectores $e_1= (1,0,0,\dots)$ y $e_2= (0,1,0, \dots)$ demostrar que si se cumple la ley del paralelogramo, entonces necesariamente $p=2$.  Por lo tanto ningún espacio $l_p$ es un espacio euclídeo, salvo para $p=2$.
+
+\end{pro}
+
+\begin{pro}
+
+En $C([0,1])$ se define la norma 
+$$
+\parallel f \parallel_\infty = \sup\{ \abs{f(x)}:{x\in [0,1]}\}
+$$
+Demostrar que esta norma no cumple la ley del paralelogramo.
+
+\end{pro}
+
+
+\begin{pro}\label{pro:finitocompleto}
+
+Pretendemos demostrar en este problema que todos los espacios euclí\-deos de dimensión finita son completos.  Lo mismo es cierto para todo espacio normado.  Deduciremos algunas consecuencias topológicas de este hecho.
+
+\begin{itemize}
+
+\item Tanto $\R$ como $\C$ son espacios completos.
+
+\item El producto cartesiano (finito) de espacios completos es completo.
+
+\item Todo espacio euclídeo de dimensión finita es isomorfo a un producto de copias de $\R$ o $\C$, por lo tanto es completo.
+
+\item  En dimensión finita todas las normas son equivalentes.  Esto es, la topología que inducen es igual para todas las normas.  Por lo tanto todo espacio normado de dimensión finita es completo.
+
+\item Dado un espacio vectorial de dimensión infinita, cualquier subespacio de dimensión finita es completo.  Toda sucesión de elementos de dicho subespacio converge a un elemento de dicho subespacio.  Por lo tanto el subespacio es cerrado por contener todos los puntos de acumulación.
+
+
+\end{itemize}
+
+\end{pro}
+
+
+
+\begin{pro}
+
+Sea $E$ un espacio de Banach.  Demostrar que toda sucesión decreciente de bolas cerradas y encajadas tiene intersección no nula.  ¿Es cierto esto para cualquier espacio normado?
+
+\end{pro}
+
+
+
+
+
+
+\begin{pro}
+
+Probar que  $\parallel x \parallel_1= \sum_{i=1}^n \abs{x_i}$
+ es un norma en $\R^n$.  Hacer lo mismo con $\parallel x \parallel_\infty = \sup \abs{x_i}$
+
+\end{pro}
+
+\begin{pro}
+
+Sea $l_\infty$ el conjunto de sucesiones acotadas.  Probar que es un espacio vectorial que puede ser dotado de la norma $\parallel x \parallel_\infty = \sup \abs{x_i}$
+
+\end{pro}
+
+\begin{pro}\label{pro:separable}
+
+En $l_2$ el conjunto de sucesiones que sólo tienen un número finito de elementos no nulos (sucesiones \index{sucesión casi-nula}{\sf casi-nulas}) es un subespacio.  Este subespacio no es total y sin embargo es denso en  $l_2$.
+
+Considerar ahora el conjunto de sucesiones casi-nulas cuyos elementos son números racionales.  Probar que este conjunto también es denso.  Demostrar que este conjunto es numerable y concluir que el espacio topológico $l_2$ es \index{espacio!separable}{\sf separable} (un espacio topológico es separable si tiene un conjunto numerable denso).
+
+\end{pro}
+
+
+
+\begin{pro}
+
+Consideramos el espacio normado $C([0,1])$ junto con la norma del supremo $\parallel \cdot \parallel_\infty$.  El teorema de Weierstrass afirma que el conjunto de polinomios es denso en este espacio normado.  Considerando los polinomios con coeficientes racionales, demostrar que este espacio es separable.
+
+\end{pro}
+
+\begin{pro}
+
+Se ha demostrado en el problema anterior que $C([0,1])$ es separable considerando dicho espacio con la norma del supremo.  Teniendo en cuenta dicho resultado, demostrar que con la norma $\parallel \cdot \parallel_2$ también es separable.
+
+\end{pro}
+
+
+
+\newpage
+
+\section{Ortogonalidad.  Espacio dual}
+
+
+
+La diferencia fundamental entre los espacios de Banach y de Hilbert estriba en el siguiente concepto.
+
+\begin{defi}
+
+Dos vectores $x$ e $y$ de un espacio euclídeo son \index{vectores!ortogonales} {\sf ortogonales} o \index{vectores!perpendiculares} {\sf perpendiculares} si $\escalar{x}{y}=0$.  Un conjunto de vectores $\{\, x_i\}_{i\in I} $ es ortogonal si $\escalar{x_i}{x_j}= 0$ si $i\neq j$. Si además los vectores tienen norma 1, diremos que el conjunto es \index{conjunto!ortonormal} {\sf ortonormal}.
+
+\end{defi}
+
+Para indicar que dos vectores son ortogonales escribiremos $x \perp y$.  Dados dos conjuntos (en especial dos subespacios vectoriales) $F$ y $F'$, si todo vector de $F$ es perpendicular a todo vector de $F'$ diremos que ambos conjuntos son perpendiculares y lo indicaremos por $F \perp F'$.
+
+Dado cualquier vector no nulo $x$, se puede conseguir un vector de norma unidad sin más que dividir dicho vector entre su módulo.  El vector \mbox{$x /\!\!\norma{x}$}   es la \index{normalización} {\sf normalización} del vector $x$.  Podemos, aplicando el mismo método, normalizar todos los vectores de un conjunto.
+
+\begin{propo}
+
+Cualquier conjunto de vectores ortogonales es linealmente independiente.
+
+\end{propo}
+
+\dem
+
+Sea $\{\,x_i\}$ un conjunto, finito o infinito, de vectores ortogonales no nulos.  Tomamos una combinación lineal finita de dichos vectores igualada a cero.
+$$
+\lambda_1 x_1 + \dots +\lambda_n x_n=0
+$$
+Multiplicamos escalarmente dicha expresión por $x_j$ y obtenemos
+$$
+0=\escalar{0}{x_j}= \lambda_1\escalar{x_1}{x_j} + \dots \lambda_n \escalar{x_n}{x_j}= \lambda_j \norma{x_j}^2
+$$
+lo que implica que $\lambda_j$ es nulo para todo $j$.  \fin
+
+
+\begin{propo}[Teorema de Pitágoras] \index{teorema!de Pitágoras}
+
+Sean $x$ e $y$ dos vectores ortogonales.  Entonces se cumple
+$$
+\norma{x+y}^2 = \norma{x}^2+\norma{y}^2
+$$
+
+\end{propo}
+
+\dem
+
+La haremos en el caso real.
+$$
+\norma{x+y}^2= \escalar{x+y}{x+y} = \escalar{x}{x} + 2\escalar{x}{y} +\escalar{y}{y}= \norma{x}^2+ \norma{y}^2
+$$
+puesto que el producto escalar de ambos vectores es nulo.  \fin
+
+
+\noindent{\bf Observación.} En el caso real el recíproco también es cierto: Si dos vectores cumplen que $\norma{x}^2+\norma{y}^2 = \norma{x+y}^2$, entonces necesariamente $x \perp y$.  Sin embargo el recíproco no es cierto el caso complejo. \fin 
+
+Este teorema se puede generalizar al caso de un número finito de vectores ortogonales obteniéndose
+$$
+\norma{x_1+ \dots+ x_n}^2= \norma{x_1}^2 + \dots + \norma{x_n}^2
+$$
+
+
+
+\noindent {\bf Ejemplos.}
+
+\begin{itemize}
+
+\item En $\R^n$ denotamos por $\{e_i\}$ la base estandar. Como producto escalar tomamos el  canónico.  Esta base forma un conjunto ortonormal puesto que $\escalar{e_i}{e_j}= \delta_{ij}$.
+
+\item Sea   $C([0,2\pi])$ con  el producto escalar $\escalar{f}{g}=\int_0^{2\pi} f(x)\overline{g(x)}\,\, dx$.  Los vectores $\phi_n= e^{inx}$ y $\phi_m= e^{imx}$ son ortogonales puesto que la integral
+$$
+\escalar{\phi_n}{\phi_m}=\int_0^{2\pi} e^{inx} e^{-imx}\,\, dx
+$$ 
+es nula si $n \neq m$.  Para normalizar cada vector de este conjunto lo debemos dividir entre $\sqrt{2\pi}$.
+
+\item El sistema trigonométrico
+$$
+\{1,\cos(x),\cos(2x),\cos(3x), \dots, \sen(x), \sen(2x), \sen(3x),\dots\}
+$$ 
+es un conjunto ortogonal del espacio $L_2([0,2\pi])$.
+
+\end{itemize}
+
+
+\begin{defi}
+
+Dado un elemento $x$, denotamos por $x^\perp$ al conjunto de elementos perpendiculares a $x$:
+$$
+x^\perp = \{\, y \in E \text{ tales que } \escalar{x}{y}=0\}
+$$
+Si $F$ es un subespacio definimos
+$$
+F^\perp =\{\, y \in E \text{ tales que } \escalar{x}{y} = 0 \text{ para todo } x \in F\}
+$$
+
+\end{defi}
+
+El conjunto $x^\perp$ es el \index{subespacio!ortogonal} {\sf subespacio ortogonal} a $x$.
+Directamente de la definición obtenemos
+$$
+F^\perp = \bigcap_{x \in F} x^\perp
+$$
+
+\begin{propo}
+
+El conjunto $x^\perp$ es un subespacio cerrado.
+
+\end{propo}
+
+\dem
+
+Si $y_1,y_2 \in x^\perp$ entonces tenemos que
+$$
+\escalar{x}{\lambda y_1+y_2} = \lambda \escalar{x}{y_1} +\escalar{x}{y_2}=0
+$$
+lo que prueba que en efecto es un subespacio vectorial. Sea ahora $\{\,y_n\}$ una sucesión de elementos de $x^\perp$ con límite $y$.  Tenemos  que
+$$
+\escalar{x}{y} = \escalar{x}{\lim y_n} = \lim \escalar{x}{y_n} =0
+$$
+donde hemos podido «sacar» el límite del producto escalar, ya que esta aplicación es continua. Como $x^\perp$ contiene a todos sus puntos de acumulación, es cerrado.  \fin
+
+\begin{cor}
+
+$F^\perp$ es un subespacio cerrado.
+
+\end{cor}
+
+\begin{lema}
+
+Para cualquier subespacio tenemos $F\cap F^\perp =0$
+
+\end{lema}
+
+\dem
+
+Si $x \in F \cap F^\perp$ entonces por una parte $x \in F$ y por otra $x \in F^\perp$.  Entonces $\escalar{x}{x}=0$ lo que implica que $x=0$.  \fin
+
+\begin{teo}
+
+Dado un subespacio cerrado $F \subset H$, entonces $H$ es la suma directa de $F$ y de $F^\perp$.
+
+\end{teo}
+
+\dem
+
+Que la intersección es nula, está demostrado en el lema anterior. Sea $y$ un vector cualquiera de $E$ que no esté en $F$.  Sea $\delta= \distancia (y,F)$. 
+Veamos que hay un único punto $y_1$ de $F$ cuya distancia a $F$ es precisamente~$\delta$. Por la definición de $\delta$, debe existir una sucesión $\{\, x_i\}$ de elementos de $F$ tal que $\lim \distancia (y,x_i)=\delta$. Veamos que está sucesión es de Cauchy.  Para ello utilizamos la ley del paralelogramo aplicada a los vectores $(x_n-y)$ y $(x_m-y)$.  Despejando y operando obtenemos
+$$
+\norma{x_n-x_m}^2= 2\norma{x_n-y}^2+2\norma{x_m-y}-\norma{x_n+x_m-2y}^2
+$$
+Nos fijamos en el último sumando de esta fórmula.  Dividimos entre dos el vector para así poder calcular distancias al punto $y$
+$$
+\norma{x_n+x_m-2y}^2= 4\norma{\frac{x_n+x_m}{2}-y}^2
+$$
+Pero como el vector $(x_n+x_m)/2$ es un elemento de $F$ la distancia de ese punto a $y$ es mayor que $\delta$
+$$
+4\norma{\frac{x_n+x_m}{2}-y}^2\geq 4 \delta^2
+$$
+Introduciendo este resultado en la primera de las fórmulas obtenemos
+$$
+\norma{x_n-x_m}^2\leq 2 \norma{x_n-y}^2+2\norma{x_m-y}-4\delta^2
+$$
+En virtud de la definición de la sucesión $\{\,x_n\}$, la parte de la derecha tiende a cero.  Así la sucesión es de Cauchy y tiene límite $y_1 = \lim x_n $. Como es cerrado dicho límite pertenece a $F$. \fin
+
+
+\noindent{\bf Observación.}   Por la continuidad del producto escalar, para cualquier sub\-espacio se tiene $F^\perp= \overline{F}^\perp$. Si el subespacio no es cerrado  no se obtiene una descomposición en suma directa. \fin 
+
+
+
+
+\begin{cor}
+
+Todo espacio euclídeo de dimensión finita es isomorfo a~$\mathbb{K}^n$.
+
+\end{cor}
+
+\dem
+
+Sea $n$ la dimensión del espacio vectorial.  Haremos la demostración por inducción sobre la dimensión del espacio. Sea $e_1$ un vector no nulo y $[ e_1]$ el subespacio que genera.  Como este subespacio es cerrado tenemos que 
+$$
+H= [ e_1] \oplus [ e_1]^\perp
+$$
+Sabemos que $[ e_1]^\perp$ es un espacio de Hilbert de dimensión $n-1$ y concluimos por inducción.  \fin
+
+\begin{cor}
+
+Todo espacio de Hilbert de dimensión finita posee una base formada por vectores ortonormales.
+
+\end{cor}
+
+\dem
+
+El corolario anterior nos permite construir una sucesión $\{\, e_i\}$ de vectores ortogonales.  Dividiendolos entre su norma se obtiene una base de vectores ortonormales. \fin
+
+\begin{cor}
+
+Dos espacios euclídeos de dimensión finita son isomorfos si y solo si  tienen la misma dimensión.
+
+\end{cor}
+
+\dem
+
+Si dos espacios $E$ y $E'$ tienen la misma dimensión $n$, tomamos en ambos bases ortornormales $\{e_i\}$ y $\{e'_i\}$.  La aplicación lineal que transforma $e_i$ en $e'_i$ es el isomorfismo buscado. \fin
+
+\noindent{\bf Observación.}  Dado un conjunto finito de vectores linealmente independientes, existe un proceso algorítmico que crea un conjunto ortonormal y que genera el mismo subespacio.  Es el famoso proceso de \index{Gram-Schmidt} {\sf ortonormalización de Gram-Schmidt}, que consta de dos pasos:
+
+\begin{itemize}
+
+
+\item  Dado un conjunto $\{x_1, \dots, x_n\}$ linealmente independiente se construye recursivamente un conjunto de $n$ vectores $\{y_1, \dots, y_n\}$ utilizando la fórmula
+$$
+y_{s+1}= x_{s+1}-\sum_{i=1}^s \frac{\escalar{x_{s+1}}{y_i}}{\norma{y_i}^2}\,\, y_i
+$$
+Estos dos conjuntos de vectores generan el mismo subespacio. Además el conjunto $\{y_1, \dots, y_n\}$ es ortogonal.
+
+
+\item Normalizando los vectores $y_i$ se obtiene una base ortonormal. 
+
+\end{itemize}
+
+\noindent Si el conjunto de vectores es numerable el proceso también es válido. \fin 
+
+
+Como aplicación del teorema de descomposición ortogonal vamos a dar la estructura del espacio dual de un espacio de Hilbert. En Álgebra Lineal, dado un espacio vectorial $E$ sobre un cuerpo $k$,  denotamos por $E^*$ y llamamos espacio dual, al conjunto de formas lineales de $E$ en $k$.
+$$
+E^* = \{\, \omega : E \rightarrow k \text{ lineales}\}
+$$
+En espacios de Hilbert, o en general en la teoría de espacios vectoriales topológicos, a este espacio lo llamaremos \index{espacio dual!algebraico} {\sf dual algebraico}.  Para espacios normados, la definición es ligeramente más restrictiva.
+
+\begin{defi}
+
+Sea $E$ un espacio normado.  Llamamos \index{espacio!dual} {\sf espacio dual} de $E$ y denotamos $E^*$ al conjunto de formas lineales continuas
+$$
+E^*= \{\, \omega :E \rightarrow \mathbb{K} \text{ lineales y continuas}\}
+$$
+
+\end{defi}
+
+Si existe riesgo de confusión  llamamos a este espacio \index{espacio dual!topológico} {\sf dual topológico}  o \index{espacio dual!continuo} {\sf dual continuo}.  La existencia de formas lineales algebraicas no nulas sobre cualquier espacio vectorial es un corolario elemental de la existencia de bases en los espacios vectoriales.  Sin embargo la existencia de formas lineales continuas en espacios normados no es elemental \index{teorema!Hanh-Banach} ({\sf teoremas de Hanh-Banach}).
+
+\noindent{\bf Ejemplos.}
+
+\begin{itemize}
+
+\item Si $H$ es un espacio de Hilbert, dado $x \in H$, la aplicación $\omega_y(x)= \escalar{x}{y}$ es una forma lineal.  Además es continua, puesto que lo es el producto escalar.
+
+\item Sea $H$ un espacio de Hilbert con una base de Hamel infinita. La base necesariamente tiene un cardinal igual o superior al de los naturales.  Por lo tanto podemos suponer que la base (con vectores normalizados) es de la forma
+$$
+\{e_i\}_{i \in \N} \cup \{f_j\}_{j\in J}
+$$
+Existe una única aplicación lineal $\omega$ que cumple
+$$
+\omega(e_i)= i \qquad \omega(f_j)=0
+$$
+Esta es una forma lineal pero no es continua. Por ejemplo, la sucesión $\{x_n= e_n/n\}$ tiende a cero y sin embargo $\omega(x_n)=1$.  
+
+\item Sea $C([-1,1])$ con la norma  cuadrática.  La aplicación $\omega(f)= f(0)$ es lineal pero no es continua: Se puede construir una sucesión de funciones continuas, con soporte en cualquier entorno de cero y tales que $f_n(0)=1$ para todo $n$.  Ello implica que se pueden crear una sucesión de funciones $f_n$  cuya norma converja a cero y sin embargo $f_n(0)$ no sea nulo.
+
+
+
+\end{itemize}
+
+
+Hemos visto  que en los espacios de Hilbert es fácil crear formas lineales continuas. El siguiente teorema demuestra que todas las formas lineales continuas en los espacios de Hilbert son de ese tipo.
+
+\begin{teo}[Riesz-Fréchet] \index{teorema!Riezs-Fréchet}
+
+Toda forma lineal continua $\omega: H \rightarrow \mathbb{K}$ es de la forma $\omega_x$ para un único $x \in H$.
+
+\end{teo}
+
+\dem
+
+El núcleo de cualquier forma lineal es un hiperplano y si además es continua dicho subespacio es cerrado por ser la antiimagen del cero.  El ortogonal del núcleo es entonces un subespacio de dimensión $1$ y tenemos la siguiente descomposición
+$$
+H = \Ker(\omega) \oplus \Ker(\omega)^\perp
+$$
+Si la forma no es nula necesariamente existe un vector $y \in \Ker(\omega)^\perp$ que cumple $\omega(y)=1$.  Dividimos dicho vector por su norma al cuadrado y obtenemos $x= y/\escalar{y}{y}$.  Probemos que $\omega = \omega_x$.
+
+Sobre el núcleo es claro que ambas son iguales puesto que son nulas.  Sobre $\Ker(\omega)^\perp$, tomando la base $y$ tenemos
+$$
+\omega_x(y) = \escalar{y}{x}=  \frac{1}{\escalar{y}{y}} \escalar{y}{y}= 1 = \omega(y)
+$$
+Como coincide en cada sumando directo, coincide en todo el espacio.
+
+Si $\omega_x= \omega_{x'}$ entonces  $\escalar{y}{x} = \escalar{y}{x'}$ para todo elemento $y$ del espacio lo que implica que $\escalar{y}{x-x'}=0$ y entonces $x=x'$.  \fin
+
+Si a $x\in H$ le asociamos la forma lineal continua $\omega_x$ tenemos definida una función
+$$
+\begin{array}{cccc}
+\phi & :H & \lto & H^* \\
+   &   x & \lto & \omega_x
+\end{array}
+$$
+llamada \index{polaridad} {\sf polaridad}. Esta función es morfismo de grupos y antilineal (en el caso real es lineal). Traducido a nuestra notación se cumplen las propiedades
+$$
+\omega_{x+y} = \omega_x + \omega_y \qquad \omega_{\lambda x} = \overline{\lambda} \omega_x
+$$
+
+
+El teorema de Riesz-Fréchet prueba que la polaridad es una biyección.  Además dicha biyección se construye de un modo canónico.  Gracias a ella vamos a introducir una estructura de espacio euclídeo en el espacio dual.
+$$
+\escalar{\omega_x}{\omega_y} = \escalar{y}{x} = \escalar{\phi^{-1}(\omega_y)}{ \phi^{-1} (\omega_x)}
+$$
+Claramente cumple todos los axiomas de un espacio euclídeo.  El cambio de orden se debe simplemente a la antilinealidad de $\phi$, pues de este modo, en el caso complejo, el producto es antilineal en el segundo factor. Como por definición $H$ y $H^*$ son isomorfos como espacios euclídeos (en el caso complejo el isomorfismo es antilineal)  $H^*$ es completo. En particular $\norma{y}= \norma{\omega_y}$.
+
+\noindent{\bf Observación.}  Como $H^*$ es de nuevo un espacio de Hilbert tiene sentido calcular su dual.  El dual del dual se llama \index{espacio!bidual} {\sf bidual} y lo denotamos $E^{**}$.  Componiendo las polaridades  vemos que $E$ es isomorfo a su bidual.  En general se llaman espacios \index{espacio!reflexivo} {\sf reflexivos} a aquellos espacios vectoriales topológicos (espacios vectoriales que tienen una topología que hace que la suma y el producto por escalares sean continuos) que son isomorfos a su bidual. \fin
+ 
+ 
+\newpage
+
+\section*{Problemas}
+
+
+\begin{pro}
+
+Dado un espacio métrico, decimos que un conjunto es \index{conjunto!denso} {\sf denso} si su cierre es el espacio total.  Una definición equivalente dice que un subconjunto es denso si todo elemento de conjunto total es límite de sucesiones de elementos del subconjunto denso.
+
+Demostrar que un subespacio $F$ de un espacio euclídeo es denso si y solo si $F^\perp$ es nulo.
+
+\end{pro}
+
+\begin{pro}
+
+Sea $F$ un subespacio cerrado de un espacio de Hilbert $E$.  Denotamos por $\pi$ la proyección ortogonal del espacio de Hilbert en $F$.
+
+\begin{itemize}
+
+\item Dado un punto $x \in E$,  de todos los vectores de $F$ el que más cerca está de $x$ es precisamente $\pi(x)$.
+
+\item Demostrar que $\distancia (x, F) = \distancia (x, \pi(x))$.
+
+\end{itemize}
+
+\end{pro}
+
+\begin{pro}
+
+Un conjunto convexo es aquel que junto  con cada par de puntos contiene al segmento que los une.  En fórmulas si $x$ e $y$ pertenecen al conjunto entonces los puntos $(1-t)x+ty$ con $0<t<1$ pertenecen al conjunto.
+
+\begin{itemize}
+
+\item Siguiendo el mismo esquema que el utilizado para la demostración de que un vector se puede proyectar ortogonalmente en un subespacio, demostrar la siguiente proposición: Todo conjunto cerrado y convexo contiene un único elemento de norma mínima.
+
+\item Comprobar que la proposición demostrada en el texto es un caso particular de este problema.
+
+\end{itemize}
+
+\end{pro}
+
+\begin{pro}
+
+Sea $F$ un subespacio cerrado de un espacio de Hilbert. Se cumple entonces
+$$
+(F^\perp )^\perp = F
+$$
+Sin embargo en el caso de que el subespacio no sea cerrado, esta igualdad es falsa.  ¿Cual es la identidad correcta en este caso?
+
+\end{pro}
+\begin{pro}
+
+Dados dos vectores $x$ e $y$ de un espacio euclídeo real se define el ángulo $\varphi$ que  forman con la fórmula
+$$
+\escalar{x}{y}= \norma{x}\;\norma{y}\; \cos(\varphi)
+$$
+
+
+ Utilizar la desigualdad de Schwarz para demostrar que $\cos(\varphi)$ siempre tiene módulo menor que 1.
+
+
+
+
+
+\end{pro}
+
+\begin{pro}
+
+Sabemos que en un espacio de Hilbert todo conjunto cerrado convexo tiene un único punto de norma mínima.
+
+\begin{itemize}
+
+\item  Dar un ejemplo de conjunto convexo y no cerrado que no posea elemento de norma mínima o que posea varios.
+
+\item  Dar un ejemplo de conjunto cerrado y no convexo que también contradiga el enunciado.
+
+\end{itemize}
+
+\end{pro}
+
+
+
+\newpage
+
+
+
+
+\section{Bases ortonormales}
+
+Existen varias definiciones equivalentes de  la noción de  base hilbertiana.  En esta sección veremos varias y probaremos su equivalencia. Algunos autores consideran solamente espacios de Hilbert separables debido a que en ellos no es necesario recurrir al axioma de elección para demostrar la existencia de este tipo de bases. Eso fué lo que hizo Von Neumann en su primera axiomatización de los espacios de Hilbert. Posteriormente se descubrió que para gran parte de los resultados esta hipótesis no es necesaria.
+
+\begin{defi}
+
+Un conjunto $\{\, e_i\}_{i \in I}$ es una \index{base!ortonormal} {\sf base ortonormal} o \index{base!hilbertiana} {\sf base hilbertiana} si es un conjunto ortonormal maximal.
+
+\end{defi}
+
+\noindent{\bf Observación.} Cometeremos el abuso de notación de llamar simplemente bases a las bases hilbertianas.  Cuando queramos referirnos a una base de Hamel lo haremos siempre con su nombre completo. \fin
+
+
+ Según la definición, no existe ningún vector $x$ de norma 1, que sea perpendicular a todos los elementos de una base (hilbertiana), puesto que entonces el conjunto $\{e_i\} \cup \{x\}$ contendría estrictamente a la base, contradiciendo la maximalidad. Por la misma razón no puede existir ningún vector no nulo que sea ortogonal a todos los elementos de la base.
+
+\begin{teo}
+
+Todo espacio de Hilbert tiene una base ortonormal.
+
+\end{teo}
+
+\dem
+
+Consideramos la colección de todos los conjuntos ortonormales.  Cualquier cadena de conjuntos ortonormales tiene una cota superior, que es precisamente la unión de todos los elementos de la cadena.  Aplicando el lema de Zorn, vemos que existe un conjunto ortonormal maximal.  \fin
+
+
+
+
+
+\begin{cor}
+
+Dado cualquier conjunto ortonormal de vectores $A$, existe una base hilbertiana que lo contiene. Esto es, cualquier conjunto ortogonal se puede prolongar a una base hilbertiana.
+
+\end{cor}
+
+\dem
+
+Basta considerar los conjuntos ortonormales que contienen a $A$.  Como $A$ es ortonormal, este conjunto es no vacío.  El lema de Zorn nos garantiza la existencia de un conjunto maximal. Necesariamente dicho conjunto maximal es una base hilbertiana. \fin 
+
+
+\begin{propo}
+
+Un conjunto ortogonal $\{\, e_i\}$ es una base ortonormal si y solo si el mínimo subespacio cerrado que lo contiene es el total.
+
+\end{propo}
+
+\dem
+
+$\Rightarrow)$ Por reducción al absurdo.  Llamemos $F$ al mínimo subespacio cerrado que contiene a la base. Si dicho subespacio cerrado  no es el total, podemos dividir en suma directa el espacio de Hilbert $H = F\oplus F^\perp$.
+Tomando un vector unitario de $F^\perp$ conseguiríamos que la base hilbertiana no fuera un conjunto ortonormal maximal.
+
+$\Leftarrow)$  Sea $x$ un vector ortogonal a todo $e_i$.  Por linealidad, $x$ debe ser ortogonal al subespacio algebraico que genera el conjunto $\{e_i\}$.  Por continuidad, $x$ debe ser ortogonal al subespacio cerrado que genera $\{e_i\}$, que es todo el espacio. Necesariamente $x=0$ y el conjunto es ortogonal maximal. \fin
+
+  
+\begin{cor}
+
+Todo conjunto ortogonal se puede completar hasta obtener una base ortonormal.
+
+\end{cor}
+
+\dem
+
+Aunque este corolario ya está demostrado, damos una nueva demostración, que ilustra la potencia de la proposición anterior.
+
+Si $\{e_i\}$ es un conjunto ortonormal, sea $F$ el subespacio cerrado que genera. Este conjunto es base ortogonal del espacio $F$. Descomponemos en suma directa y tomamos una base ortonormal de $F^\perp$.  La unión de ambos conjuntos es una base ortonormal de todo el espacio. \fin 
+
+
+
+
+En los espacios vectoriales, todo vector es combinación lineal (finita) de elementos de una base de Hamel.  Resulta que en un espacio de Hilbert todo vector es una ``combinación lineal, posiblemente infinita'' de elementos de la base de Hilbert.  Naturalmente hemos puesto entrecomillada la expresión anterior puesto que no sabemos exactamente que significa. 
+
+\begin{defi}
+
+Dada una colección de vectores $\{x_\alpha\}_{\alpha \in \Lambda}$, donde $\Lambda$ puede ser infinito y no numerable, decimos que es \index{conjunto!sumable} {\sf sumable} si existe $x \in H$ que verifica: Para cualquier $\epsilon >0$ existe un conjunto finito $\Gamma \subset \Lambda$ tal que para cualquier conjunto finito $\Theta \supset \Gamma$ se tiene
+$$
+ \left\|\left(\sum_{\alpha \in \Theta} x_\alpha\right) -x\right\| < \epsilon
+$$
+
+\end{defi}
+
+
+Debemos tener en cuenta que la suma sobre $\Theta$ es finita y tiene sentido en cualquier espacio vectorial. Si existe el vector $x$ de la definición anterior lo denotamos por 
+$$
+ x= \sum_{\alpha \in \Lambda} x_\alpha
+$$
+y decimos que es la suma de la serie. Es sencillo comprobar que si existe el vector suma, necesariamente es único.
+
+
+\noindent{\bf Ejemplos.}
+
+\begin{itemize}
+
+\item Si la familia de vectores es finita la suma de la serie coincide con su suma vectorial.
+
+\item Si el conjunto $\Lambda$ es numerable, el vector $x$ se puede construir como límite de la sucesión de sumas parciales.  Sin embargo este concepto es un poco más fuerte que la simple convergencia de una serie.  En la definición de sumable, vemos claramente que el orden de los vectores no importa.  Luego si un conjunto numerable de vectores es sumable, la serie a la que dan lugar debe ser incondicionalmente convergente, esto es, que un cambio en el orden de los vectores no influye ni en la convergencia ni en la suma de la serie.
+
+\item Si $\{x_\alpha\}$ (omitimos el conjunto de índices) es sumable entonces $\{\lambda x_\alpha\}$ también es sumable y sus series cumplen
+$$
+ \sum \lambda x_\alpha = \lambda \sum x_\alpha
+$$
+De la misma forma, si dos conjuntos $\{x_\alpha\}$ e $\{y_\alpha\}$ son sumables, el conjunto $\{x_\alpha+y_\alpha\}$ es sumable y sus series cumplen
+$$
+\sum(x_\alpha+y_\alpha)=\sum x_\alpha + \sum y_\alpha
+$$
+
+\end{itemize}
+
+En realidad la definición de sumabilidad no es tan amplia como puede parecer en un principio. Veamos que es equivalente a la teoría de series sobre un conjunto numerable, que se puede estudiar entonces a través de las sumas parciales y el concepto de límite.
+
+\begin{propo}
+
+Si $\{x_\alpha\}$ es sumable, entonces todos los vectores salvo, como mucho, una colección numerable deben ser nulos.
+
+\end{propo}
+
+\dem
+
+Dado $\epsilon$ existe un conjunto finito $\Gamma$ tal que 
+$$
+\left\|\left(\sum_{\alpha \in \Theta} x_\alpha\right) -x\right\| <\frac{\epsilon}{2}
+\text{ para } \Theta \supset \Gamma
+$$
+Sea $x_\beta$ un  elemento que no esté en $\Gamma$.  Intentamos acotar la norma de este elemento
+$$
+\norma{x_\beta}= \left\| \sum_{\alpha \in \Gamma \cup \{\beta\}} x_\alpha- \sum_{\alpha \in \Gamma} x_\alpha\right\|
+$$
+Sumando y restando $x$ y aplicando la desigualdad triangular acotamos por
+$$
+\norma{x-\sum_{\alpha \in \Gamma\cup \{\beta\}} x_\alpha} + \norma{x-\sum_{\alpha \in \Gamma} x_\alpha} < \frac{\epsilon}{2}+\frac{\epsilon}{2}= \epsilon
+$$
+Elegimos ahora $\epsilon = 1/n$, y para cada $n$ construimos el conjunto $\Gamma_n$.  La unión de todos estos conjuntos es numerable.  Si $x_\beta$ no pertenece a dicho conjunto
+$$
+\norma{x_\beta} < \frac{1}{n} \text{ para todo } n
+$$
+Esto solo es posible si $x_\beta$ es nulo. \fin 
+
+Eliminando los vectores nulos, que no contribuyen a la suma, observamos que la serie con cardinal $\Lambda$ es equivalente a una serie sobre un conjunto numerable.  Como este conjunto numerable no tiene un orden prefijado, la serie debe ser incondicionalmente convergente. Podemos elegir entonces el orden que queramos en el conjunto numerable y ello no afectará a la suma de la serie.
+
+
+\begin{propo}[Desigualdad de Bessel]
+
+
+Sea $\{e_1, \dots , e_n\}$ una familia finita de vectores ortogonales.  Entonces para todo $x$ tenemos
+$$
+ \sum_{i=1}^n \abs{\escalar{x}{e_i}}^2 \leq \norma{x}^2
+$$
+
+\end{propo}
+
+\dem
+
+Sea $F$ el subespacio  generado por dichos vectores. Dicho subespacio es cerrado por ser de dimensión finita.  Podemos descomponer ortogonalmente el vector $x$ en dos componentes $x= x_1+x_2$ donde $x_1 \in F$ y $x_2 \in F^\perp$.  Aplicando el teorema de Pitágoras $\norma{x}^2 =\norma{x_1}^2 + \norma{x_2}^2$.
+
+Sea $x_1= \sum \lambda_i e_i$.  Realizando el producto escalar de esta expresión con los elementos $e_i$ se obtiene que $\lambda_i = \escalar{x_1}{e_i}$.  Como los vectores son ortonormales se tiene que
+$$
+\norma{x_1}^2= \abs{\lambda_1}^2+ \dots + \abs{\lambda_n}^2=\abs{\escalar{x}{e_1}}^2+ \dots +\abs{\escalar{x}{e_n}}^2
+$$
+Como $\norma{x_1}^2 \leq \norma{x}^2$ se obtiene la desigualdad. \fin 
+
+Si tomamos una colección numerable de vectores ortogonales en lugar de una suma tenemos una serie.  La serie está formada por números reales no negativos y tiene sus sumas parciales acotadas.  Necesariamente la serie es convergente y su suma debe ser menor o igual que $\norma{x}^2$.  De la misma manera, si tomamos una colección no numerable de vectores, veremos posteriormente que solamente una colección numerable es no nula y vale todo lo dicho.  En resumen, la desigualdad de Bessel es cierta para cualquier conjunto ortonormal, sea o no finito y sea numerable o no lo sea.
+
+
+\begin{cor}
+
+Sea $A$ un conjunto ortonormal arbitrario.  Dado $x \in H$ el conjunto
+$$
+ A_x=\{y \in A \text{ tales que } \escalar{y}{x}=0\}
+ $$
+ es finito o numerable.
+ 
+ \end{cor}
+ 
+ \dem
+ 
+ Denotemos por $B_n$ el conjunto
+ $$
+ B_n= \{y \in A \text{ tales que }\abs{\escalar{x}{y}} >\frac{1}{n} \}
+ $$
+ Aplicando la desigualdad de Bessel, este conjunto es finito.  El conjunto $A_x$  es la unión de los conjuntos $B_n$ y es entonces finito o numerable. \fin
+ 
+ 
+ \begin{cor}
+ 
+ Dado un  conjunto ortonormal $\{e_i\}$ el conjunto $\{\escalar{x}{e_i} e_i\}$ es sumable.
+ 
+ \end{cor}
+ 
+ \dem
+ 
+ Podemos, sin perdida de generalidad, suponer que el conjunto ortonormal es numerable, y dotar de un orden al conjunto, pues la serie es incondicionalmente convergente. Aplicando la desigualdad de Bessel
+ $$
+ \sum_{j=1}^n\abs{\escalar{x}{e_j}}^2 \leq \norma{x}^2
+ $$ 
+Ello implica que la serie de números complejos $\sum_{n=1}^\infty \abs{\escalar{x}{e_i}}^2$ es absolutamente convergente y por tanto de Cauchy. De esto se deduce que la serie vectorial del enunciado es también de Cauchy (utilizar la norma al cuadrado para hacer las acotaciones) y por lo tanto convergente. \fin
+
+Denotemos por $y$ la suma de la serie anterior. Como $y$ es la suma de una serie de vectores del subespacio algebraico generado por el conjunto ortonormal, $y$ pertenece al subespacio cerrado generado por el conjunto ortonormal. Veamos además que $x-y$ es perpendicular a cualquier elemento de $A$ 
+$$
+\textstyle\escalar{x-y}{e_j}= \escalar{x}{e_j}- \escalar{\sum \escalar{x}{e_i}e_i}{e_j}=  \escalar{x}{e_j} -\escalar{x}{e_j}=0
+$$
+donde hemos aplicado la continuidad del producto escalar para conmutar la serie con el producto escalar.  Por lo tanto si el conjunto ortonormal es una base hilbertiana tenemos
+
+
+\begin{cor}
+
+Todo vector $x$ es una combinación lineal numerable de elementos de la base.  Dicha combinación lineal es única.
+
+\end{cor}
+
+
+
+
+
+Dado un elemento $x$ y una base $\{\, e_i \}$ la expresión $x = \sum \lambda_i e_i$ se llama desarrollo en \index{serie de Fourier}{\sf serie de Fourier} del elemento $x$ en la base dada.  Los números $\lambda_i = \escalar{x}{e_i}$ son los \index{coeficientes de Fourier} {\sf coeficientes} de la serie de Fourier.
+
+\begin{propo}
+
+Si $\{\, e_i\}$ es una base ortonormal se cumplen las siguientes fórmulas
+$$
+\textstyle \escalar{x}{y}  = \sum_i \escalar{x}{e_i}\escalar{e_i}{y}
+\qquad \qquad \norma{x}^2 =  \sum_i \abs{\escalar{e_i}{x}}^2
+$$
+llamadas \index{identidad!de Parseval} {\sf identidades de Parseval}.
+
+\end{propo}
+
+
+\dem
+
+Desarollando en serie de Fourier cada vector y aplicando que el producto escalar es continuo
+$$
+\textstyle \escalar{x}{y} = \langle\sum_i \escalar{x}{e_i} e_i,\sum_j \escalar{y}{e_j} e_j\rangle = \sum_{ij}\escalar{x}{e_i}\overline{\escalar{y}{e_j}} \escalar{e_i}{e_j}
+$$
+de donde se deduce la primera identidad.  La segunda es un caso particular de la primera aplicado a la pareja donde se repite el elemento $x$.  \fin
+
+Como vemos la última identidad de Parseval es la generalización al caso infinito del teorema de Pitágoras. Además deja entrever el estrecho paralelismo existente entre los espacios de Hilbert y las sucesiones de cuadrado sumable, siempre que hayamos fijado una base.
+
+
+\begin{cor}
+
+Fijada una base ortonormal, la serie vectorial $\sum_\alpha \lambda_\alpha e_\alpha$ es sumable  si y solo si la serie de números complejos $\sum_\alpha \abs{\lambda_\alpha}^2$ es convergente.
+
+\end{cor}
+
+Sea $A$ un conjunto arbitrario. Denotamos por $l_2(A)$ al conjunto de funciones $f: A \rightarrow \mathbb{K}$ de  cuadrado sumable, esto es que la serie
+$$
+\sum_{\alpha \in A} \abs{f(\alpha)}^2 < \infty
+$$
+Es fácil comprobar que $l_2(A)$ es un espacio vectorial y que con el siguiente producto escalar
+$$
+\escalar{f}{g} = \sum_{\alpha \in A} f(\alpha) \overline{g(\alpha)}
+$$
+es un espacio de Hilbert. Una base ortonormal de este espacio está formada por las funciones que se anulan sobre todos los elementos de $A$ salvo sobre uno al que le asignan la unidad.
+
+\begin{teo}
+
+Sea $H$ un espacio de Hilbert y $A$ una base ortonormal.  La asignación que a cada elemento de $H$ le hace corresponder su serie de Fourier en la base $A$ es un isomorfismo de espacios de Hilbert.
+
+\end{teo}
+
+\dem
+
+La linealidad de la aplicación es casi evidente.  Si la serie de $f$ es nula, necesariamente $f$ es nula, lo que prueba su inyectividad.  Dada cualquier serie de cuadrado sumable se puede construir una serie de Fourier. Se comprueba, utilizando la desigualdad de Bessel, que dicha serie es sumable.  Esto implica que la aplicación es epiyectiva.  La conservación del producto escalar es justamente la primera de las identidades de Parseval. \fin 
+
+
+
+Ahora pretendemos demostrar que dadas dos bases hilbertianas de un mismo espacio de Hilbert, necesariamente su cardinal coincide, lo que nos llevará al concepto de dimensión (hilbertiana). Junto con el resultado anterior esto nos permitirá clasificar los espacios de Hilbert: Dos espacios de Hilbert son isomorfos si y solo si tienen la misma dimensión hilbertiana.
+
+
+\begin{teo}
+
+Sean $A$ y $B$ dos bases hilbertianas. Entonces tienen el mismo cardinal.
+
+\end{teo}
+
+\dem
+
+Dado $x_\alpha \in A$ consideramos el conjunto 
+$$
+B_\alpha= \{y_\beta \in B \text{ tales que } \escalar{x_\alpha}{y_\beta}=\neq 0\}
+$$
+Ya hemos demostrado que este conjunto es finito o numerable.  Todo elemento de $B$ debe pertenecer a algún $B_\alpha$ puesto que si no es así el conjunto $A$ no sería maximal. Como
+$$
+B= \bigcup_{\alpha \in A} B\alpha
+$$ 
+y cada $B_\alpha$ es finito o numerable tenemos que 
+$$
+\abs{A} \leq \abs{B} \aleph_0= \abs{B}
+$$
+Del mismo modo podemos obtener la otra desigualdad y concluir que ambos conjuntos tienen la misma potencia. \fin 
+
+
+
+\begin{defi}
+
+Llamamos {\sf dimensión} (hilbertiana) \index{dimensión:hilbertiana} al cardinal de una cualquiera de sus bases.
+
+\end{defi}
+
+
+\begin{propo}
+
+Si el espacio de Hilbert es separable, entonces su dimensión es finita o numerable.
+
+\end{propo}
+
+\dem
+
+Veamos que si la dimensión es mayor de $\aleph_0$ el espacio no es separable.  Existe un conjunto $A$ no numerable que forma una base ortonormal. La distancia entre dos elementos de $A$ es siempre $\sqrt{2}$.  Luego las bolas centradas en los elementos de $A$ y de radio $\sqrt{2}/{2}$ son disjuntas y forman un conjunto no numerable. Un conjunto denso debe tener al menos un punto en cada una de esas bolas.  Entonces no puede ser numerable.
+
+En temas anteriores ya hemos demostrado que $\mathbb{K}^n$ y $l_2$($=l_2(\N)$) son separables. Con esto podemos concluir. \fin
+
+\noindent{\bf Observación.} Aunque topológicamente no sea correcto, en mucha de la literatura, cuando se habla de un espacio de Hilbert separable, se están refiriendo a uno que tiene una base numerable y no finita. \fin
+
+
+
+
+
+
+\newpage
+
+\section*{Problemas}
+
+\begin{pro}
+
+Utilizar la desigualdad de Bessel para dar una nueva demostración de la desigualdad de Schwarz.
+
+\end{pro}
+
+\begin{pro}
+
+Demostrar que todos los espacios de Hilbert separables y de dimensión infinita son isomorfos.
+
+\end{pro}
+
+\begin{pro}
+
+Demostrar que si un espacio de Hilbert tiene dimensión hilbertiana finita, entonces coincide con su dimensión (algebraica).
+
+\end{pro}
+
+\begin{pro}
+
+Demostrar que en $l_2$ el conjunto
+$$
+e_1=(1,0,\dots ), e_2=(0,1,0,\dots) , \dots 
+$$
+es una base hilbertiana. La dimensión hilbertiana de $l_2$ es $\aleph_0$.
+Hacer lo mismo con $l_2(A)$ siendo $A$ un conjunto arbitrario.
+
+\end{pro}
+
+\begin{pro}
+
+Sea $A$ un conjunto ortonormal.  Si dicho conjunto satisface la identidad de Parseval para todo vector, entonces el conjunto ortonormal es maximal.
+
+\end{pro}
+
+
+\newpage
+
+\section{Operadores acotados}
+
+En el estudio de los espacios vectoriales dotados de una topología compatible cobran especial importancia las funciones que son a la vez lineales y continuas.  En el caso de los espacios normados se puede dar una definición equivalente a la continuidad que es mucho más simple de manejar, puesto que no recurre al concepto de límite.
+
+\begin{defi}
+
+Sean $E$ y $E'$ dos espacios vectoriales sobre un cuerpo arbitrario. Una \index{aplicación!lineal} {\sf aplicación lineal} es una función
+$T:E \rightarrow E'$ que cumple las propiedades:
+$$
+T(x+y)= T(x)+T(y) \qquad \qquad T(\lambda x) = \lambda T(x)
+$$
+
+
+\end{defi} 
+
+Al conjunto de todas las aplicaciones lineales de $E$ en $E'$ lo denotaremos $\text{L}(E,E')$.  Dicho conjunto se puede dotar de una estructura de espacio vectorial definiendo la suma y la multiplicación por escalares como
+$$
+(T+T')(x)=T(x)+T'(x) \qquad 
+(\lambda T)(x)= \lambda T(x)
+$$
+Si  $E=E'$ el conjunto de aplicaciones lineales se denota $\End (E)$ y sus elementos se llaman \index{endomorfismo} {\sf endomorfismos} u \index{operador} {\sf operadores} de $E$. El  conjunto $\End (E)$ puede ser dotado de una estructura de álgebra definiendo la multiplicación como la composición de aplicaciones.
+
+Si $F$ es un subespacio de $E$, su imagen por una aplicación lineal, $T(F)$, es un subespacio de $E'$.  Si $F'$ es un subespacio de $E'$ entonces su imagen inversa, $T^{-1}(F')$, es un subespacio de $E$. La antiimagen del subespacio nulo de $E'$ se denomina núcleo de $T$, y se denota $\Ker(T)$.  Una aplicación lineal es inyectiva si y solo si su núcleo es nulo.  En dimensión finita,  un endomorfismo es epiyectivo si y solo si es inyectivo.  Para demostrar la  existencia de la aplicación inversa $T^{-1}$, basta con comprobar que el núcleo es nulo.  Sin embargo en dimensión infinita esto es incorrecto.  Puede ocurrir que una aplicación sea inyectiva, pero sin embargo su imagen no sea todo el espacio.  En este caso debemos tener cuidado puesto que la aplicación inversa existe, pero está definida solamente en un subespacio.  
+
+Todo lo dicho es válido para cualesquiera espacios vectoriales.  A partir de ahora trabajaremos en espacios normados.
+
+\begin{defi}
+
+Un operador $T : E \rightarrow E'$ es \index{operador!acotado} {\sf acotado} si la imagen de la esfera unidad es un conjunto acotado.
+
+\end{defi}
+
+Esta definición implica la existencia de un número $M$ tal que
+$$
+\sup\{\norma{T(x)} : \norma{x}=1\} \leq M
+$$
+  A la menor de  dichas cotas la llamamos \index{norma!operador} {\sf norma} del operador lineal $T$ y la denotamos $\norma{T}$.  Resumiendo, la definición de la norma de un operador acotado es
+$$
+\norma{T}= \sup\{\norma{T(x)} : \norma{x}=1\} 
+$$
+
+
+\noindent{\bf Ejemplos.}
+
+\begin{itemize}
+
+\item El operador nulo tiene norma cero y el operador identidad tiene norma unidad. En general el operador $\lambda \Id$ tiene norma $\abs{\lambda}$.
+
+\item Sea $E$ un espacio euclídeo real de dimensión finita. Si $T$ es un operador diagonalizable, con autovalores $\{\lambda_i\}$, entonces la norma del operador coincide con $\max \abs{\lambda_i}$. En efecto, denotemos por  $\mu$ el autovalor de módulo máximo. Si $x$ es un autovector unitario de valor propio $\mu$ entonces
+$$
+\norma{T(x)}=\abs{\mu} \norma{x}= \abs{\mu}
+$$
+Necesariamente la norma debe ser mayor o igual que este valor. Para obtener cotas en las normas suele ser más sencillo trabajar con el cuadrado de la norma, debido a que así nos evitamos la aparición de la raíz cuadrada.  Desarrollando un vector unitario en función de una base diagonalizante tenemos
+$$
+\textstyle\norma{T}^2= \sup\{\norma{ T(x)}^2\}= \sup \{\abs{\lambda_i}^2 \abs{\xi_i}^2\} \leq \abs{\mu}^2
+$$
+siendo $x=\xi_i e_i$. 
+
+\item Todo operador en un espacio normado de dimensión finita es acotado. Tomamos una base ortonormal y escribimos la actuación de $T$ en coordenadas. De nuevo trabajamos con el cuadrado de la norma
+$$
+\norma{T(x)}^2=  (A_{ij} \xi_i)^2
+$$
+que es una función continua.  La imagen de la esfera unidad por esta aplicación es un conjunto compacto,  y por lo tanto acotado.
+
+
+\item Sea $H= L^2(\R)$ y sea $m(x)$ una función continua acotada ($\abs{m(x)} <k$ para todo $x \in \R$).  El operador $T(f)= m \cdot f$ es acotado. Tomemos $f$ de norma unidad y calculemos la norma de $T(f)$
+$$
+\norma{T(f)}^2= \int_{-\infty}^\infty \abs{m \cdot f}^2 = \int_{-\infty}^\infty \abs{m}^2 \cdot \abs{f}^2 \leq k^2 \int_{-\infty}^\infty \abs{f}^2 = k^2
+$$
+La norma de $T$ es menor que la cota de $m(x)$. En realidad la continuidad de $m(x)$ no se ha empleado y también se puede repetir el argumento si $m(x)$ está acotada en casi todo punto.
+
+
+\item En los espacios de dimensión infinita existen operadores no acotados. Por ejemplo, tomemos el espacio funcional $C^\infty([0,1])$. Es claro que $e^{\lambda t}$ pertenece a este espacio para cualquier $\lambda$.  El operador derivada cumple
+$$
+D(e^{\lambda t})= \lambda e^{\lambda t}
+$$
+Este operador no puede ser acotado, pues tiene autovalores de módulo arbitrariamente grande.
+
+\end{itemize}
+
+El conjunto de todos los operadores acotados de $E$ en $E'$ se denota $\text{A} (E,E')$.  Se comprueba rápidamente que dicho conjunto es un subespacio vectorial de $\text{L}(E,E')$.  Si el espacio de llegada es el cuerpo sobre el que está definido el espacio vectorial entonces el conjunto $\text{A}(E, \mathbb{K})$ se denota $E^*$, que no es otra cosa que nuestro viejo amigo, el  \index{espacio!dual}{\sf espacio dual}.  
+
+\begin{propo}
+
+El conjunto $\text{A} (E,E')$ es un espacio vectorial normado.  En el  espacio $\text{A} (E)$ se cumple además la desigualdad $\norma{T\circ T'} \leq \norma{T}\norma{T'}$.
+
+\end{propo}
+
+\dem
+
+Demostremos por ejemplo la desigualdad triangular.  Tomemos un vector $x$ de norma unidad.  Entonces
+$$
+\norma{(T+T')(x)} \leq \norma{T(x)}+\norma{T'(x)} \leq \norma{T}+ \norma{T'}
+$$
+Tomando supremos se concluye.  Las otras demostraciones son del mismo tipo o más sencillas. \fin
+
+\noindent{\bf Observación.}   Siempre que no se diga lo contrario supondremos que en el conjunto de los operadores acotados la topología proviene de esta norma.  \fin
+
+
+
+Según la definición de norma tenemos que 
+$$
+\norma{T(x)} \leq \norma{T}\norma{x}
+$$
+para todos los vectores de norma unidad. Normalizando los vectores se comprueba que dicha relación es válida para cualquier vector.
+
+\begin{propo}
+
+Si un operador $T$ es acotado entonces existe un número real positivo $M$ que cumple
+$$
+\norma{T(x)} \leq M  \norma{x}
+$$
+El menor de dichos números es precisamente $\norma{T}$.
+
+\end{propo}
+
+La demostración es elemental y sólo hace uso de los conceptos de supremo e ínfimo de un conjunto de números reales.  Como vemos esta es otra posible definición de norma de un operador:
+$$
+\norma{T}= \inf\{M \in \R \text{ tales que } \norma{T(x)}\leq M  \norma{x} \text{  para todo } x\}
+$$
+
+
+\begin{propo}
+
+Si $E'$ es completo, entonces $\text{A}(E,E')$ es completo. En particular, el espacio dual siempre es completo.
+
+\end{propo}
+
+\dem
+
+Sea $T_n$ una sucesión de Cauchy de operadores.  Dado $x \in E$, y aplicando el resultado  anterior, la sucesión $T_n(x)$ es una sucesión de Cauchy en $E'$.  Como $E'$ es completo debe existir un límite.  Esto nos permite construir una función
+$$
+T(x)= \lim_{n\rightarrow \infty} T_n(x)
+$$
+Se comprueba que esta función es un operador lineal, que es acotado (utilizar que una sucesión de Cauchy es acotada) y finalmente que $\lim T_n=T$ en el espacio de operadores. \fin 
+
+\begin{cor}
+
+El espacio dual de cualquier espacio euclídeo es siempre completo.
+
+\end{cor}
+
+\begin{teo}
+
+Un operador es acotado si y solo si es continuo.
+
+\end{teo}
+
+\dem
+
+Supongamos que $T$ es acotado. Sea $x_0$ un punto del dominio de $T$.
+$$
+\norma{T(x)-T(x_0)} = \norma{T(x-x_0)} \leq \norma{T} \norma{x-x_0}
+$$
+Como la última cantidad tiende a cero si $x \rightarrow x_0$, la aplicación es continua en el punto $x_0$ y por lo tanto es continua en todo punto.
+
+Recíprocamente, si $T$ es continua, en particular es continua en el origen.  Existen entonces dos números $\varepsilon$ y $\delta$ que cumplen
+$$
+\norma{T(x)} \leq \varepsilon \text{ si } \norma{x}\leq \delta
+$$
+
+Tomemos cualquier vector y lo multiplicamos para obtener otro vector de norma menor o igual que $\delta$.  Por ejemplo, dado $x$, podemos tomar el vector de norma~$\delta$
+$$
+\delta\frac{x}{\norma{x}}
+$$
+Aplicamos a este vector la fórmula anterior y obtenemos
+$$
+\norma{T\left(\delta\frac{x}{\norma{x}}\right)}\leq \varepsilon \Leftrightarrow \norma{T(x)} \leq \frac{\varepsilon}{\delta} \norma{x}
+$$
+Lo que en efecto demuestra que es acotado.  \fin
+
+Para definir una aplicación continua, basta con conocer su actuación sobre un subconjunto denso, como muestra la siguiente 
+
+\begin{propo}
+
+Sea $S \subset E$ un subconjunto denso.  Dada cualquier  función $f: S \rightarrow E'$, si existe una extensión continua $\hat f: E \rightarrow E'$, esta es única.
+
+\end{propo}
+
+\dem
+
+Como $S$ es denso en $E$, para cualquier $y \in E$ existe una sucesión $\{x_n\}$ que tiene límite $y$. Si $\hat f$ es continua, necesariamente debe cumplir
+$$
+\hat f (y) =\hat f(\lim x_n)= \lim\hat f(x_n)= \lim f(x_n)
+$$
+y la extensión queda totalmente determina por $f$. \fin
+
+\begin{cor}
+
+Si dos aplicaciones lineales continuas $T$ y $U$ coinciden sobre un subconjunto total $S$ (un subconjunto es total si el subespacio cerrado que genera es el total) entonces son iguales.
+
+\end{cor}
+
+\dem
+
+Si coinciden en $S$, por ser lineales deben coincidir en el subespacio (algebraico) que generan.  Pero por hipótesis este subespacio es denso y entonces, por el resultado anterior, tenemos que $T=U$. \fin 
+
+Veamos ahora otros criterios que nos aseguran la igualdad de dos operadores. El  primero es de demostración elemental.
+
+\begin{propo}
+
+Si $\escalar{T(x)}{y}= \escalar{U(x)}{y}$ para todo $x, y$, entonces $T=U$.
+
+\end{propo}
+
+\begin{propo}
+
+Si $\escalar{T(x)}{x}= \escalar{U(x)}{x}$ para todo $x, y$, entonces $T=U$.
+
+\end{propo}
+
+
+\dem
+
+En el caso real, la aplicación $\escalar{T(x)}{y}$ es bilineal.  La identidad de polarización, que se demuestra igual que en la proposición \ref{propo:polarizacion}, nos dice que podemos conocer el valor de $\escalar{T(x)}{y}$ en función de los valores $\escalar{T(x)}{x}$, lo que reduce este criterio a la proposición anterior.  En el caso complejo el razonamiento es el mismo, pero la identidad de polarización es un poco más ``compleja''. \fin 
+
+
+
+
+\newpage
+
+\section*{Problemas}
+
+\begin{pro}
+
+En el espacio dual $E^*$ de un espacio euclídeo hemos introducido dos normas.  Una deriva de la estructura euclídea que induce la polaridad y la otra es la norma como operadores.  Demotrar que ambas nociones coinciden, y por lo tanto $\norma{\omega_y}= \norma{y}$.
+
+\end{pro}
+
+\begin{pro}
+
+Si $E$ y $E'$ son espacios de Hilbert la norma de los operadores se puede calcular con la fórmula:
+$$
+\sup\{\abs{\escalar{T(x)}{y}} : \norma{x} \leq 1, \norma{y} \leq 1\}
+$$
+
+\end{pro}
+
+\begin{pro}
+
+Sea $F  \subset E$ un subespacio denso. Sea $T: E \rightarrow B$ una aplicación lineal continua, siendo $B$ un espacio de Banach.  Demostrar que solamente puede existir una aplicación lineal continua $U: E \rightarrow B$ que extienda a $T$.  Demostrar que dicha aplicación $U$ siempre existe. ¿Es eso mismo cierto si el espacio de llegada no es completo?
+
+\end{pro}
+
+
+
+\begin{pro}
+
+Si un operador $T$ es continuo en $0$, entonces es continuo en todos los puntos. En general, si un operador es continuo en un punto, es continuo en todos los puntos.
+
+\end{pro}
+
+\begin{pro}
+
+Sea $T$ acotado.  La imagen de cualquier conjunto acotado es también un conjunto acotado.
+
+\end{pro}
+
+\begin{pro}
+
+Si en los espacios normados $E$ y $E'$ se cambian sus normas por otras equivalentes, la norma introducida en el conjunto de operadores acotados es también equivalente.  El concepto de operador acotado es independiente de la normas tomadas, siempre que estas sean equivalentes.
+
+\end{pro}
+
+
+\begin{pro}
+
+Decimos que un operador acotado $T$ posee un {vector máximo}, si existe $y$ unitario tal que $\norma{T}= \norma{T(y)}$. Demostrar que todo operador en un espacio de dimensión finita posee al menos un vector máximo.
+
+\end{pro}
+
+
+\begin{pro}
+
+Se dice que un operador $T:E \rightarrow E$ tiene {\index{inverso por al izquierda}  \sf inverso por la izquierda} si existe otro operador $T'$ tal que $T' T= \Id$.  Análoga definición para inverso por la derecha:
+
+\begin{itemize}
+
+\item En dimensión finita un operador tiene inverso por la derecha, si y solo si tiene inverso por la izquierda, si y solo si es inyectivo, si y solo si el determinante de su matriz es nulo.
+
+\item En el espacio de polinomios se considera el operador ``derivada''. Demostrar que tiene inverso por un lado pero no por el otro.
+
+\end{itemize}
+
+
+
+\end{pro}
+
+
+\begin{pro}
+
+Demostrar que si $T(x) \perp x$ para todo vector $x$, entonces $T=0$.
+
+\end{pro}
+
+\newpage
+
+\section{Operadores en espacios de Hilbert}
+
+
+Recordemos que  hemos llamado polaridad  a la aplicación $\phi: E \rightarrow E^*$ definida por $\phi_x(y) = \escalar{y}{x}$.    El teorema de Riesz afirma que la polaridad es biyectiva e isométrica. En el caso real es lineal y en el complejo antilineal.
+
+\begin{defi}
+
+Dado  un operador continuo $T:E \rightarrow E'$, su traspuesta es la aplicación $T^* : (E')^* \rightarrow E^*$ definida por $T^* (\omega)= \omega \circ T$. 
+
+\end{defi}
+
+Esta es la misma definición que la utilizada en Álgebra Lineal.  Sin embargo aquí debemos comprobar que todo es continuo. En efecto, si $\omega$ es continua, entonces $T^*(\omega)= \omega \circ T$ es lineal por ser composición de lineales y también es continua, por ser composición de continuas. Hemos probado que  la aplicación traspuesta transforma el dual topológico de un espacio en el dual topológico del otro.  Veamos también que $T^*$ es acotada. Para todo $x \in E$
+$$
+T^*(\omega)(x)= \omega (T(x))
+$$
+En norma, la parte derecha tiene una acotación, pues tanto $\omega$ como $T$ están acotados
+$$
+\norma{\omega (T(x))} \leq \norma{\omega} \cdot \norma{T(x)}\leq \norma{\omega} \cdot \norma{T} \cdot \norma{x}
+$$
+Tenemos la acotación
+$$
+ \norma{T^*(\omega)(x)} \leq \norma{\omega} \cdot \norma{T} \cdot \norma{x}
+$$
+Si $\omega$ tiene norma menor o igual que 1, esta acotación demuestra que su imagen también está acotada.  La aplicación traspuesta está acotada.
+
+
+
+
+
+
+\begin{defi}
+
+Dado el endomorfismo $T:E \rightarrow E$, el adjunto de $T$, denotado $T^\dag$, es la única aplicación lineal que hace conmutativo el diagrama
+
+$$
+\xymatrix{
+E \ar[r]^{\objectstyle{\textstyle}T^\dag}\ar[d]_{\objectstyle{\textstyle}\phi}& E\ar[d]^{\objectstyle{\textstyle}\phi}\\
+E^* \ar[r]^{\objectstyle{\textstyle}T^*} & E^*
+}
+$$
+
+
+\end{defi}
+Sin  recurrir a diagramas podemos definir el adjunto con la fórmula
+$$
+T^\dag = \phi^{-1}\circ T^* \circ \phi
+$$
+o equivalentemente
+$$
+\phi \circ T^* = T^* \circ \phi
+$$
+ La primera de estas fórmulas prueba que  el adjunto existe, es único, es continuo y es lineal (las dos antilineales se compensan y dan lugar a una lineal).  La segunda da lugar a la {\sf propiedad fundamental} de esta construcción
+$$
+\escalar{T(x)}{y} = \langle x,T^\dag(y)\rangle
+$$
+Esta es la propiedad que normalmente se utiliza para definir el adjunto.  Presenta grandes ventajas, como veremos seguidamente, pero con esta construcción no ve muy claro ni la existencia ni la unicidad del adjunto. 
+
+
+\noindent{\bf Ejemplos.}
+
+\begin{itemize}
+
+\item El adjunto de la identidad es ella misma. El adjunto del operador $\mu \Id$ es $\overline{\mu} \Id$.
+
+\item Sea $H$ un espacio separable y $\{e_i\}$ una base ortonormal.  Dada una sucesión acotada $\{\mu_i\}$ de números complejos, se puede construir un único operador $T$ que cumple $T(e_i)= \mu_i e_i$. La definición explícita es $T( \lambda_i e_i) = \mu_i\lambda_i e_i$. 
+El operador adjunto de $T$ es el único que cumple $T^\dag(e_i)=\overline{\mu_i} e_i$, como se puede comprobar fácilmente.
+
+\item Sea $H$ separable y $\{e_i\}$ una base ortonormal.  Existe un único operador que cumple $T(e_i)= e_{i+1}$.  En el espacio $l_2$ y fijada la base estandard este operador actua como
+$$
+T(\lambda_1, \lambda_2, \dots)= (0,\lambda_1, \lambda_2, \dots)
+$$
+por lo que no es extraño que este operador se llame \index{operador!desplazamiento} {\sf operador de desplazamiento a la derecha}.  Es común denotar a este operador $T_{+1}$. El operador desplazamiento a la izquierda $T_{-1}$ cumple  $T_{-1}(e_i)=e_{i-1}$ (en el caso especial de $e_1$ su imagen es el cero). Ambos son adjuntos.
+
+\item Dado el espacio de las funciones de cuadrado sumable $L_{2}([0,1])$, sea $m:[0,1] \rightarrow \R$ una función acotada.  Tenemos el operador $T_m$ definido por $T_m(f)=mf$.  El adjunto es el operador asociado a la función conjugada de $m$. Con nuestra notación $(T_m)^\dag= T_{\overline{m}}$.
+
+\item Sea $A= a_{ij}$ la matriz de un operador $T$ en una base ortonormal y sea $B=b_{ij}$ la matriz de su adjunto en la misma base.  De una parte tenemos que
+$$
+\langle e_i,T^\dag(e_j)\rangle= \escalar{e_i}{b_{jk}e_k} = \overline{b_{jk}}\delta_{ik}=\overline{b_{ji}}
+$$
+Aplicando la definición de adjunto este resultado es igual a 
+$$
+\escalar{T(e_i)}{e_j)}=\escalar{a_{ik}e_k}{e_j}= a_{ik}\delta_{kj}=a_{ij}
+$$
+La matriz (siempre en una base ortonormal) de un operador y de su adjunto son traspuestas conjugadas.  En el caso real es simplemente la transpuesta.
+
+
+
+
+
+\end{itemize}
+
+
+\begin{propo}
+
+Sea $T$ y $U$ son dos operadores  se cumple:
+
+\begin{enumerate}[\indent 1) ]
+
+\item $(T+U)^\dag= T^\dag+U^\dag$
+
+\item $(\lambda T)^\dag = \overline{\lambda} U^\dag$ en el caso complejo. En el real $(\lambda T)^\dag = \lambda U^\dag$.
+ 
+\item $(TU)^\dag=U^\dag T^\dag$
+
+\item $(T^\dag)^\dag=T$
+
+\item Si $T$ es invertible entonces $(T^{-1})^\dag= (T^\dag)^{-1}$
+
+\end{enumerate}
+
+\end{propo}
+
+
+\dem
+
+
+
+\begin{enumerate}[1) ]
+
+
+\item Utilizamos la relación fundamental
+\begin{equation*}
+\begin{split}
+\escalar{(T+U)(x)}{y} = \escalar{T(x)}{y}+\escalar{U(x)}{y}=\\ \textstyle\escalar{x}{T^\dag(y)}+ \escalar{x}{U^\dag(y)}= \escalar{x}{(T^\dag+U^\dag)(y)}
+\end{split}
+\end{equation*}
+Por la unicidad del operador adjunto $(T+U)^\dag= T^\dag+U^\dag$.
+
+\item De nuevo la relación fundamental y la unicidad
+$$\textstyle
+\escalar{\lambda T(x)}{y}=\lambda\escalar{T(x)}{y}=\lambda \langle x,T^\dag(y)\rangle= \langle x, \overline{\lambda} T^\dag(y)\rangle
+$$
+
+\item $\escalar{TU(x)}{y}= \langle U(x),T^\dag(y)\rangle = \langle x, U^\dag T^\dag(y)\rangle$
+
+\item $\langle T^\dag(x),y\rangle =\overline{\langle y,T^\dag(x)\rangle}= \overline{\escalar{T(y)}{x}}= \escalar{x}{T(y)}$
+
+\item Aplicar el punto 3)  a la relación $T \circ T^{-1}= \Id$, teniendo en cuenta que $\Id^\dag=\Id$.
+
+\end{enumerate}
+
+Resumiendo, la operación de tomar adjuntos $T \rightarrow T^\dag$ es antilineal, biyectiva, idempotente (de cuadrado la identidad) y  también es un antimorfismo de anillos.  
+ 
+ \begin{propo}
+ 
+ Se cumplen las propiedades:
+ 
+ \begin{enumerate}[\indent 1) ]
+ 
+ \item $\norma{T^\dag}= \norma{T}$.
+ 
+ \item $\norma{T^\dag \circ T}= \norma{T}^2$.
+ 
+ \end{enumerate}
+ 
+ \end{propo}
+
+
+\dem
+
+\begin{enumerate}
+
+\item La norma de un operador en un espacio de Hilbert se puede calcular con
+$$
+\norma{T}=\sup\{\abs{\escalar{T(x)}{y}} \text{ con } \norma{x}= 1, \norma{y}=1\}
+$$
+Por la propiedad fundamental coincide la norma de $T$ con la de su adjunto.
+
+\item De la definición de norma de un operador  deducimos que
+$$
+\norma{T \circ T^\dag}\leq \norma{T} \cdot \norma{T^\dag}= \norma{T}^2
+$$
+lo que permite probar una desigualdad. Pero por otra parte
+$$
+\norma{T(x)}^2= \escalar{T(x)}{T(x)}= \langle x,T^\dag T(x)\rangle \leq \norma{T^\dag \circ T} \cdot \norma{x}^2
+$$
+Tomando supremos obtenemos la otra desigualdad. \fin 
+
+\end{enumerate}
+
+
+\noindent{\bf Observación.}  La operación de tomar adjuntos $T\rightarrow T^\dag$ verifica muchas propiedades similares a la operación de tomar conjugados $\lambda \rightarrow \overline{\lambda}$ en el cuerpo complejo.  Existen aún muchas más analogías, algunas de las cuales las veremos posteriormente. \fin
+
+
+
+
+
+
+
+
+Una vez introducida la noción de adjunto podemos definir varios tipos de operadores que son propios de los espacios euclídeos.
+
+\begin{defi}
+
+Un operador $T$ es \index{operador!autoadjunto} {\sf autoadjunto} si $T^\dag =T$.
+
+\end{defi}
+
+En el caso real, los operadores autoadjuntos también se llaman \index{operador!simétrico}  {\sf simétricos}, puesto que su matriz es simétrica (en una base ortonormal, naturalmente).  Asimismo, los operadores autoadjuntos complejos también se suelen llamar \index{operador!hermítico} {\sf hermíticos}.
+Demos nuevos criterios para detectar que un operador es autoadjunto.
+
+\begin{propo}
+
+Son equivalentes las siguientes condiciones:
+
+\begin{itemize}
+
+\item T es autoadjunto.
+
+\item $\escalar{T(x)}{y}= \escalar{x}{T(y)}$ para todo $x,y$.
+
+\item $\escalar{T(x)}{x}= \escalar{x}{T(x)}$ para todo $x$.
+
+\item $\escalar{T(x)}{x}$ es real para todo $x$.
+
+
+\end{itemize}
+
+\end{propo}
+
+
+\dem
+
+La única parte no trivial consiste en demostrar que es autoadjunto suponiendo que $\escalar{T(x)}{x}$ es real
+$$
+\textstyle\escalar{T(x)}{x}= \overline{\escalar{T(x)}{x}}= \escalar{x}{T^\dag(x)}= \escalar{T^\dag(x)}{x}
+$$
+Pero si esto es cierto, utilizando las identidades de polarización, también se cumplen la relación fundamental. \fin
+
+
+\noindent{\bf Ejemplos}
+
+
+\begin{itemize}
+
+\item Dada una base ortonormal, sea $T$ el único operador continuo que satisface $T(e_i)=\lambda_i e_i$.  Si $\lambda_i$ es real para todo $i$, entonces $T$ es autoadjunto.
+
+\item Si $T$ es autoadjunto y $U$ es cualquier operador, el operador $U^\dag T U$ es siempre autoadjunto.  En efecto, si calculamos su adjunto
+$$
+(U^\dag T U)^\dag = U^\dag T^\dag  U^{\dag\dag} = U^\dag T U
+$$
+
+\item Si $T$ es autoadjunto entonces $\escalar{T(x)}{x}$ es siempre real.  Tiene entonces sentido la definición: un operador autoadjunto es \index{operador!positivo}  {\sf positivo} si $\escalar{T(x)}{x} \geq 0$ para todo $x$. El recíproco también es cierto: si $T$ es positivo, en particular $\escalar{T(x)}{x}$ es siempre real y entonces $T$ es autoadjunto.
+
+\end{itemize}
+
+La demostración de la siguiente proposición no requiere ningún esfuerzo.
+
+\begin{propo}
+
+Se cumplen las propiedades:
+
+\begin{enumerate}
+
+\item Si $T$ y $U$ son autoadjuntos, $T+U$ es autoadjunto.
+
+\item Si $\alpha$ es real y $T$ autoadjunto, $\alpha T$ es autoadjunto.
+
+\item Si $T$ es un operador arbitrario, $T^\dag T$ es autoadjunto.
+
+\item Si $T$ es un operador arbitrario, $T^\dag \pm T$ es autoadjunto.
+
+\end{enumerate}
+
+\end{propo}
+
+De las dos primeras propiedades deducimos que el conjunto de los operadores autoadjuntos es un subespacio, pero es un subespacio real y no un subespacio complejo.  En cierto sentido, y mirando la analogía con la conjugación compleja, los operadores autoadjuntos se podrían asimilar a los números reales.  Como en el caso del cuerpo complejo, tenemos una descomposición cartesiana.
+
+\begin{propo}
+
+Todo operador acotado $T$ se puede escribir de modo único como $T= A+iB$ siendo $A$ y $B$ operadores autoadjuntos.
+
+\end{propo}
+
+\dem
+
+Sea $A=(T+T^\dag)/2$ y $B=(T-T^\dag)/2i$. Tanto $A$ como $B$ son autoadjuntos y se cumple $T=A+ iB$. La unicidad no es difícil de probar (utilizar que si $U$ es autoadjunto, entonces $iU$ no es autoadjunto). \fin 
+
+\begin{defi}
+
+Un operador es {\sf unitario} \index{operador!unitario} si $T^\dag \circ T= T\circ T^\dag= \Id$.
+
+\end{defi}
+
+\begin{propo}
+
+Sea $T$ un operador unitario. Entonces se cumple:
+
+\begin{enumerate}[\indent 1) ]
+
+\item $T^\dag$ es también unitario.
+
+\item $T$ y $T^\dag$ conservan la norma (se dice que un operador $U$ conserva la norma si $\norma{U(x)}=\norma{x}$ para todo $x$).  Por lo tanto $T$ y $T^\dag$ conservan las distancias.
+
+\item $T$ y $T^\dag$ conservan el producto escalar (se dice que un operador $U$ conserva el producto escalar si $\escalar{U(x)}{U(y)}= \escalar{x}{y}$ para todo $x,y$).
+
+\item $T$ es biyectivo y su inversa es $T^{-1}= T^\dag$.
+
+
+\end{enumerate}
+
+
+\end{propo}
+
+\dem
+
+
+\begin{enumerate}
+
+\item Basta tener en cuenta que $T^{\dag\dag}=T$.  La misma definición sirve para afirmar que el adjunto es unitario.
+
+\item Basta demostrar que todos los operadores unitarios conservan la norma
+$$
+\norma{T(x)}^2= \escalar{T(x)}{T(x)}=\langle x, T^\dag T(x)\rangle = \escalar{x}{x}=\norma{x}^2
+$$
+
+\item El mismo  argumento que en punto anterior prueba que todo operador unitario conserva el producto escalar.
+
+\item De la definición de unitario se deduce que necesariamente $T$ es biyectiva.  En este caso, otra vez la definición, nos da el resultado.
+
+
+
+
+\end{enumerate}
+
+\begin{cor}
+
+La imagen de un base ortonormal por un operador unitario es una base ortonormal.  El recíproco también es cierto: Si $T$ es un operador que transforma una base ortonormal en otra base ortonormal, entonces es unitario.
+
+\end{cor}
+
+\noindent{\bf Observación.} En dimensión infinita es necesario introducir en la definición las dos condiciones $T^\dag \circ T = \Id$ y $T\circ T^\dag= \Id$. Por ejemplo, sea $H$ un espacio de Hilbert separable y $\{e_k\}$ una base ortonormal. El único operador que cumple $T(e_k)=e_{k+1}$ es inyectivo, pero no es epiyectivo y no puede cumplir una de las propiedades.  En dimensión finita se puede dar una de las identidades, puesto que la otra se deduce de ella. \fin
+
+\noindent{\bf Ejemplos.}
+
+\begin{itemize}
+
+\item Sea $\{e_k\}$ una base ortonormal. Si $T$ es el único operador que cumple $T(e_k) =\lambda_k e_k$ con $\abs{\lambda_k}=1$, entonces $T$ es unitario.
+
+\item Si $T$ y $U$ son unitarios, entonces su composición $ T\circ U$ es también unitario.  Como el inverso de un unitario es también unitario, esto demuestra que el conjunto de operadores unitarios es un grupo. Si la dimensión de $H$ es $n$ y $H$ es complejo, este grupo se suele denotar $\mathrm{U}(n)$.  En el caso real se denota $\mathrm{O}(n)$.  En el caso de un espacio de Hilbert general lo podemos denotar $\mathrm{U}(H)$, pero esta notación no es estandard.
+
+
+
+
+\end{itemize}
+
+\begin{defi}
+
+Un operador $T$ es un \index{operador!proyector} {\sf proyector} (ortogonal) si $T^\dag = T = T \circ T$
+
+\end{defi}
+
+
+\noindent{\bf Ejemplos.}
+
+\begin{itemize}
+
+\item El ejemplo paradigmático de proyector se construye como sigue: Sea $F$ un subespacio cerrado y $E= F \perp F^\perp$ la descomposición en suma directa.  La proyección en el primer factor, que denotamos $P_F$, es un proyector. Fácilmente se comprueba que este operador es autoadjunto y que su cuadrado coincide con el mismo, puesto que en una parte de la suma directa es la identidad, y en la otra es el operador nulo.  
+
+\item Sea $F$ un subspacio de dimensión unidad e $y$ un vector unitario.  La aplicación $T(x)= \escalar{x}{y} y$ es el proyector ortogonal en el subespacio.  No es difícil generalizar este ejemplo para subespacios de dimensión finita, elegiendo una base ortonormal en el subespacio.
+
+\end{itemize}
+
+\begin{propo}
+
+Todo proyector $T$ es la proyección ortogonal en un cierto subespacio cerrado.
+
+\end{propo}
+
+\dem
+
+Sea $T$ un proyector ortogonal. Construimos dos subespacios $F=\mathrm{Ker}(T)$ y $G= \mathrm{Im}(T)$. Su intersección es nula, puesto que si $x$ pertenece a ella entonces
+$$
+x=T(y) \quad \Longrightarrow \quad  0=T(x)=T^2(y)= T(y)=x
+$$
+Si ahora $x$ es un vector arbitrario, entonces $x= (x-T(x))+T(x)$.  El  último elemento de esta suma pertenece a la imagen de $T$ y el primero pertenece al núcleo de $T$ puesto que
+$$
+T(x-T(x))= T(x)-T^2(x)=T(x)-T(x)=0
+$$
+De la condición de autoadjunto se deduce que los dos subespacios son ortogonales entre si. Además son cerrados, debido a que el proyector es un operador continuo. \fin 
+
+
+\noindent{\bf Ejemplos.}
+
+
+\begin{itemize}
+
+\item La norma de un proyector siempre es 1. Si el proyector es $P_F$ y $x\in F$ de norma unidad, entonces $P_F(x)=x$.  La norma debe ser mayor o igual que 1. Para cualquier otro vector $y$ lo descomponemos siguiendo la suma directa. Si $x= x_1+x_2$ entonces $P_F(x)=x_1$.  Por la desigualdad triangular, la norma debe ser menor o igual que 1.
+
+\item Un proyector siempre es un operador positivo.
+
+\item Si $P_F\circ P_G=0$ entonces los subespacios $F$ y $G$ son ortogonales. Sea $x \in F$ e $y \in G$, entonces
+\begin{equation*}
+\begin{split}
+\escalar{x}{y}= \escalar{P_F(x)}{P_G(y)}= \langle x,(P_F)^\dag \circ P_G(y)\rangle=\\
+ \escalar{x}{(P_F)\circ P_G(y)}= \escalar{x}{0}=0
+\end{split}
+\end{equation*}
+El recíproco también es cierto. Esto justifica la siguiente denominación: Dos proyectores son {\sf perpendiculares} entre si \index{proyectores!perpendiculares} si su producto es nulo. Se denota $T \perp T'$.
+
+\item Si $P$ es el proyector en el subespacio $F$, entonces $\Id -P$ es el proyector en el subespacio $F^\perp$.
+
+\item Si $P$ y $Q$ son dos proyectores que conmutan, entonces $P \circ Q$ es un proyector.
+$$
+\begin{array}{l}
+(P Q)^2= PQPQ = PPQQ=PQ \\
+ (PQ)^\dag= Q^\dag P^\dag = QP=PQ
+ \end{array}
+$$
+ El subespacio asociado es la intersección de los subespacios asociados a $P$ y a $Q$.
+
+\item Si $F$ y $G$ son dos subespacios ortogonales, el proyector en su suma directa es $P_F+P_G$. El recíproco también es cierto: Si la suma de dos proyectores es un proyector, entonces los subespacios asociados son ortogonales.
+
+\end{itemize}
+
+
+\begin{defi}
+
+Un operador $T$ es \index{operador!normal} {\sf normal} si $T^\dag \circ T = T \circ T^\dag$.
+
+\end{defi}
+
+La siguiente proposición es evidente.
+
+\begin{propo}
+
+Si $T$ es un operador normal, son ciertas las afirmaciones:
+
+\begin{enumerate}
+
+
+\item $T^\dag$ es normal.
+
+\item $\norma{ T^\dag(x)} =\norma{T(x)}$ para todo $x$. Como corolario se deduce que $T$ y $T^\dag$ tienen el mismo núcleo.
+
+\item Si $T$ es invertible, entonces $T^{-1}$ es también normal.
+
+\item Sea $T=A+iB$ la descomposición cartesiana. Entonces $AB=BA$.  El recíproco también es cierto: Si $T=A+iB$ y los operadores $A$ y $B$ conmutan, entonces $T$ es normal.
+
+\end{enumerate}
+
+\end{propo}
+
+
+
+
+
+
+
+
+
+\newpage
+
+\section*{Problemas}
+
+\begin{pro}
+
+Si $T^\dag \circ T=0$ entonces $T=0$.
+
+\end{pro}
+
+\begin{pro}
+
+Decimos que un operador es \index{operador!antihermítico} {\sf antihermítico} si $T^\dag=-T$.  Demostrar que $T$ es antihermítico si y solo si $i T$ es autoadjunto.
+
+\end{pro}
+
+
+
+\begin{pro}
+
+Los operadores positivos cumplen las siguientes propiedades:
+
+\begin{itemize}
+
+\item Si $T$ y $U$ son positivos su suma también lo es.
+
+\item Si $\alpha > 0$ y $T$ es positivo, entonces $\alpha T$ es positivo.
+
+\item Para cualquier operador $T^\dag \circ T$ es siempre positivo.
+
+
+\end{itemize}
+
+\end{pro}
+
+
+\begin{pro}
+
+En Álgebra Lineal se llama proyección  a todo endomorfismo $T$ que cumple $T^2=T$.
+
+\begin{itemize}
+
+\item Demostrar que toda proyección da lugar a una descomposición en suma directa de dos subespacios, uno de los cuales es el núcleo de $T$ y el otro es la imagen de $T$.
+
+\item Demostrar que toda descomposición de un espacio vectorial en suma directa de dos subespacios da lugar a una proyección.
+
+\item Si el espacio es euclídeo la proyección es autoadjunta si y solo si la suma directa de los espacios es ortogonal.
+
+
+\end{itemize}
+
+\end{pro}
+
+\begin{pro}
+
+Para un operador $T$ on equivalentes los siguientes enunciados:
+
+\begin{itemize}
+
+\item $T$ conserva la norma (o la distancia).
+
+\item $T$ conserva el producto escalar.
+
+\item $T^\dag \circ T= \Id$.
+
+
+\end{itemize}
+
+Los operadores que cumplen alguna de las tres condiciones equivalentes anteriores se llaman \index{operador!isométrico}  {\sf isométricos}.  Un operador isométrico siempre es inyectivo, pero no necesariamente epiyectivo.  Si $T$ es epiyectivo, entonces $T$ es unitario.  En dimensión finita, como la inyectividad implica la epiyectividad, isométrico es lo mismo que unitario.
+
+\end{pro}
+
+
+\begin{pro}
+
+Demostrar que $\mathrm{Im}(A)^\perp = \mathrm{Ker}(A^\dag)$.
+
+\end{pro}
+
+
+\begin{pro}
+
+Sea $T$ un proyector ortonormal:
+
+\begin{itemize}
+
+\item $T(x)= x$ si y solo si $\norma{T(x)}= \norma{x}$.
+
+\item $\norma{T(x)}^2 = \escalar{T(x)}{x}$.
+
+\end{itemize}
+
+\end{pro}
+
+\begin{pro}
+
+Dado un operador $T$ y un subespacio cerrado $F$.  El subespacio $F$ es invariante por $T$ si y solo si $T\circ P_F=P_F\circ T\circ P_F$.
+
+\end{pro}
+
+
+\begin{pro}
+
+Se cumple $P_F \leq P_G$ si y solo si $F \subset G$ si y solo si $P_F\circ P_G=P_F = P_F\circ P_G$.
+
+\end{pro}
+
+\begin{pro}
+
+La resta $P_F-P_G$ es un proyector si y solo si $G \subset F$. El subespacio al que proyecta es $F \cap G^\perp$.
+
+\end{pro}
+
+
+\newpage
+
+\section{Teoría espectral. Nociones básicas}
+
+
+
+En Álgebra Lineal, o lo que es lo mismo, en dimensión finita, la teoría espectral tiene como objetivo principal la clasificación de endomorfismos, bajo la siguiente relación de equivalencia: Dos endomorfismos $T$ y $U$ son \index{endomorfismos!equivalentes} {\sf equivalentes} si existe un operador invertible $A$ tal que $T= A^{-1} \circ U \circ A$. En términos matriciales resulta que dos endomorfismos son equivalentes si tienen representaciones matriciales idénticas.  En Análisis Funcional se emplean muchas de las técnicas habituales de Álgebra Lineal, pero en dimensión infinita se debe emplear otro tipo de maquinaria.  En esta sección nos ocupamos de  las técnicas estandard de Álgebra Lineal, pero iremos introduciendo  conceptos necesarios en dimensión infinita.
+
+
+\begin{defi}
+
+Sea $T: E \rightarrow E$ un endomorfismo. Un subespacio $F$ es \index{subespacio!invariante} {\sf in\-va\-riante} por $T$ si $T(F) \subset F$.
+
+\end{defi}
+
+Si $F$ es invariante, la imagen de $F$ está contenida en $F$. Por restricción, la aplicación $T$ induce un endomorfismo, que seguiremos denotanto $T$, del subespacio $F$. Naturalmente, si $E$ es un espacio euclídeo y $T$ está acotada, su restricción al subespacio sigue estando acotada.
+
+Los subespacio invariantes unidimensionales $F$, cumplen la propiedad: Si $x \in F$ no nulo entonces $T(x)= \lambda x$.  El valor $\lambda$ no depende para nada del vector $x$ escogido.  Se suele emplear en estos casos una notación algo distinta.
+
+\begin{defi}
+
+Un elemento no nulo  $x \in E$ es un \index{vector propio} {\sf vector propio} (o \index{autovector}  {\sf autovector}) de $T$ si $T(x)=\lambda x$ para cierto escalar $\lambda$.  Un escalar $\lambda$ es un \index{valor propio} {\sf valor propio} (o \index{autovalor} {\sf autovalor}) de $T$  si existe $x$ no nulo tal que $T(x)= \lambda x$.
+
+\end{defi}
+
+\noindent{\bf Ejemplos.}
+
+\begin{itemize}
+
+\item Si $x$ tiene un valor propio asociado, todos los vectores proporcionales tienen asociado el mismo valor propio.
+
+
+\item Tenemos que $\lambda$ es un valor propio si y solo si $\mathrm{Ker}(T-\lambda)$ es no nulo.  La dimensión de este subespacio  es el \index{grado de degeneración} {\sf grado de degeneración} del valor propio $\lambda$. Otra forma de expresar lo mismo es la siguiente: $\lambda$ es autovalor si y solo si el operador $T-\lambda$ no es invertible.
+
+
+\item Por el ejemplo anterior, los autovalores en dimensión finita son precisamente las raices del polinomio característico (el polinomio característico es el  determinante de $T- x\Id$). Si el cuerpo es algebraicamente cerrado el polinomio tiene necesariamente una raíz y el endomorfismo tiene al menos un valor propio.
+
+\item Si $F$ es invariante por $T$ y también es invariante por $U$ entonces $F$ es invariante por $T+U$, por $\lambda T$ y por $T \circ U$.
+
+\item Si $T$ es un operador no nulo que cumple $T^n=0$ (es lo que se llama un operador \index{operador!nilpotente}  {\sf nilpotente}), entonces el único valor propio de $T$ es $0$.
+
+\item Si $T$ es un operador no nulo que cumple $T^2=T$ (un operador así se llama \index{operador!idempotente} {\sf idempotente}, aunque también se llama {\sf proyección}). Si $T$ tiene algún valor propio, necesariamente es  0 o 1.
+
+\item Sea $E=L_2(\R)$ y $T$ el operador integral
+$$
+T(f)(t)= \int_0^t f(x) \mathrm{d}x
+$$
+Este operador no puede tener autovectores. Supongamos que tiene  un vector propio $f$. Entonces la integral de $f$ sería proporcional a $f$. Por cálculo diferencial sabemos que esto es cierto si y solo si $f$ es una exponencial.  Pero las exponenciales no son de cuadrado sumable en toda la recta real.
+
+\item Sea $\{e_i\}$ una base ortonormal y $\mu_i$ una sucesión acotada. Sea $T$ el  operador que cumple $T(e_i)=\mu_i e_i$ (un operador de este tipo se llama \index{operador!diagonal} {\sf diagonal}, puesto que la matriz en esta base es diagonal). Todos los elementos de la sucesión $\mu_i$ son autovalores. ¿Podrá tener otro autovalores distintos? 
+
+
+\end{itemize}
+
+El siguiente resultado es elemental y de gran importancia.
+
+
+\begin{propo}
+
+Si $T$ es autoadjunto y $F$ es invariante, entonces $F^\perp$ es invariante.
+
+\end{propo}
+
+\dem
+
+Sea $y \in F^\perp$.  Tenemos que $T(y)$ sigue estando en el subespacio si es perpendicular a todo elemento de $F$. Pero esto es cierto, puesto que si $ x \in F$
+$$
+\escalar{x}{T(y)}= \escalar{T(x)}{y}
+$$
+que es nulo debido a que $T(x) \in F$. \fin
+
+En este caso el espacio total $E$ se descompone en suma directa de dos 
+subespacios invariantes, $E= F \perp F^\perp$.  El siguiente resultado también admite una demostración similar.
+
+\begin{propo}
+
+Si $F$ es invariante por $T$ entonces $F^\perp$ es invariante por $T^\dag$.
+
+\end{propo}
+
+
+
+
+
+\begin{propo}
+
+Si $T$ es autoadjunto y $\lambda$ es un valor propio, entonces $\lambda$ es real.
+
+\end{propo}
+
+\dem
+
+Por una parte
+$$
+\escalar{T(x)}{x}= \escalar{\lambda x}{x}= \lambda \escalar{x}{x}= \lambda  \norma{x}^2
+$$
+Pero por ser autoadjunto también es cierto que
+$$
+\escalar{T(x)}{x}= \escalar{x}{T(x)}= \escalar{x}{\lambda x}= \overline{\lambda} \norma{x}^2
+$$
+Como la norma no es nula, necesariamente $\lambda= \overline{\lambda}$ y el autovalor es real. \fin
+
+\begin{propo}
+
+Sea $T$ es autoadjunto, $x,y$ dos autovectores de distinto valor propio, entonces son perpendiculares.
+
+\end{propo}
+
+\dem
+
+Utilizaremos que ambos autovalores, que denotamos $\lambda$ y $\mu$ son reales
+$$
+\escalar{T(x)}{y}= \escalar{\lambda x}{y}= \lambda \escalar{x}{y}
+$$
+Pero por ser $T$ autoadjunto, esto es igual a 
+$$
+\escalar{x}{T(y)}= \escalar{x}{\mu y}= \overline{\mu}\escalar{x}{y}= \mu \escalar{x}{y}
+$$
+Como $\lambda \neq \mu$, necesariamente $\escalar{x}{y}=0$. \fin 
+
+
+\begin{cor}
+
+Si $\lambda$ y $\mu$ son autovalores de un operador autoadjunto, entonces los subespacios $F=\mathrm{Ker}(T-\lambda)$ y $G= \mathrm{Ker}(T-\mu)$ son ortogonales.
+
+\end{cor}
+
+
+Ya estamos en disposición de probar el teorema espectral para operadores autoadjuntos. Para comenzar a trabajar debemos asegurarnos que todo operador autoadjunto tiene al menos un autovalor.  En el caso complejo esto es evidente, pues al ser algebraicamente cerrado, el polinomio característico tiene al menos una raíz, que es lo mismo que un autovalor.  Para el caso real debemos realizar algunos comentarios: Sea $T :E \rightarrow E$ un operador autoadjunto real. Su complexificado $T^+: E^+\rightarrow E^+$ es autoadjunto con respecto al producto escalar inducido.  Como $T^+$ es complejo tiene un autovalor, pero como es autoadjunto, necesariamente dicho valor propio es real. Pero entonces dicho autovalor es también autovalor de $T$.  Concluimos que todo operador autoadjunto real en dimensión finita tiene autovalores.
+
+
+
+\begin{teo}[Teorema espectral autoadjunto 1]
+
+ Para todo operador autoadjunto (en dimensión finita) existe una base ortonormal constituida por vectores propios del operador.
+
+\end{teo}
+
+\dem
+
+Sea $T$ autoadjunto  y $\lambda$ un valor propio.  Existe un vector, de norma uno, que tiene como valor propio $\lambda$.  Sea $x$ dicho vector. Naturalmente el subespacio $[x]$ (denotamos por $[S]$ el subespacio generado por un subconjunto $S$) es invariante por $T$.  Descomponemos el espacio vectorial en suma directa
+$$
+E= [x] \oplus [x]^\perp
+$$
+Resulta que $T$ actuando en el subespacio $[x]^\perp$ es autoadjunto y por inducción podemos tomar una base ortonormal de vectores propios en dicho subespacio.  \fin
+
+\begin{teo}[Teorema espectral autoadjunto 2]
+
+En di\-mensión finita, si $T $ es un operador  autoadjunto y $\lambda_1, \dots , \lambda_r$ son sus valores propios, entonces tenemos la siguiente descomposición en suma directa (y también ortogonal)
+$$
+E= \Ker(T-\lambda_1) \oplus \dots \oplus \Ker (T-\lambda_r)
+$$
+
+\end{teo}
+
+\dem
+
+En la base obtenida en el teorema anterior, juntamos todos los vectores que tienen autovalor $\lambda_i$.  De este modo se comprueba que la suma de los subespacios es el espacio total y que tienen intersección nula.  Luego la suma es directa.  \fin
+
+
+\noindent{\bf Observación.} Otra posible demostración sigue el siguiente esquema: Si $T$ es autoadjunto, tiene un autovalor $\lambda$.  El subespacio $F=\mathrm{Ker}(T-\lambda)$ es invariante por $T$.  Se puede descomponer en suma directa el espacio total $E= F \perp F^\perp$.  El operador restringido a cada subespacio sigue siendo autoadjunto. Por inducción podemos seguir descomponiendo el ortogonal hasta lograr la descomposición que afirma esta nueva versión del teorema espectral. \fin
+
+Dado un operador autoadjunto $T$, sean $\lambda_i$ sus autovalores.  Denotemos por $P_i$ al proyector ortogonal sobre el subespacio $\mathrm{Ker}(T-\lambda)$. Las siguientes propiedades son casi evidentes:
+
+\begin{itemize}
+
+\item $P_i \circ P_j=0$ si $i \neq j$.
+
+\item $\Id= P_1 + P_2 + \dots +P_k$.
+
+\item $T= \lambda_1 P_1+ \lambda_2 P_2+ \dots + \lambda_k P_k$.
+
+\end{itemize}
+
+
+
+Esta es una nueva versión del teorema espectral.  Todo operador autoadjunto se puede escribir como combinación lineal (de un cierto tipo especial) de proyectores ortogonales.
+
+Hemos demostrado que todo operador autoadjunto es diagonal en una base ortonormal. Sin embargo pueden existir operadores que no sean autoadjuntos y que cumplan la misma condición. Veamos como pueden ser. Si $T$ es diagonal en una base ortonormal entonces $T(e_i) = \lambda_i e_i$.  Su adjunto es entonces $T^\dag (e_i)= \overline{\lambda_1} e_i$. Es claro que $T$ y $T^\dag$ conmutan. Necesariamente $T$ es normal.  Vamos a demostrar que el recíproco también es cierto.
+
+\begin{lema}\label{lema:valorpropionormal}
+
+Sea $T$ normal.  Si $x$ es un vector propio de $T$ de valor propio $\lambda$, entonces $x$ es un vector propio de $T^\dag$ de valor propio $\overline{\lambda}$
+
+\end{lema}
+
+\dem
+
+Sabemos que si $T$ es normal $\norma{T(x)}=\norma{T^\dag(x)}$ para todo $x$. Sea $x$ tal que $T(x)= \lambda x$.  El operador $T-\lambda$ tiene como adjunto a $T^\dag -\overline{\lambda}$.  Es claro que este operador y su adjunto conmutan.  Entonces $T-\lambda$ es normal.  Aplicamos la conservación de las normas
+$$
+0=\norma{(T-\lambda)(x)}= \norma{(T-\lambda)^\dag(x)}= \norma{(T^\dag-\overline{\lambda})(x)}
+$$
+lo que prueba que $T^\dag (x)=\overline{\lambda} x$, que es lo que queríamos demostrar. \fin 
+
+Nos situamos ahora en el caso complejo, para que todo operador tenga un valor propio.
+
+\begin{teo}[Teorema espectral para normales]
+
+En dimensión finita y en caso complejo, todo operador normal tiene una base ortonormal formada por autovectores.
+
+
+\end{teo}
+
+
+
+
+\newpage
+
+\section*{Problemas}
+
+
+\begin{pro}
+
+Sean $x_1, \dots, x_n$ autovectores con valores propios distintos $\lambda_1, \dots, \lambda_n$.  Demostrar que son linealmente independientes.
+
+
+
+
+\end{pro}
+
+
+
+
+\begin{pro}\label{pro:adjuntocomplejo}
+
+Sea $E$ un espacio vectorial real de dimensión finita y $E^+$ el correspondiente espacio complejo. 
+
+\begin{itemize}
+
+\item Dado un operador $T$ y una base $\{e_i\}$ de $E$ la matriz de $T$ y de su extensión compleja $T^+$ en dicha base coinciden.
+
+\item Dado un operador autodjunto $T$ en $E$ su correspondiente operador complejo $T^+$ es también autoadjunto en $E^+$.
+
+\item  Todo operador autoadjunto real tiene al menos un valor propio.
+
+\item  Los polinomios carácteristicos de $T$ y $T^+$ son iguales.
+
+\end{itemize}
+
+\end{pro}
+
+\begin{pro}
+
+Sea $E$ un espacio complejo de dimensión finita y $T$ un operador normal.  Recordemos que en caso complejo todo operador tiene al menos un valor propio.
+
+\begin{itemize}
+
+\item  Demostrar que $\norma{T(x)} = \norma{T^*(x)}$ para cualquier vector.
+
+\item  Si $x$ es un vector propio de valor propio $\lambda$, entonces $x$ es también un vector propio de $T^*$ pero con valor propio $\overline{\lambda}$.
+
+\item Los vectores propios de distinto valor propio son ortogonales.
+
+\item  Demostrar por inducción que $E$ tiene una base ortonormal formada por vectores propios de $T$.  Este resultado es el teorema espectral para operadores normales.
+
+
+\end{itemize}
+
+\end{pro}
+
+\begin{pro}[Teorema espectral (versión 3)]
+Sea $E$ un espacio vectorial de dimensión finita.
+Dado un subespacio vectorial $F$, se puede descomponer el espacio en suma directa
+$$
+E= F \oplus F^\perp
+$$
+Todo vector se escribe entonces de modo único en la forma $x= x_1+x_2$.  Asignando al vector $x$ su componente $x_1$ se obtiene un operador lineal $\pi_F$ llamado proyección ortogonal de $E$ en $F$.  
+
+\begin{itemize}
+
+\item Se cumple que $\Ker (\pi_F) = F^\perp$ y $\pi_F(E)=F$.
+
+\item $\pi_F$ es un operador idempotente ($(\pi_F)^2= \pi_F$) y autoadjunto.
+
+\item Si $T$ es un operador autoadjunto y $\lambda_i$ sus valores propios denotamos por $\pi_i$ la proyección ortogonal sobre el subespacio $\Ker (T-\lambda_i)$.  Entonces se cumple la igualdad
+$$
+\textstyle T= \sum \lambda_i \pi_i
+$$
+puesto que ambos operadores coinciden sobre una base.  Esta es la tercera versión del teorema espectral para operadores autoadjuntos.
+
+\item  Enunciar un resultado análogo para operadores normales en espacios complejos.
+
+\end{itemize}
+
+
+\end{pro}
+
+\begin{pro}[Teorema espectral para unitarios] Dado un espacio complejo, un operador unitario es aquel que cumple la ecuación $UU^*=\Id$
+Consideremos el caso de dimensión finita.
+
+
+\begin{itemize}
+
+\item Si $U$ es unitario se cumple $(U(x),U(y))= \escalar{x}{y}$ por lo que los operadores unitarios conservan el producto escalar.
+
+\item $\norma{U(x)} = \norma{x}$ por lo que un operador unitario conserva las distancias.
+
+\item  El operador $U$ es normal, esto es, conmuta con su adjunto.
+
+\item Los valores propios de un operador unitario siempre tienen módulo uno.
+
+\item El espacio vectorial tiene una base ortonormal formada por vectores propios de $U$.  Dichos vectores tienen como valor propio un número complejo de módulo 1.
+
+\item  Ver que resultados son generalizables a operadores ortogonales en espacios reales.  En particular se debe analizar la necesidad o no de que todo operador ortogonal tenga valores propios.
+
+\end{itemize}
+
+\end{pro}
+
+\begin{pro}
+
+Dado un espacio vectorial complejo dotado de un producto escalar.  
+
+
+\begin{itemize}
+
+\item Si existe una base ortonormal en la que el operador $T$ diagonalice, entonces necesariamente $T$ es normal.
+
+\item Si existe una base ortonormal en la que la matriz diagonalice y todos los valores de la diagonal son reales, entonces $T$ es autoadjunto.
+
+\item Si existe una base en la que $T$ diagonalice y todos los elementos de la diagonal tengan valor absouto $1$, entonces $T$ es autoadjunto.
+
+\item Si $T$ es una aplicación lineal que transforma una base ortogonal en otra base ortogonal, entonces $T$ es un operador unitario.
+
+\end{itemize}
+
+\end{pro}
+
+\newpage
+
+\section{Espectro y resolvente}
+
+Aunque nuestro interés fundamental consiste en el estudio de los operadores de un espacio de Hilbert, nos situamos desde una perspectiva más general. Trabajaremos siempre sobre el cuerpo complejo, aunque no lo mencionemos explícitamente.
+
+\begin{defi}
+
+Un \index{algebra@álgebra!normada} {\sf álgebra normada} es un conjunto $\mathcal{A}$ dotado de una norma y de tres operaciones, dos internas, llamadas suma y producto, y otra externa, llamada producto por escalares, que verifican lo siguiente:
+
+\begin{itemize}
+
+\item $\mathcal{A}$ es un espacio vectorial normado con respecto a la suma y al producto por escalares.
+
+\item La suma y el producto dotan de estructura de anillo a $\mathcal{A}$.
+
+\item Si denotamos la multiplicación por la yuxtaposción y el producto por escalares con un punto, se cumple:
+$$
+\lambda\cdot (xy)= (\lambda \cdot x) y= x (\lambda \cdot y)
+$$
+donde $\lambda$ es escalar  y $x,y$ son elementos de $\mathcal{A}$.
+
+\item La norma del producto verifica $\norma{xy}\leq \norma{x} \cdot \norma{y}$. Esta propiedad se llama \index{propiedad!submultiplicativa} {\sf submultiplicativa}.
+
+\end{itemize}
+
+
+\end{defi}
+
+  Si el álgebra normada es completa como espacio métrico, se llama \index{algebra@álgebra!de Banach} {\sf álgebra de Banach}.  De ahora en adelante denotaremos también a la multiplicación por escalares por la yuxtaposición, no  pudiendose producir ambigüedad alguna.
+
+\noindent{\bf Ejemplos.}
+
+\begin{itemize}
+
+
+\item Si $H$ es un espacio normado, entonces $A(H)$ es un álgebra normada. Si $H$ es un espacio de Banach, entonces $A(H)$ también es de Banach. Este álgebra no es conmutativa, pero tiene elemento neutro. La norma del neutro es 1.
+
+\item Sea $[a,b]$ un conjunto compacto de $\R$.  El conjunto $C([a,b])$ de las funciones continuas (reales o complejas)  con dominio $[a,b]$ es un álgebra de Banach respecto a la norma del supremo.  Este álgebra es conmutativa y tiene elemento neutro (y su norma vuelve a ser 1).  En general, si $K$ es un espacio topológico compacto, $C(K)$ es un álgebra de Banach. Un teorema de Gelfand afirma que, esencialmente, estas son todas la álgebras conmutativas con unidad.
+
+
+\item Si el espacio no es compacto, en general $\norma{f}_\infty$ puede ser infinito.  Para obtener un álgebra debemos considerar únicamente las funciones acotadas.
+
+\item Sea $\mathbb{K}[x]$ el anillo de polinomios con la norma
+$$
+\norma{a_0+a_1 t+ \dots + a_n t_n}= \abs{a_0}+\abs{a_1}+ \dots + \abs{a_n}
+$$
+es un álgebra normada.
+
+\item Cualquier subálgebra de un álgebra normada es normada. Por ejemplo $C^\infty([a,b])$ es una subálgebra normada de $C([a,b])$.
+
+\end{itemize}
+
+\begin{propo}
+
+Las tres operaciones de un álgebra normada son continuas.
+
+\end{propo}
+
+\dem
+
+En la sección de espacios normados ya vimos que la suma y el producto por escalares son continuos.  Sean $x_n \rightarrow x$ e $y_n \rightarrow y$. Entonces
+$$
+\norma{x_ny_n-xy}= \norma{x_ny_n-x_ny+x_ny-xy}=\norma{ x_n(y_n-y)+(x_n-x)y}
+$$
+Por la desigualdad triangular este número es menor que 
+$$
+\norma{x_n(y_n-y)} + \norma{(x_n-x)y}
+$$
+y por la propiedad submultiplicativa lo podemos acotar por 
+$$
+\norma{x_n}\cdot \norma{y_n-y}+ \norma{x_n-x}\cdot \norma{y}
+$$
+que tiende a cero, puesto que las sucesiones convergentes están acotadas. \fin 
+
+A partir de ahora $\mathcal{A}$ denota un álgebra de Banach con unidad, que denotaremos por 1. Supondremos además que $\norma{1}=1$. 
+
+\begin{defi}
+
+Un elemento $x \in \mathcal{A}$ es una \index{unidad de un anillo} {\sf unidad} si existe otro elemento $y\in \mathcal{A}$ que cumple $xy=yx= 1$. El conjunto de todas las unidades lo denotaremos $\mathrm{G}(\mathcal{A})$ (no  es una notación estandard).
+
+\end{defi}
+
+Desde un punto de vista algebraico, es sencillo comprobar que el conjunto de unidades de $\mathcal{A}$ es un grupo respecto a la multiplicación. Sin embargo a nosotros también nos interesan los aspectos topológicos, el más importante de los cuales afirma que el conjunto de unidades es abierto.
+
+
+La identidad es una unidad del álgebra. Además todos los elementos que están suficientemente próximos a la identidad también son unidades.
+
+\begin{propo}
+
+Si $x$ cumple $\norma{x-1} < 1$ entonces $x$ es invertible. La fórmula explícita del inverso de $x$ es 
+$$
+x^{-1}= 1 + \sum_{n=1}^\infty (1 -x)^n =\sum_{n=0}^\infty (1-x)^n
+$$
+(en la última expresión entendemos que un elemento elevado a 0 es 1)
+
+\end{propo}
+
+
+\dem
+
+Como $\norma{(1- x)^n} \leq \norma{1-x}^n < \alpha^n$ con $\alpha < 1$, la serie  está mayorada por $ \sum\alpha^n$ y es absolutamente convergente, y por lo tanto es convergente.  Escribimos $x= 1-(1-x)$ y multiplicamos dicho elemento por la serie en cuestión.  Teniendo en cuenta que podemos conmutar el signo de sumatorio (pues la multiplicación es continua) y que la serie se puede reordenar (pues converge absolutamente), el producto es~1. \fin 
+
+\begin{cor}
+
+Si $\norma{x} < 1$ entonces $(1-x)$ es invertible, siendo su inversa
+$$
+(1-x)^{-1}= \sum_{n=0}^\infty x^n
+$$
+
+\end{cor}
+
+
+\begin{cor}
+
+Si $\abs{\lambda} \geq \norma{x}$ entonces $\lambda  -x$ es una unidad (denotamos $\lambda \cdot 1$ por $\lambda$).  Su expresión en forma de serie es
+$$
+(\lambda -x)^{-1}= \frac{1}{\lambda} \sum_{n=0}^\infty\frac{x^n}{\lambda^n}
+$$
+
+\end{cor}
+
+\dem
+
+Podemos sacar factor común $\lambda $ en la expresión
+$$
+\lambda -x= \lambda\left(1-\lambda^{-1} x\right)
+$$
+Como $\lambda$ es invertible basta comprobar que el elemento que está dentro del paréntesis es invertible. Como $\norma{\lambda^{-1} x} <1$ se concluye. \fin 
+
+\begin{teo}
+
+El conjunto de unidades de $\mathcal{A}$ es abierto. 
+
+\end{teo}
+
+\dem
+
+
+Sea $x \in \mathrm{G}(\mathcal{A})$. Consideremos ahora el elemento $x+h$.  Queremos probar que si la norma de $h$ es suficientemente pequeña, entonces $x+h$ sigue siendo invertible. Sacamos factor común
+$$
+x+h= x(1+x^{-1}h)
+$$
+
+Como $x$ es invertible, basta comprobar que el  elemento del paréntesis es invertible.  Por la propiedad submultiplicativa
+$$
+\norma{ x^{-1}h} \leq \norma{x^{-1}} \cdot \norma{h}
+$$
+que tiene a cero con la norma de $h$.  En algún momento dicha norma es menor que $1$ y el elemento es invertible (del corolario anterior también se deduce que $1+x$ es invertible). \fin 
+
+\begin{defi}
+
+Dado $x\in \mathcal{A}$, un escalar $\lambda \in \C$ es \index{elemento!regular}{\sf  regular} si $\lambda -x$ es invertible.  El conjunto de valores regulares de $x$ se denota $\rho(x)$ y se llama \index{resolvente} {\sf resolvente} de $x$.  Los valores que no son regulares se llaman \index{elemento!espectral} {\sf espectrales}.  El conjunto de valores espectrales es el \index{espectro} {\sf espectro} de $x$, y se denota $\sigma(x)$.
+
+\end{defi}
+
+\begin{propo}
+
+La resolvente de $x$ es un conjunto abierto.
+
+\end{propo}
+
+\dem
+
+Consideramos, para cada $x$, la función
+$$
+\begin{array}{ccc}
+\C & \rightarrow & \mathcal{A}\\
+\lambda &\rightarrow & \lambda - x
+\end{array}
+$$
+Esta función es continua. La antiimagen del conjunto de unidades es la resolvente de $x$, que es entonces abierto. \fin
+
+
+\begin{cor}
+
+El espectro es cerrado. Además es acotado y por lo tanto compacto.
+
+\end{cor}
+
+\dem
+
+Como el espectro es el complementario de la resolvente, necesariamente es cerrado. Además hemos demostrado anteriormente que si $\abs{\lambda} > \norma{x}$, el escalar $\lambda$ pertenece a la resolvente de $x$.  El espectro está acotado por la norma de $x$ y es entonces compacto. \fin 
+
+
+
+Queremos ver ahora que en el caso complejo el espectro nunca es nulo.  En el caso finito dimensional los valores espectrales se obtienen resolviendo el polinomio característico. Como $\C$ es algebraicamente cerrado, siempre existe al menos un punto en el espectro.  Sin embargo este tipo de razonomientos no son válidos en dimensión infinita.  Con objeto de probar el resultado haremos una excursión en un terreno en principio alejado de los espacios de Hilbert, como es el estudio las funciones complejas valoradas en espacios de Banach. 
+
+\begin{defi}
+
+Dado un abierto $U \subset \C$, y un espacio de Banach $B$, decimos que una función $f:U \rightarrow B$ es {\sf derivable} \index{función!derivable} en $x_0 \in U$ si existe el límite
+$$
+\lim_{\lambda\rightarrow \lambda_0} \frac{f(\lambda)-f(\lambda_0)}{\lambda-\lambda_0}= f'(\lambda_0)
+$$
+Decimos que {\sf analítica}\ \index{función!analítica} en $U$ si es derivable en todos los puntos.
+
+\end{defi}
+
+Sea $\omega:B \rightarrow \C$ una forma lineal continua.  Si $f$ es analítica en $U$, entonces $\omega \circ f : U \rightarrow \C$ es una función holomorfa.  En efecto, si calculamos la derivada
+$$
+\lim_{\lambda\rightarrow \lambda_0} \frac{\omega(f(\lambda))-\omega(f(\lambda_0))}{\lambda-\lambda_0}= \omega\left(\lim_{\lambda\rightarrow \lambda_0} \frac{f(\lambda)-f(\lambda_0)}{\lambda-\lambda_0}\right)=\omega(f'(\lambda_0))
+ $$
+ Donde hemos podido intercambiar el límite y la forma lineal debido a la continuidad. Ahora debemos recordar un famoso teorema de variable compleja.
+ 
+ \begin{teo}[de Liouville]
+ 
+ Sea $f :\C \rightarrow \C$ una función holomorfa en todo el plano complejo.  Si dicha función está acotada  entonces es constante.
+ 
+ \end{teo}
+ 
+ Este teorema se puede generalizar a espacios de Banach, pero para ello necesitamos echar mano de un teorema de análisis funcional.
+ 
+ \begin{teo}[de Hanh-Banach]
+ 
+ Si $x, y$ son dos puntos distintos de un espacio de Banach, existe una forma lineal continua $\omega$  tal que $\omega(x) \neq \omega(y)$. 
+ 
+ \end{teo}
+ 
+ En el caso de los espacios de Banach este teorema no es trivial.  En el caso de los espacios de Hilbert, es evidente la existencia de tal forma lineal. Pero el problema es que nosotros necesitamos aplicar el teorema al espacio $A(H)$ que no es de Hilbert.  Supuesto esto podemos enunciar.
+ 
+ \begin{teo}[de Liouville en espacios de Banach]
+ 
+ Sea $f :\C \rightarrow B$ una función analítica definida en todo el plano. Si está acotada, entonces es constante.
+ 
+ \end{teo}
+ 
+ \dem
+ 
+ Supongamos que $\norma{f(\lambda)} < M$.  Entonces $\omega \circ f$ es una función holomorfa acotada, para cualquier $\omega$ acotada.  Aplicando el teorema clásico de Liouville todas estas funciones deben ser constantes. Por el teorema de Hanh-Banach concluimos que también $f$ es constante (si no lo fuera tendríamos que $f(\alpha)\neq f(\beta)$ y para alguna forma continua $\omega(f(\alpha)) \neq \omega(f(\beta))$, produciendose la contradicción). \fin
+ 
+ \begin{defi}
+ 
+
+ Dado un elemento $x \in \mathrm{G}(\mathcal{A})$, la aplicación 
+$$
+\begin{array}{cccc}
+R_x:& \rho(x) &\rightarrow & \mathcal{A} \\
+  & \lambda & \rightarrow & (\lambda-x)^{-1}
+  \end{array}
+  $$
+ se llama \index{aplicación!resolvente} {\sf resolvente} de $x$.
+ 
+ \end{defi}
+  
+
+\begin{propo}
+
+La función resolvente es analítica y acotada.
+
+\end{propo}
+
+\dem
+
+Unas manipulaciones algebraicas demuestran la identidad
+$$
+R_x(\lambda_1)-R_x(\lambda_2)= (\lambda_2-\lambda_1) R_x(\lambda_1) R_x(\lambda_2)
+$$
+que  permite calcular la derivada.  Además
+$$
+\left( 1- \frac{x}{\lambda}\right) \rightarrow e^{-1}= e \text{ cuando }\abs{\lambda} \rightarrow \infty
+$$
+lo que prueba su acotación. \fin
+
+\begin{cor}
+
+El espectro no puede ser vacío.
+
+\end{cor}
+
+\dem
+
+Si el espectro fuese vacío, la resolvente estaría definida en todo el plano complejo, y por el teorema de Liouville sería una constante. Pero  esto es una contradicción. \fin 
+
+
+
+
+Todo lo dicho hasta aquí es válido en cualquier álgebra de Banach con unidad. Sin  embargo en el caso especial de $A(H)$ podemos ser más detallados. Analizaremos ahora qué le impide a un operador tener inverso.
+
+
+
+En dimensión finita dado un operador $T: H \rightarrow H$ si es inyectivo es epiyectivo. En este caso el operador inverso existe y además es acotado. Pero en dimensión infinita un operador inyectivo no tiene necesariamente que ser epiyectivo.  El primer problema es entonces que la imagen de $T$ puede no ser todo el espacio, ni tan siquiera un subespacio denso.  Aparte de esto, puede existir el inverso, cuyo dominio puede ser un subespacio propio, y no ser acotado.
+Establecemos una generalización del concepto de elemento invertible.  Debemos tener cuidado, pues esta noción de invertible no es equivalente a que el elemento admita una inversa en el álgebra $A(H)$.
+
+
+\begin{defi}
+
+Dado un operador lineal,  acotado o no,  $T:  H \rightarrow H$ decimos que tiene inversa si existe una aplicación $U:\mathrm{Im}(T) \rightarrow H$ que verifica $U \circ T(x)=x$ para todo $x\in H$. 
+
+\end{defi}
+
+La aplicación inversa de $T$ se denota $T^{-1}$, que es la notación estandar.  Pero debemos tener cuidado, pues el dominio de la aplicación inversa puede ser un subespacio propio.
+
+\begin{cor}
+
+Una aplicación $T:H \rightarrow H$ tiene inversa, en el último sentido señalado, si y solo si es inyectiva.
+
+\end{cor}
+
+\dem
+
+Si admite inversa naturalmente es inyectiva. Recíprocamente, si $T$ es inyectiva, su imagen es un subespacio de $H$.  Sobre dicho subespacio se puede definir la inversa de $T$ del modo habitual.  La aplicación inversa es siempre lineal. \fin 
+
+Hemos visto un criterio para comprobar que una función admite inversa.  El siguiente resultado además nos garantiza la acotación.
+
+\begin{propo}
+
+Sea $T: H \rightarrow H$ una aplicación lineal.  Existe la inversa de $T$ y es acotada (en su dominio) si y solo si existe una constante $k>0$ que cumple
+$$
+k \norma{x}\leq \norma{T(x)} \text{ para todo } x \in H
+$$
+
+\end{propo}
+
+\dem
+
+La inyectividad es clara y por lo tanto existe $T^{-1}$.  Por lo tanto todo elemento $x$ del dominio  de $T$ se puede expresar en la forma
+$$
+x= T^{-1}(y) \text{ para un cierto } y \in \mathrm{Im}(T)
+$$
+Le aplicamos la condición del enunciado a este vector y se tiene
+$$
+k\norma{T^{-1}(y)} \leq \norma{T(T^{-1}(y))}= \norma{y}
+$$
+Si pasamos dividiendo $k$  obtenemos que $T^{-1}$ es acotado (en su dominio naturalmente). La proposición recíproca es de demostración simple. \fin 
+
+\begin{cor}
+
+La aplicación inversa existe y es acotado en su dominio, si y solo si para todo vector unitario $x$, existe una constante $k$ que verifica $\norma{T(x)} > k$.
+
+\end{cor}
+
+
+\begin{propo}
+
+Sea $T : H\rightarrow H$ un operador acotado.  Si $T^{-1}$ existe y la imagen de $T$ es densa, necesariamente la imagen es todo el espacio.
+
+\end{propo}
+
+\dem
+
+Supongamos que $\mathrm{Im}(T)= F$ siendo $F$ un subespacio denso.  La aplicación inversa $T^{-1}$ tiene como dominio $F$.  Pero si esta aplicación es acotada, se puede extender, por argumentos de continuidad, al cierre de $F$.  Esto es, se puede extender a una función definida en todo el espacio, que seguirá siendo lineal y acotada.   Es fácil encontrar la contradicción si $F \neq H$. \fin 
+
+
+
+Dado un operador $T$ acotado y un escalar $\lambda$ analizaremos ahora la razón de que no exista el inverso de $T-\lambda$.  Esto nos permitirá descomponer en tres partes el espectro de cualquier elemento de $A(H)$.
+
+\begin{defi}
+
+Sea $: T:H \rightarrow H$ un operador acotado y $\lambda$ un escalar.
+
+\begin{enumerate}
+
+
+
+\item Si la imagen de $T-\lambda$ es densa y el operador inverso existe, pero no es acotado (se sobreentiende que como aplicación de $\mathrm{Im}(T)$ en $H$), entonces $\lambda$ pertenece al \index{espectro!continuo} {\sf espectro continuo} de $T$, que denotamos $\sigma_c(T)$.
+
+\item Si la imagen no es densa y tiene inversa, sea acotada o no lo sea, decimos que $\lambda$ pertenece al \index{espectro!residual}  {\sf espectro residual} de $T$, que denotamos $\sigma_r(T)$.
+
+\item Si el inverso no existe, entonces $\lambda$ pertenece a $\sigma_p(T)$, llamado \index{espectro!puntual} {\sf espectro puntual} de $T$.
+
+
+\end{enumerate}
+
+\end{defi}
+
+
+
+El espectro de un operador se divide entonces en los tres subconjuntos disjuntos
+$$
+\sigma(T)=  \sigma_c(T) \cup \sigma_r(T) \cup \sigma_p(T)
+$$
+
+
+El espectro puntual es la generalización del concepto de autovalor en dimensión finita. En efecto, si $\lambda \in \sigma_p(T)$, entonces no existe el inverso de $(T-\lambda)$.  Ello solo puede ser debido a que la aplicación $(T-\lambda)$ no sea inyectiva. Pero en este caso debe existir un vector no nulo $x$ tal que $(T-\lambda)(x)=0$. Por este razonamiento podemos llamar \index{valor propio} {\sf valores propios} a los elementos del espectro puntual.
+
+\noindent{\bf Ejemplos.}
+
+\begin{itemize}
+
+\item En dimensión finita todo esto es inútil, puesto que  si existe el inverso, entonces necesariamente está definido en todo el espacio (que obviamente es denso) y siempre es continuo, pues todas las aplicaciones lineales  lo son en dimensión finita.  En dimensión finita no existe ni espectro continuo ni residual.
+
+\item Sea $L^2(\R)$ el espacio de Hilbert. El operador $T(f)= e^{ix} f$ conserva la norma y además admite un inverso $G(f)= e^{-ix} f$ que también está acotado.  Sea $\lambda$ un punto situado fuera del círculo unidad. El operador $T- \lambda$ consiste en la multiplicación por $e^{ix}-\lambda$. El inverso de este operador consiste en la multiplicación por $(e^{ix}-\lambda)^{-1}$.  Como esta función está acotada, el inverso es un operador acotado (y definido en todo el espacio).  Si $\abs{\lambda} \neq 1$ entones $\lambda \in \rho(T)$. También es fácil comprobar que $T$ carece de autovalores.
+
+\item En $l_2$ consideramos el operador desplazamiento a la derecha, caracterizado por la actuación sobre la base estandar  como $T(e_i)=e_{i+1}$. Este operador es inyectivo.  La imagen de $T$ es el subespacio ortogonal a $e_1$, que no puede ser denso por ser cerrado.  Esto implica que $0$ pertenece al espectro residual de $T$. 
+
+\item Sea $\lambda_n$ una sucesión con límite $1$, pero tal que $\lambda_n \neq 1$ para todo $n$. Supongamos además que $1$ es el único punto de acumulación de la sucesión. Fijada una base ortonormal, sea $T$ el operador $T(e_i)= \lambda_i e_i$.   Probemos las siguientes propiedades:
+
+\begin{itemize}
+
+\item Cada elemento $\lambda_n$ pertenece al espectro puntual puesto que
+$$
+T(e_n)= \lambda_n e_n
+$$
+
+
+\item La aplicación $1-T$ es inyectiva.  Supongamos que $x= \sum \alpha_i e_i$, entonces $(1-T)(x)= \sum (1-\lambda_i)  \alpha_i e_i$.  Si calculamos la norma de la imagen y la igualamos a cero, obtenemos que $\alpha_i=0$ para todo $i$, y necesariamente $x=0$.
+
+\item La imagen de $1-T$ es densa.  En efecto, la imagen de $e_i$ por esta aplicación es un múltiplo de $e_i$. La imagen de $1-T$ contiene una base ortonormal y es entonces densa.
+
+\item La aplicación inversa $(1-T)^{-1}$ existe, pero no es acotada: El operador $1-T$ tiene autovalores tan pequeños como queramos. Entonces su inversa tiene autovalores tan grandes como queramos. La aplicación inversa no puede ser acotada. Podemos concluir que 1 pertenece al espectro continuo de $T$.
+
+\item Sea $\lambda$ un valor distinto de $\lambda_n$ y distinto del punto de acumulación, 1 en este caso.  Para cada $\lambda$ con estas características,  existe $\epsilon$ que cumple $\abs{\lambda -\lambda_n} > \epsilon$. Si $x = \alpha_i e_i$ tenemos 
+$$
+(1-T) (x) = \sum \alpha_n(1-\lambda_n) e_n
+$$
+Ahora  calculamos la norma (al cuadrado) y tenemos
+$$
+\norma{(1-T)(x)}^2 = \sum \abs{\alpha_n}^2 \abs{\lambda -\lambda_n}^2 \geq \epsilon^2 \norma{x}^2
+$$
+Un resultado anterior demuestra entonces que la aplicación inversa es acotada en su dominio.  Es fácil ver que además su imagen es densa y por lo tanto $\lambda$ debe pertenecer a la resolvente de $x$. 
+
+
+
+
+\end{itemize}
+
+
+
+
+
+\item Sea $K$ un compacto arbitrario del plano. Podemos elegir en $K$ un conunto numerable $\{\lambda_n\}$ y a la vez denso.  Siguiendo argumentos análogos se puede probar para el operador $T(e_i) = \lambda_i e_i$ se cumple: 
+
+\begin{itemize}
+
+\item Cada $\lambda_n$ pertenece al espectro puntual.
+
+\item Cada punto de $K$ distinto de los de la sucesión, es límite de elementos de la sucesión, y pertenece por lo tanto al espectro continuo.
+
+\item Si $\lambda \not \in K$, existe una distancia no nula entre $\lambda $ y los elementos de la sucesión. Entonces $\lambda$ pertenece a la resolvente.
+
+
+\end{itemize}
+
+Esto demuestra que cualquier compacto $K$ puede ser el espectro de un cierto operador.
+
+\end{itemize}
+
+
+Los espectros y las resolventes de un operador y de su adjunto están muy relacionados, tal como veremos en la siguiente sucesión de proposiciones.
+
+\begin{propo}
+
+Si $\lambda \in \rho(T)$ entonces $\overline{\lambda} \in \rho(T^\dag)$.
+
+\end{propo}
+
+\dem
+
+Partimos de la existencia de $\lambda-T$.  Su adjunto es $\overline{\lambda}-T^\dag$. Como la toma de inversos y la toma de adjuntos conmutan tenemos que
+$$
+(\overline{\lambda}- T^\dag)^{-1}= ((\lambda - T )^{-1})^\dag
+$$
+y $\overline{\lambda}$ pertenece a la resolvente del adjunto. \fin
+
+
+\begin{propo}
+
+Si $\lambda \in \sigma_r(T)$, entonces $\overline{\lambda} \in \sigma_p(T^\dag)$.
+
+\end{propo}
+
+\dem
+
+Como $\mathrm{Im}(1-T)$ no es densa, su cierre, que denotamos $F$ no es total. Existe un vector $x$ que pertenece al ortogonal de $F$. Para todo vector $y$ se cumple
+$$
+\langle(T^\dag - \overline{\lambda}) x,y\rangle= \escalar{x}{(T-\lambda)(y)}= 0
+$$
+puesto que el segundo vector está en $F$.  Como esta identidad es cierta para todo $y$, necesariamente $x$ es un vector propio  de $T^\dag$. El valor propio es $\overline{\lambda}$. \fin
+
+
+
+Con estos dos resultados se obtienen fácilmente los corolarios (recordar que dado un operador $T$, el plano complejo se divide en cuatro subconjuntos disjuntos).
+
+\begin{cor}
+
+ Si $\lambda \in \sigma_c(T)$ entonces $\overline{\lambda} \in\sigma_c(T^\dag)$.  Conjugando el resultado se obtiene la proposición recíproca.
+ 
+ \end{cor}
+ 
+ 
+ \begin{cor}
+ 
+ Si $\lambda \in \sigma_p(T)$ entonces $\overline{\lambda} \in \sigma_p(T^\dag) \cup \sigma_r(T^\dag)$.
+ 
+ \end{cor}
+ 
+ 
+ Ya estamos en disposición de localizar el espectro de los operadores más habituales, que son los que hemos estudiado.  Recordemos que si $T$ es normal y $\lambda$ un valor propio de $T$, entonces $\overline{\lambda}$ es valor propio de $T^\dag$ (lema \ref{lema:valorpropionormal}).
+ 
+ \begin{cor}
+ 
+ Si $T$ es normal su espectro residual es vacío.
+ 
+ \end{cor}
+ 
+ \dem
+ 
+ Si $\lambda \in \sigma_r(T)$ entonces $\overline{\lambda} \in \sigma_p(T^\dag)$.  Pero es implica que $\lambda \in \sigma_p(T)$, lo cual es contradictorio. \fin 
+ 
+ Ya hemos visto que los valores propios de los unitarios tienen módulo $1$.  En general tenemos la 
+ 
+ \begin{propo}
+ 
+ El espectro de un unitario está contenido en la circunferencia unidad.
+ 
+ \end{propo}
+ 
+ \dem
+ 
+ Un unitario tiene norma $1$. Si $\lambda > 1$ debe estar entonces en la resolvente.  Sea ahora $\abs{\lambda} <1$ y $x$ un vector unitario. Entonces 
+ $$
+ \norma{(U-\lambda)(x)}= \norma{U(x) -\lambda x} \geq 1-\abs{\lambda}
+ $$
+ puesto que $U(x)$ mide 1 y $\lambda x$ mide $\abs{\lambda}$.  Esto prueba que admite inversa y que esta inversa es acotada en su dominio. Si no fuese epiyectiva, $\lambda$ pertenecería al espectro residual. Pero esto es imposible, por ser normales los operadores unitarios. \fin 
+ 
+ 
+ 
+ \begin{propo}
+ 
+ Si $T$ es autoadjunto su espectro es un subconjunto de $\R$.
+ 
+ \end{propo}
+ 
+ 
+ \dem
+ 
+ Sea $\lambda = a+ib$ con $b \neq 0$ . Aplicando que es autoadjunto y tomando $x$ unitario, tenemos
+ $$
+ \norma{(T-\lambda)x}^2=\norma{(T-a)(x)}^2+ \, b^2 \norma{x}^2 \geq b^2 
+ $$
+ Entonces $T-\lambda$ admite inversa acotada en su dominio.  Si el dominio no es el total, entonces $\lambda$ pertenece al espectro residual.  Como esto es imposible, la imagen es el total y $\lambda$ está en la resolvente. \fin 
+ 
+ \begin{propo}
+ 
+ Si $T$ es un proyector ortogonal (no trivial), el espectro coincide con el espectro puntual, que es el conjunto $\{0,1\}$.
+ 
+ 
+ \end{propo}
+ 
+ \dem
+ 
+ Si $\lambda$ es autovalor, por ser autoadjunto e idempotente, necesariamente $\lambda$ es 0 o 1. Si $\lambda$ es distinto de esos valores un razonamiento similar a los anteriores prueba que $T-\lambda$ admite inversa acotada. No puede pertenecer al espectro continuo. Necesariamente está en la resolvente. \fin 
+ 
+ \newpage
+ 
+ \section*{Problemas}
+ 
+ \begin{pro}
+ 
+ Dado un operador acotado $T$, decimos que $\lambda \in \C$ es un {\sf valor propio aproximado} \index{valor propio!aproximado} si para todo $\epsilon >0$ existe un vector unitario $x \in H$ tal que $\norma{(\lambda -T)(x)} <\epsilon$.  El conjunto de todos los valores propios aproximados se llama espectro aproximado, y se denota $\pi(T)$.
+ 
+ \begin{itemize}
+ 
+ \item Demostrar que si $\lambda \in \pi(T)$ entonces $\abs{\lambda} \leq \norma{T}$.
+ 
+ \item  Demostrar que $\pi(T) \subset \sigma(T)$. 
+ 
+ \item Demostrar que $\sigma_p(T) \cup \sigma_c(T) \subset \pi(T)$
+ 
+ \end{itemize}
+ 
+ \end{pro}
+ 
+ \begin{pro}
+ 
+ Si $u$ es una unidad y $x$ cumple $\norma{x-u} < 1/\norma{u^{-1}}$ entonces $x$ es también una unidad.  Deducir que el conjunto de unidades es abierto.
+ 
+ \end{pro}
+ 
+ \begin{pro}
+ 
+ Sea $\mathcal{A}$ un álgebra de Banach sin unidad.  En espacio producto $\mathcal{A} \times \C$ definimos la multiplicación y la norma como
+ $$
+ (x, \lambda) (y,\mu)= (xy+\lambda y+\mu x, \lambda \mu) \qquad \norma{(x,\lambda)}= \norma{x}+ \abs{\lambda}
+ $$
+ Demostrar que es un álgebra de Banach con unidad y que $\mathcal{A}$ se inyecta de modo notural en dicho álgebra.
+ 
+ \end{pro}
+ 
+ \newpage
+ 
+ 
+ \section{Operadores compactos}
+ 
+ Los operadores que nosotros llamaremos compactos, en la literatura más clásica se denominan operadores \index{operador!totalmente continuo} {\sf totalmente continuos}.  El apelativo de compactos nos predispone a cierta relación que existe entre este tipo de operadores y la noción de compacidad en topología.  Recordemos algunos resultados referentes a conjuntos compactos en espacios métricos:
+ 
+ 
+ \begin{itemize}
+ 
+ \item Un conjunto $K$ de un espacio métrico se llama {\sf precompacto} o {\sf relativament compacto}  si su cierre (que denotaremos $\overline{K}$) es un conjunto compacto.
+ 
+ \item En $\R^n$ un conjunto es compacto si y solo si es cerrado y acotado.  Este es el teorema de Heine-Borel. En un espacio métrico todo conjunto compacto es cerrado y acotado, pero el recíproco en general es falso.
+ 
+ \item La imagen de un compacto por una aplicación continua es un compacto. El producto, incluso infinito, de espacios compactos es compacto (teorema de \index{teorema!de Tichonov} Tichonov).
+ 
+ \item Sea $\{x_n\}$ una sucesión de elementos de un compacto.  Entonces tiene una subsucesión convergente.  El recíproco también es cierto.
+ 
+
+ \end{itemize}
+ 
+ Existen varias definiciones equivalentes de operador compacto. Nosotros optamos por una de ellas, pero aun así trabajaremos también con otras definiciones.
+ 
+ \begin{defi}
+ 
+ Sean $H$ y $H'$  espacios de Hilbert. Un operador  $T: H \rightarrow H'$ es {\sf compacto} \index{operador!compacto} si la imagen de la bola unidad es un conjunto precompacto.  El conjunto de todos los operadores compactos de $H$ en $H'$ se denota $C(H,H')$ y $C(H)$ si $H'=H$.
+ 
+ \end{defi}
+ 
+ 
+ Todo conjunto acotado está contenido en una bola de cierto radio centrada en el origen.  Por homogeneidad, la imagen de cualquier bola centrada en el origen es también precompacta.  La imagen de cualquier conjunto acotado es entonces precompacta.  El recíproco es evidentemente cierto, por ser menos general.  Tenemos una nueva definición de operador compacto, que enunciamos en forma de 
+ 
+ \begin{propo}
+ 
+ Un operador  es compacto si y solo si transforma conjuntos acotados en conjuntos precompactos.
+ 
+ \end{propo}
+ 
+ En los espacios métricos, cualquier sucesión contenida en un compacto tiene una subsucesión convergente.  Recíprocamente, si toda sucesión de elementos de un conjunto $K$ tiene una subsucesión convergente, el conjunto $K$ es compacto.  Esto nos permite una nueva definición, más clásica en su estilo, de operador compacto.
+ 
+ \begin{propo}
+ 
+ Un operador $T$ es compacto si para toda sucesión acotada $\{x_n\}$, la sucesión de sus imágenes $\{T(x_n)\}$ tiene una subsucesión convergente.
+ 
+ \end{propo}
+ 
+ \noindent{\bf Observación.}  La noción de operador compacto se puede extender a espacios de Banach, siendo muchos teoremas válidos en el caso más general, aunque las demostraciones suelen ser más complicadas. \fin 
+ 
+ 
+ Como era de esperar, viendo el nombre clásico dado a los operadores compactos, los operadores compactos son acotados.
+ 
+ \begin{propo}
+ 
+ Un operador compacto es acotado.
+ 
+ \end{propo}
+ 
+ \dem
+ 
+ La imagen de la bola unidad es un conjunto precompacto.  Pero como  todo conjunto compacto está acotado, la imagen de la bola es un conjunto acotado. \fin 
+ 
+ En dimensión finita todos estos desarrollos vuelven a ser triviales, debido al teorema de Heine-Borel.  Todo operador en dimensión finita transforma la bola unidad en un conjunto acotado.  Su cierre sigue siendo acotado y concluimos que también es compacto.  Este comentario admite la siguiente generalización.
+ 
+ \begin{propo}
+ 
+ Si $T$ es un operador acotado cuya imagen es un subespacio de dimensión finita (estos operadores  se llaman \index{operador!finito-dimensional}{\sf finito-dimensio\-nales}), entonces es compacto.
+ 
+ \end{propo}
+ 
+ 
+ 
+  El recíproco de este teorema es falso.  Existen operadores cuya imagen no es de dimensión finita y sin embargo son compactos.  
+ 
+ 
+ 
+
+ 
+ 
+
+ 
+ \noindent{\bf Ejemplos.}
+ 
+ \begin{itemize}
+ 
+ \item La identidad $\Id: H \rightarrow H$  no es compacta, si $H$ tiene dimensión infinita.  Ello es debido a que la bola unidad no es compacta en dimensión infinita (tómese un conjunto numerable de vectores ortonormales. Es fácil comprobar que la distancia entre ellos siempre es mayor que 1, por lo que dicha sucesión no es de Cauchy y no es convergente). En general $\lambda \Id$ no es compacto (si $\lambda$ no es nulo).
+ 
+ \item En espacios de Banach el resultado anterior también es cierto, pues la bola unidad no es compacta, pero la demostración no es tan sencilla (dicho resultado se debe a Riezs).
+ 
+ \item  Toda forma lineal continua (todo elemento del dual topológico) es una aplicación compacta.
+ 
+ \item Sea $T:H \rightarrow H'$ una  aplicación lineal arbitraria, con $H$ de dimensión finita.  Su imagen es un subespacio de dimensión finita y entonces podemos afirmar que $T$ es compacta.
+ 
+ 
+ \item Los mejores ejemplos de operadores compactos aparecen en la teoría de ecuaciones integrales, siendo además dicha teoría el lugar histórico donde surgen los operadores compactos.  Sin embargo una excursión en dicha teoría nos haría perder demasiado tiempo.
+ 
+ \item Sea $T: H \rightarrow H$ un operador compacto.  Si $F$ es un subespacio cerrado invariante, la restricción de $T$ a $F$ es un operador compacto. En efecto, una sucesión acotada en $F$, es una sucesión acotada en $H$.  Su imagen debe tener una subsucesión convergente, que como $F$ es cerrado, debe pertenecer al subespacio. 
+ 
+ \end{itemize}
+ 
+ 
+ \begin{propo}
+ 
+ El conjunto de operadores  compactos   es un subespacio vectorial.
+ 
+ \end{propo}
+ 
+ 
+ \dem
+ 
+ Daremos dos demostraciones de este resultado, para ilustrar distintos métodos que se utilizan en el estudio de los operadores compactos.
+ 
+ 1.- Sean $T$ y $U$ dos operadores compactos y sea $\{x_n\}$ un sucesión acotada.  Como $T$ es compacto, existe una subsucesión  $\{x_{n_k}\}$ cuya imagen por $T$ es convergente.  Consideremos ahora como nueva sucesión la $\{x_{n_k}\}$.  Como $U$ es compacto, existe una subsucesión cuya imagen por $U$ converge.  Es fácil comprobar esta sucesión final tiene una imagen por $\lambda T+\mu U$ que converge. 
+ 
+ 2.-  Denotamos por $B$ la bola unidad. El cierre de la imagen por $T$ de dicha bola, que denotamos $\overline{T(B)}$, es compacto.  Como el producto por escalares es continuo, el conjunto $\lambda\overline{T(B)}$ es compacto.  Lo mismo es válido con el otro operador.  Tenemos entonces dos conjuntos compactos.  Su producto es un subconjunto compacto de $H \times H$.  Como la suma es continua su imagen es un compacto del espacio de llegada.  Es ahora claro que $(\lambda T+ \mu U)(B)$ es un conjunto contenido en el compacto construido anteriormente, y por lo tanto es precompacto.  \fin 
+ 
+ \begin{propo}
+ 
+ Si $C$ es compacto y $T$ un operador acotado arbitrario entonces tanto $T \circ C$ como $C \circ T$ son operadores compactos.
+ 
+ \end{propo}
+ 
+ 
+ 
+ \dem
+ 
+ Denotemos nuevamente por $B$ la bola unidad.  Con esta notación $T(B)$ es un conjunto acotado, por la continuidad de $T$.  Pero por la compacidad de $C$ tenemos que $C(T(B))$ es precompacto. El operador $C \circ T$ es compacto.  Para el otro caso $C(B)$ es un conjunto precompacto.  Pero  la imagen de un precompacto por una aplicación continua sigue siendo precompacto. Entonces $T(C(B))$ es precompacto y el operador $T \circ C$ es compacto. \fin 
+ 
+ En el caso particular de $C(H)$ este resultado tiene una interpretación algebraica muy interesante.
+ 
+ \begin{cor}
+ 
+ El conjunto $C(H) \subset A(H)$ es un ideal bilátero.  Si el espacio no es de dimensión finita dicho ideal no es trivial.
+ 
+ \end{cor}
+ 
+ \begin{cor}
+ 
+ Sea $C$ compacto y $H$ de dimensión infinita. Si $C^{-1}$ existe, necesariamente es no acotado.
+ 
+ \end{cor}
+ 
+ \dem
+ 
+ Si $C^{-1} \in A(H)$ entonces $C \circ C^{-1} = \Id \in C(H)$, por ser ideal. Pero ya hemos visto que en dimensión infinita la identidad no es compacta. \fin 
+ 
+ \noindent{\bf Observación.}  Este corolario no afirma que no exista $C^{-1}$ y que no sea acotado en su dominio.  Solamente afirma  que no puede estar definido en todo el espacio y a la vez ser acotado. \fin 
+ 
+ \begin{propo}
+ 
+ Si $C$ es un operador compacto, entonces su adjunto $C^\dag$ es también compacto. Volviendo a conjugar se obtiene el recíproco.
+ 
+ \end{propo}
+ 
+ \dem
+ 
+ Sea $\{x_n\}$ una sucesión acotada por $M$.  Queremos comprobar que la imagen por $C^\dag$ de esta sucesión tiene una subsucesión convergente. Para ello basta encontrar una subsucesión que sea de Cauchy.
+\begin{equation*}
+\begin{split}
+\norma{C^\dag(x_n)-C^\dag(x_m)}^2= \norma{C^\dag(x_n-x_m)}^2= \langle C^\dag(x_n-x_m),C^\dag(x_n-x_m)\rangle= \\
+ \langle x_n-x_m, C \circ C^\dag (x_n-x_m)\rangle
+\end{split}
+\end{equation*}
+Este resultado admite una acotación por
+$$
+\norma{x_n-x_m}\cdot \norma{C\circ C^\dag (x_n-x_m)} \leq 2M \norma{C\circ C^\dag (x_n-x_m)}
+$$
+Como $C \circ C^\dag$ es compacto, alguna subsucesión de $\{x_n\}$ es de Cauchy para dicho operador.  Esto implica que dicha subsucesión es también de Cauchy para el operador $C^\dag$ y concluimos. \fin 
+ 
+ 
+
+
+
+\begin{propo}
+
+El conjunto $C(H) \subset A(H)$ es un conjunto cerrado (respecto a la métrica inducida por la norma).
+
+\end{propo}
+
+\dem
+
+Supongamos que $C_n \rightarrow T$ en norma. De nuevo basta comprobar que si $\{x_n\}$ es una sucesión acotada (por  $M$), entonces $\{T(x_n)\}$ tiene una subsucesión de Cauchy.
+$$
+\norma{T(x_n-x_m)} = \norma{(T-C_h+C_h)(x_n-x_m)}
+$$
+Este número se puede acotar por
+$$
+ \norma{(T-C_h)(x_n)}+ \norma{(T-C_h)(x_m)}+ \norma{C_h(x_n-x_m)}
+$$
+Cada uno de los sumandos, elegida convenientemente la subsucesión, tiende a cero. El primer y segundo sumando debido a que $\{x_n\}$ está acotada y la diferencia en normas de $T$ y $C_h$ tiene a cero.  El último sumando tiene a cero por ser $C_h$ compacto. \fin 
+
+Como el conjunto de operadores acotados es cerrado bajo un gran número de operaciones, para construir nuevos ejemplos de operadores compactos podemos partir de ejemplos sencillos y ``complicarlos'' con las operaciones.
+
+
+\noindent{\bf Ejemplos}
+
+
+\begin{itemize}
+
+\item Sea $T$ el  operador que en la base estandard cumple $T(e_i)= e_i/i$. Actuando sobre un vector arbitrario se comporta como
+$$
+T(x_1, x_2, x_3, \dots) = (x_1, \frac{x_2}{2}, \frac{x_3}{3}, \dots)
+$$
+Construyamos los operadores $C_n$ por la actuación
+$$
+C_n(x_1,x_2,x_3, \dots, x_n, x_{n+1}, x_{n+2}, \dots) = (x_1,\frac{x_2}{2},\frac{x_3}{3}, \dots, \frac{x_n}{n}, 0, 0, \dots)
+$$
+Cada operador $C_n$ es compacto, puesto su imagen es de dimensión finita.  Es fácil comprobar que $C_n \rightarrow T$.  Por lo tanto $T$ es compacto.  Observar que $T$ no tiene como imagen un subespacio de dimensión finita.
+
+\item En el ejemplo anterior se trabajó con la sucesión $(1,1/2,1/3, \dots)$.  El mismo razonamiento es válido con otras sucesiones. ¿Cuál es la característica importante que hace compacto al operador?
+
+\item Sea $T$ el operador
+$$
+T(x_1, x_2, x_3, \dots) = (0,x_1, \frac{x_2}{2}, \frac{x_3}{3},\dots)
+$$
+Este operador es compacto, pues es la composición de el operador del ejemplo anterior y el desplazamiento a la izquierda.
+
+
+\end{itemize}
+
+
+
+
+A partir de ahora vamos a concentrarnos en el caso de los operadores autoadjuntos y compactos.  Estos operadores son muy parecidos a los operadores autoadjuntos de dimensión finita y para ellos se cumple un teorema espectral similar: Un operador compacto tiene una base ortonormal formada por autovectores.  Para llegar al teorema debemos manejar ciertos resultados preliminares.
+
+Haremos uso muy habitual del siguiente resultado elemental, que se deduce del teorema de Pitágoras: Si $x, y $ son ortonormales, entonces su distancia es $\sqrt{2}$. En general, si $x,y$ son ortogonales, la distancia de $x$ a $y$ es mayor que la menor de las normas.
+
+ 
+\begin{propo}
+
+Si $C$ es compacto y tiene algún autovalor, necesariamente su grado de degeneración es finito.
+
+\end{propo}
+
+\dem
+
+Supongamos lo contrario.  Sea $C$ compacto y $\mathrm{Ker}(C-\lambda)$ de dimensión infinita.  Podemos elegir entonces un conjunto numerable $\{x_n\}$ de vectores unitarios, ortogonales entre si, y que sean autovectores.  Pero entonces $C(x_n) = \lambda x_n$ es una sucesión de la que no puede extraerse ninguna subsucesión convergente, pues dados dos elementos su distancia es siempre mayor que $\abs{\lambda}$. Esto contradice la compacidad de $C$. \fin 
+
+
+Recordando que los autovectores con distinto valor propio de operadores autoadjuntos son ortogonales, podemos demostrar el siguiente
+
+\begin{cor}
+
+Dado $\epsilon >0$ y un operador compacto autoadjunto $C$. El conjunto de autovalores de norma mayor que $\epsilon$ es finito.
+
+\end{cor}
+
+\dem
+
+Supongamos lo contrario: Existe una colección infinita de autovalores $\lambda_i$ cuyo valor absoluto es mayor que $\epsilon$.  Tomamos un vector unitario para cada autovalor.  Las imagenes de esta sucesión son 
+ortogonales entre si, y la distancia entre ellos es siempre superior a $\epsilon$.  No puede extraerse ninguna sucesión de Cauchy. \fin
+
+\begin{cor}
+
+El conjunto de valores propios de un operador compacto autoadjunto no puede tener más punto de acumulación que el 0.
+
+\end{cor}
+
+\dem
+
+Supongamos que $\lambda$ es un punto de acumulación, siendo este valor no nulo.  Tomemos $\epsilon= \abs{\lambda}/2$.  Solamente hay un número finito de valores propios con valor absoluto superior a $\epsilon$.  Esto es contradictorio. \fin
+
+Imaginemos que el operador compacto autoadjunto tiene infinitos valores propios. Como la sucesión de valores propios está acotada, necesariamente tiene una subsucesión convergente.  Por lo anterior necesariamente tiene que converger a 0.
+
+\begin{cor}
+
+Si un operador compacto autoadjunto tiene infinitos valores propios, el 0 es un punto de acumulación.
+
+\end{cor}
+
+
+\begin{cor}
+
+Un operador autoadjunto y compacto tiene un conjunto de autovalores  finito o numerable.
+
+\end{cor}
+
+\dem
+
+Denotemos por $V_\epsilon$ el conjunto de valores propios de $C$ mayores que $\epsilon$.   Antes hemos demostrado que este conjunto es finito.  Salvo posiblemente el valor cero, todo autovalor de $C$ pertenece al conjunto
+$$
+\bigcup_{n=1}^\infty V_{\frac{1}{n}}
+$$
+que es una unión numerable de conjuntos finitos. Entonces la unión es finita o numerable. \fin
+
+Recordemos que para un operador acotado autoadjunto en un espacio de Hilbert la norma se puede calcular con la siguiente fórmula
+$$
+\norma{T}= \sup \{\escalar{T(x)}{x}: \norma{x}=1\}
+$$
+
+El siguiente teorema es la clave fundamental de la demostración del teorema espectral. Nos asegura que todo operador compacto autoadjunto tiene al menos un autovalor.  Procediendo inductivamente veremos que esto nos sirve para hallar todos los  autovalores.
+
+ \begin{teo}
+ 
+ Sea $C$ compacto y autoadjunto. Entonces $C$ tiene un valor propio igual a $\pm \norma{C}$.
+ 
+ \end{teo}
+ 
+ \dem
+ 
+ Por el comentario anterior, sabemos que existe una sucesión de vectores unitarios $\{x_n\}$ tal que
+ $$
+ \escalar{C(x_n)}{x_n} \rightarrow \norma{C}
+ $$
+ Como $C$ es compacto, podemos elegir la sucesión de tal manera que $\{C(x_n)\}$ sea convergente.  Con estas convenciones tenemos que
+ $$
+ \escalar{C(x_n)}{x_n} \rightarrow \lambda \text{ donde } \lambda = \pm \norma{C}
+ $$
+ Como $C$ es autoadjunto se cumple
+ $$
+ \norma{C(x_n)- \lambda x_n}^2 = \norma{C(x_n)}^2 -2\lambda \escalar{C(x_n)}{x_n} + \lambda^2
+ $$
+ Debemos tener en cuenta que $\lambda$ es real y que por la definición de norma se tiene que $\norma{C(x_n)}^2 \leq \lambda^2$.  Con esto, la expresión anterior admite la acotación
+ $$
+ 2\lambda^2-2\lambda \escalar{C(x_n)}{x_n}
+ $$
+ que tiene a cero.  Pasando al límite, y llamando $y$ al vector tal que $C(x_n)\rightarrow y$, tenemos que
+ $$
+ \lim_{n\rightarrow \infty}\norma{y-\lambda x_n}=0
+ $$
+Esto implica que la sucesión $\{x_n\}$ es convergente, siendo su límite $y/\lambda$. Hemos comprobado entonces que $y$ es un autovector de valor propio $\lambda$. \fin 
+ 
+ 
+ 
+Partimos de un operador compacto autoadjunto $C$.  Tiene un autovalor $\lambda_1= \pm \norma{C}$.  El subespacio asociado a ese vector es de dimensión finita, y por tanto cerrado. Denotemoslo $F_{\lambda_1}$.  Descomponemos el espacio en suma directa de $F_{\lambda_1}$ y $F_{\lambda_1}^\perp$.  Como el operador es autoadjunto, ambos subespacios son invariantes.  Se induce entonces, por restricción un operador $C_{\lambda_1}$ en el ortogonal.  Naturalmente dicho operador sigue siendo compacto en la restricción.  De nuevo tiene un autovalor $\lambda_2$.  Este autovalor debe ser menor en norma que el primero pues
+$$
+\norma{C_{\lambda_1} }\leq \norma{C}
+$$
+(al calcular la norma de $C$ se calcula el supremo sobre un conjunto mayor).  De esta manera se prosigue inductivamente, obteniendo o bien una colección finita de autovalores, o bien una sucesión numerable de autovalores cada vez menores en norma
+$$
+\norma{C}= \abs{\lambda_1} > \abs{\lambda_2} > \dots > \abs{\lambda_n} > \dots
+$$
+Para cada autovalor se puede elegir un conjunto finito de vectores ortonormales.  Uniendo todos esos vectores formamos una base hilbertiana del subespacio cerrado generado por todos los subespacios $F_{\lambda_i}$.  Denotemos dicho subesapcio por $G$. De nuevo tenemos la descomposición en suma directa $G \perp G^\perp $.  Pero el operador sobre $G^\perp$ tiene norma nula (en caso contrario se podría repetir el proceso anterior).  Necesariamente el operador sobre dicho subespacio es nulo.  Tomamos una base ortonormal de $G^\perp$ y la unimos a la base ortonormal de $G$ y obtenemos una base ortonormal del espacio total.
+
+
+
+
+\end{document}
+
+
+
